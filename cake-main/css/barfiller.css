@@ -31,7 +31,7 @@
     position:absolute;
     z-index:2;
     background: #333;
-} 
+}
 
 .barfiller .tip:after {
     border:solid;
