@@ -292,7 +292,7 @@ ol {
   cursor: pointer;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
+  transform: rotate(45deg);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -530,8 +530,8 @@ ol {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   justify-items: center;
 }
 
@@ -646,8 +646,8 @@ ol {
   border-color: transparent #f08632 #f08632 transparent;
   content: "";
   -webkit-transform: rotate(-135deg);
-      -ms-transform: rotate(-135deg);
-          transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  transform: rotate(-135deg);
   opacity: 0;
   -webkit-transition: all, 0.3s;
   -o-transition: all, 0.3s;
@@ -756,11 +756,11 @@ ol {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   position: absolute;
   right: 0;
   top: -50px;
@@ -991,7 +991,7 @@ ol {
   text-align: center;
   background: #ffffff;
   -webkit-box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
-          box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
+  box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
   padding: 30px 25px 25px;
   position: relative;
 }
@@ -1005,8 +1005,8 @@ ol {
   background: #ffffff;
   content: "";
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
   margin: 0 auto;
 }
 .map__inner h6 {
@@ -1066,7 +1066,7 @@ ol {
   padding: 6px 10px 4px;
   border-radius: 2px;
   -webkit-box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
-          box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
+  box-shadow: 0 0 10px rgba(223, 223, 224, 0.7);
   -webkit-transition: all, 0.5s;
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
@@ -1351,7 +1351,7 @@ ol {
   position: relative;
   margin-bottom: 20px;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   -moz-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
 }
 .about__bar .about__bar__item .barfiller .tip {
@@ -1372,11 +1372,11 @@ ol {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-bottom: 90px;
 }
 .about__video .play-btn {
@@ -1687,8 +1687,8 @@ ol {
 .product__details__tab .nav-tabs {
   border-bottom: 1px solid #e1e1e1;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 .product__details__tab .nav-tabs .nav-item {
   margin-right: 45px;
@@ -1779,22 +1779,44 @@ ol {
 .shopping__cart__table table tbody tr td.product__cart__item {
   width: 400px;
 }
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__pic {
   float: left;
   margin-right: 30px;
 }
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__text {
   overflow: hidden;
   padding-top: 21px;
 }
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h6 {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__text
+  h6 {
   color: #111111;
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__text
+  h5 {
   color: #111111;
   font-weight: 600;
   font-size: 16px;
@@ -1805,7 +1827,14 @@ ol {
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty {
   width: 90px;
 }
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty input {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.quantity__item
+  .quantity
+  .pro-qty
+  input {
   width: 65px;
   border: none;
   text-align: center;
@@ -1813,7 +1842,14 @@ ol {
   font-size: 16px;
   font-weight: 500;
 }
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty .qtybtn {
+.shopping__cart__table
+  table
+  tbody
+  tr
+  td.quantity__item
+  .quantity
+  .pro-qty
+  .qtybtn {
   font-size: 16px;
   color: #888888;
   width: 10px;
@@ -2169,15 +2205,31 @@ ol {
 .wishlist__cart__table table tbody tr td.product__cart__item {
   width: 540px;
 }
-.wishlist__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
+.wishlist__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__pic {
   float: left;
   margin-right: 30px;
 }
-.wishlist__cart__table table tbody tr td.product__cart__item .product__cart__item__text {
+.wishlist__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__text {
   overflow: hidden;
   padding-top: 35px;
 }
-.wishlist__cart__table table tbody tr td.product__cart__item .product__cart__item__text h6 {
+.wishlist__cart__table
+  table
+  tbody
+  tr
+  td.product__cart__item
+  .product__cart__item__text
+  h6 {
   color: #111111;
   font-size: 16px;
   font-weight: 600;
@@ -2647,11 +2699,11 @@ ol {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   height: 640px;
 }
 
@@ -2739,7 +2791,13 @@ ol {
   background: #ff0000;
 }
 .blog__details__share a.instagram {
-  background: -webkit-gradient(linear, left top, right top, from(#af00e1), to(#ff9e35));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#af00e1),
+    to(#ff9e35)
+  );
   background: -o-linear-gradient(left, #af00e1, #ff9e35);
   background: linear-gradient(to right, #af00e1, #ff9e35);
 }
@@ -3038,7 +3096,9 @@ ol {
 .blog__details__comment__item__text .blog__details__comment__btns a:last-child {
   margin-right: 0;
 }
-.blog__details__comment__item__text .blog__details__comment__btns a:last-child:after {
+.blog__details__comment__item__text
+  .blog__details__comment__btns
+  a:last-child:after {
   display: none;
 }
 
@@ -3181,7 +3241,12 @@ ol {
     right: 0px;
   }
 
-  .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text {
+  .shopping__cart__table
+    table
+    tbody
+    tr
+    td.product__cart__item
+    .product__cart__item__text {
     padding-top: 10px;
   }
 
@@ -3430,7 +3495,7 @@ ol {
   }
 
   .slicknav_nav .slicknav_row,
-.slicknav_nav a {
+  .slicknav_nav a {
     padding: 7px 0;
     margin: 0;
     color: #111111;
@@ -3706,7 +3771,12 @@ ol {
     left: 5px;
   }
 
-  .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
+  .shopping__cart__table
+    table
+    tbody
+    tr
+    td.product__cart__item
+    .product__cart__item__pic {
     float: none;
     margin-right: 0;
   }
@@ -3727,7 +3797,12 @@ ol {
     overflow-x: auto;
   }
 
-  .wishlist__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
+  .wishlist__cart__table
+    table
+    tbody
+    tr
+    td.product__cart__item
+    .product__cart__item__pic {
     float: none;
     margin-right: 0;
   }
@@ -3906,8 +3981,8 @@ ol {
 /* Small Device = 320px */
 @media only screen and (max-width: 479px) {
   .section-title h2,
-.blog__hero__text h2,
-.blog__item__text h2 {
+  .blog__hero__text h2,
+  .blog__item__text h2 {
     font-size: 28px;
     line-height: normal;
   }
@@ -4025,3 +4100,266 @@ ol {
     display: none;
   }
 }
+
+/* login */
+/* Login Styles */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.popup-overlay.show {
+  display: block;
+}
+
+#authPopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 768px;
+  max-width: 90%;
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#authPopup.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#authPopup .popup-content {
+  padding: 0; /* No padding here; handled by .container */
+  position: relative;
+}
+
+/* Close Button */
+#authPopup .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 1002;
+}
+#authPopup .close:hover {
+  color: #f08632; /* Match Cake Template's primary color */
+}
+
+/* Sliding Container */
+.container-login {
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 480px;
+}
+
+.container-login p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.container-login span {
+  font-size: 12px;
+}
+
+.container-login a {
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.container-login button {
+  background-color: #f08632; /* Match Cake Template's primary color */
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.header button {
+  background-color: #f08632; /* Match Cake Template's primary color */
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.container-login button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.container-login form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.container-login input {
+  background-color: #eee;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container-login.active .sign-in {
+  transform: translateX(100%);
+}
+
+.sign-up {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container-login.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.social-icons {
+  margin: 20px 0;
+}
+
+.social-icons a {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 40px;
+  height: 40px;
+}
+
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+
+.container-login.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+  background-color: #f08632; /* Match Cake Template's primary color */
+  height: 100%;
+  background: linear-gradient(to right, #ff7e33, #f08632);
+  color: #fff;
+  position: relative;
+  left: -100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.container-login.active .toggle {
+  transform: translateX(50%);
+}
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle-left {
+  transform: translateX(-200%);
+}
+
+.container-login.active .toggle-left {
+  transform: translateX(0);
+}
+
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container-login.active .toggle-right {
+  transform: translateX(200%);
+}
+/* hết login */
