@@ -39,125 +39,115 @@
     <body>
         <!-- login -->
 
-        <!--  hết login -->
+        <!--  h?t login -->
         <!-- Page Preloder -->
         <div id="preloder">
             <div class="loader"></div>
         </div>
 
         <!-- Offcanvas Menu Begin -->
-        <div class="offcanvas-menu-overlay"></div>
-        <div class="offcanvas-menu-wrapper">
-            <div class="offcanvas__cart">
-                <div class="offcanvas__cart__links">
-                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="" /></a>
-                    <a href="#"><img src="img/icon/heart.png" alt="" /></a>
-                </div>
-                <div class="offcanvas__cart__item">
-                    <a href="#"><img src="img/icon/cart.png" alt="" /> <span>0</span></a>
-                    <div class="cart__price">Cart: <span>$0.00</span></div>
-                </div>
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__cart">
+            <div class="offcanvas__cart__links">
+                <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
+                <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
             </div>
-            <div class="offcanvas__logo">
-                <a href="./index.jsp"><img src="img/logo.png" alt="" /></a>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-            <div class="offcanvas__option">
-                <ul>
-                    <li>
-                        USD <span class="arrow_carrot-down"></span>
-                        <ul>
-                            <li>EUR</li>
-                            <li>USD</li>
-                        </ul>
-                    </li>
-                    <li>
-                        ENG <span class="arrow_carrot-down"></span>
-                        <ul>
-                            <li>Spanish</li>
-                            <li>ENG</li>
-                        </ul>
-                    </li>
-                    <% 
-                    String username = (String) session.getAttribute("username");
-                    if (username != null) {
-                    %>
-                    <li>
-                        <form action="LogoutServlet" method="post" style="margin: 0;">
-                            <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer;">Logout</button>
-                        </form>
-                    </li>
-                    <% } else { %>
-                    <li>
-                        <a href="login.jsp">Sign In</a>
-                    </li>
-                    <li>
-                        <a href="login.jsp">Sign Up</a>
-                    </li>
-                    <% } %>
-                </ul>
+            <div class="offcanvas__cart__item">
+                <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                <div class="cart__price">Cart: <span>$0.00</span></div>
             </div>
         </div>
-        <!-- Offcanvas Menu End -->
+        <div class="offcanvas__logo">
+            <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+            <ul>
+                <li>
+                    <span>USD</span> <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li>EUR</li>
+                        <li>USD</li>
+                    </ul>
+                </li>
+                <li>
+                    <span>ENG</span> <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li>Spanish</li>
+                        <li>ENG</li>
+                    </ul>
+                </li>
+                <% 
+                    String username = (String) session.getAttribute("username");
+                    if (username != null) {
+                %>
+                    <li>
+                        <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
+                            <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
+                        </form>
+                    </li>
+                <% } else { %>
+                    <li><a href="login.jsp" style="padding: 8px 15px;">Sign In</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
 
-        <!-- Header Section Begin -->
-        <header class="header">
-            <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="header__top__inner">
-                                <div class="header__top__left">
-                                    <ul>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="header__top__inner">
+                            <div class="header__top__left">
+                                <ul>
+                                    <li>
+                                        <span>VND</span><span class="arrow_carrot-down"></span>
+                                        <ul>
+                                            <li>VND</li>
+                                            <li>USD</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Vietnamese</span><span class="arrow_carrot-down"></span>
+                                        <ul>
+                                            <li>Vietnamese</li>
+                                            <li>ENG</li>
+                                        </ul>
+                                    </li>
+                                    <% if (username != null) { %>
                                         <li>
-                                            VND<span class="arrow_carrot-down"></span>
-                                            <ul>
-                                                <li>VND</li>
-                                                <li>USD</li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            VietNamese <span class="arrow_carrot-down"></span>
-                                            <ul>
-                                                <li>VietNamese</li>
-                                                <li>ENG</li>
-                                            </ul>
-                                        </li>
-                                        <% if (username != null) { %>
-                                        <li>
-                                            <form action="LogoutServlet" method="post" style="margin: 0;">
+                                            <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
                                                 <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
                                             </form>
                                         </li>
-                                        <% } else { %>
-                                        <li>
-                                            <a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a>
-                                        </li>
-                                        <li>
-                                            <a href="login.jsp" class="btn btn-outline-primary">Sign Up</a>
-                                        </li>
-                                        <% } %>
-                                    </ul>
+                                    <% } else { %>
+                                        <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <div class="header__logo">
+                                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                            </div>
+                            <div class="header__top__right">
+                                <div class="header__top__right__links">
+                                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
+                                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                                 </div>
-                                <div class="header__logo">
-                                    <a href="./index.jsp"><img src="img/logo.png" alt="" /></a>
-                                </div>
-                                <div class="header__top__right">
-                                    <div class="header__top__right__links">
-                                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt="" /></a>
-                                        <a href="#"><img src="img/icon/heart.png" alt="" /></a>
-                                    </div>
-                                    <div class="header__top__right__cart">
-                                        <a href="#"><img src="img/icon/cart.png" alt="" /> <span>0</span></a>
-                                        <div class="cart__price">Cart: <span>$0.00</span></div>
-                                    </div>
+                                <div class="header__top__right__cart">
+                                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                                    <div class="cart__price">Cart: <span>$0.00</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
                 </div>
+                <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
+        </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -493,7 +483,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
-                                <h6>Trần Văn Tùng</h6>
+                                <h6>Tr?n V?n T�ng</h6>
                                 <span>Leader</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/tran.van.tung.232700"
@@ -514,7 +504,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
-                                <h6>Phạm Hồng Quân</h6>
+                                <h6>Ph?m H?ng Qu�n</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/quan.edition.9"
@@ -535,7 +525,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
-                                <h6>Ngô Sỹ Giá</h6>
+                                <h6>Ng� S? Gi�</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/ngo.sy.gia.2024"
@@ -556,7 +546,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-4.jpg">
                             <div class="team__item__text">
-                                <h6>Nguyễn Tiến Đạt</h6>
+                                <h6>Nguy?n Ti?n ??t</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a
@@ -578,7 +568,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
-                                <h6>Lê Quốc Hùng</h6>
+                                <h6>L� Qu?c H�ng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/LHQ.17G"
@@ -612,7 +602,7 @@
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
                             <span>Testimonial</span>
-                            <h2>Khách hàng của chúng tôi nói</h2>
+                            <h2>Kh�ch h�ng c?a ch�ng t�i n�i</h2>
                         </div>
                     </div>
                 </div>
@@ -625,7 +615,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Phan Đặng Quỳnh Linh</h5>
+                                        <h5>Phan ??ng Qu?nh Linh</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -637,10 +627,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    "Tôi đã mua bánh này để làm quà sinh nhật cho bạn thân, và nó
-                                    thực sự gây ấn tượng mạnh! Hộp bánh được trang trí đẹp mắt,
-                                    hương vị thơm ngon, không quá ngọt mà vẫn đậm đà. Một món quà
-                                    tuyệt vời dành cho những người yêu bánh ngọt."
+                                    "T�i ?� mua b�nh n�y ?? l�m qu� sinh nh?t cho b?n th�n, v� n�
+                                    th?c s? g�y ?n t??ng m?nh! H?p b�nh ???c trang tr� ??p m?t,
+                                    h??ng v? th?m ngon, kh�ng qu� ng?t m� v?n ??m ?�. M?t m�n qu�
+                                    tuy?t v?i d�nh cho nh?ng ng??i y�u b�nh ng?t."
                                 </p>
                             </div>
                         </div>
@@ -651,7 +641,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Trần Phương Thảo</h5>
+                                        <h5>Tr?n Ph??ng Th?o</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -663,10 +653,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    “Chiếc bánh này thực sự khiến tôi bất ngờ! Lớp kem mềm mịn,
-                                    ngọt vừa phải kết hợp với cốt bánh bông xốp, tan ngay trong
-                                    miệng. Mỗi miếng cắn đều mang lại cảm giác như một bữa tiệc
-                                    hương vị! Chắc chắn sẽ quay lại mua thêm.”
+                                    ?Chi?c b�nh n�y th?c s? khi?n t�i b?t ng?! L?p kem m?m m?n,
+                                    ng?t v?a ph?i k?t h?p v?i c?t b�nh b�ng x?p, tan ngay trong
+                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi�c nh? m?t b?a ti?c
+                                    h??ng v?! Ch?c ch?n s? quay l?i mua th�m.?
                                 </p>
                             </div>
                         </div>
@@ -677,7 +667,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Nguyễn Minh Hằng</h5>
+                                        <h5>Nguy?n Minh H?ng</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -689,10 +679,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    “Bánh rất thơm và mềm, vị ngọt vừa phải. Tuy nhiên, lớp kem
-                                    hơi nhiều so với khẩu vị của mình, nếu giảm một chút thì sẽ
-                                    hoàn hảo hơn. Dù vậy, chắc chắn mình vẫn sẽ quay lại mua lần
-                                    nữa!"
+                                    ?B�nh r?t th?m v� m?m, v? ng?t v?a ph?i. Tuy nhi�n, l?p kem
+                                    h?i nhi?u so v?i kh?u v? c?a m�nh, n?u gi?m m?t ch�t th� s?
+                                    ho�n h?o h?n. D� v?y, ch?c ch?n m�nh v?n s? quay l?i mua l?n
+                                    n?a!"
                                 </p>
                             </div>
                         </div>
@@ -703,7 +693,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tiến Dũng</h5>
+                                        <h5>Ti?n D?ng</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -715,9 +705,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    “Mình rất thích vị bánh, đặc biệt là lớp bông lan mềm xốp và
-                                    không bị khô. Nhưng lần này giao hàng hơi lâu hơn mong đợi.
-                                    Nếu cải thiện tốc độ giao hàng thì chắc chắn 5 sao!”
+                                    ?M�nh r?t th�ch v? b�nh, ??c bi?t l� l?p b�ng lan m?m x?p v�
+                                    kh�ng b? kh�. Nh?ng l?n n�y giao h�ng h?i l�u h?n mong ??i.
+                                    N?u c?i thi?n t?c ?? giao h�ng th� ch?c ch?n 5 sao!?
                                 </p>
                             </div>
                         </div>
@@ -728,7 +718,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Trần Thị Khánh Linh</h5>
+                                        <h5>Tr?n Th? Kh�nh Linh</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -740,9 +730,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    “Bánh ngon, mềm mịn, nhưng không quá khác biệt so với một số
-                                    tiệm khác. Mình mong chờ một hương vị độc đáo hơn. Dù vậy,
-                                    dịch vụ rất tốt, nhân viên tư vấn nhiệt tình!”
+                                    ?B�nh ngon, m?m m?n, nh?ng kh�ng qu� kh�c bi?t so v?i m?t s?
+                                    ti?m kh�c. M�nh mong ch? m?t h??ng v? ??c ?�o h?n. D� v?y,
+                                    d?ch v? r?t t?t, nh�n vi�n t? v?n nhi?t t�nh!?
                                 </p>
                             </div>
                         </div>
@@ -753,7 +743,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tố Uyên</h5>
+                                        <h5>T? Uy�n</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -765,10 +755,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    “Chiếc bánh này không chỉ ngon mà còn đẹp đến mức không nỡ ăn!
-                                    Mỗi chi tiết trang trí đều tỉ mỉ, tinh tế, hương vị hòa quyện
-                                    hoàn hảo giữa các lớp. Một chiếc bánh không chỉ để ăn mà còn
-                                    để thưởng thức!”
+                                    ?Chi?c b�nh n�y kh�ng ch? ngon m� c�n ??p ??n m?c kh�ng n? ?n!
+                                    M?i chi ti?t trang tr� ??u t? m?, tinh t?, h??ng v? h�a quy?n
+                                    ho�n h?o gi?a c�c l?p. M?t chi?c b�nh kh�ng ch? ?? ?n m� c�n
+                                    ?? th??ng th?c!?
                                 </p>
                             </div>
                         </div>
@@ -867,9 +857,9 @@
                         <div class="footer__widget">
                             <h6>WORKING HOURS</h6>
                             <ul>
-                                <li>Monday - Friday: 08:00 am – 08:30 pm</li>
-                                <li>Saturday: 10:00 am – 16:30 pm</li>
-                                <li>Sunday: 10:00 am – 16:30 pm</li>
+                                <li>Monday - Friday: 08:00 am ? 08:30 pm</li>
+                                <li>Saturday: 10:00 am ? 16:30 pm</li>
+                                <li>Sunday: 10:00 am ? 16:30 pm</li>
                             </ul>
                         </div>
                     </div>
