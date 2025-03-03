@@ -16,34 +16,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.User;
 import model.UserDAO;
 import utils.DBUtils;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
-    public static final String ERROR = "error.jsp";
-    public static final String SUCCESS = "success.jsp";
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            String username = request.getParameter("userID");
-            String password = request.getParameter("password");
-            String roleID = request.getParameter("roleID");
-            String fullName = request.getParameter("fullName");
-            UserDAO dao = new UserDAO();
-            //boolean check = dao.checkLogin(username, password);
-            
-            
-            
-        } catch (Exception e) {
-            System.out.println("Page invalid" + e);
-        } finally {
-            response.sendRedirect(url);
-        }
-        
     } 
 
     @Override
@@ -55,6 +38,32 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        if (email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()) {
+            request.setAttribute("error", "Email and password are required!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            UserDAO userDAO = new UserDAO();
+            User user = userDAO.checkLogin(email, password);
+
+            if (user != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                session.setAttribute("username", user.getUsername());
+                response.sendRedirect("index.html");
+            } else {
+                request.setAttribute("error", "Invalid email or password!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "An error occurred. Please try again!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿ CREATE DATABASE managementSignUp
+﻿ 
+CREATE DATABASE managementSignUp
 USE managementSignUp
 DROP TABLE userSignUp
 
@@ -24,6 +25,8 @@ CREATE TABLE users (
 );
 
 SELECT * FROM users
+
+
 --------------------------------------------------------------------------------
 
 
