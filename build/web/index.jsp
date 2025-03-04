@@ -46,114 +46,108 @@
         </div>
 
         <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__cart">
-            <div class="offcanvas__cart__links">
-                <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+            <div class="offcanvas__cart">
+                <div class="offcanvas__cart__links">
+                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
+                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                </div>
+                <div class="offcanvas__cart__item">
+                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                </div>
             </div>
-            <div class="offcanvas__cart__item">
-                <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                <div class="cart__price">Cart: <span>$0.00</span></div>
+            <div class="offcanvas__logo">
+                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
             </div>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__option">
-            <ul>
-                <li>
-                    <span>USD</span> <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>EUR</li>
-                        <li>USD</li>
-                    </ul>
-                </li>
-                <li>
-                    <span>ENG</span> <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>Spanish</li>
-                        <li>ENG</li>
-                    </ul>
-                </li>
-                <% 
-                    String username = (String) session.getAttribute("username");
-                    if (username != null) {
-                %>
+            <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__option">
+                <ul>
+                    <li>
+                        <span>USD</span> <span class="arrow_carrot-down"></span>
+                        <ul>
+                            <li>EUR</li>
+                            <li>USD</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>ENG</span> <span class="arrow_carrot-down"></span>
+                        <ul>
+                            <li>Spanish</li>
+                            <li>ENG</li>
+                        </ul>
+                    </li>
+                    <%
+                        String username = (String) session.getAttribute("username");
+                        if (username != null) {
+                    %>
                     <li>
                         <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
                             <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
                         </form>
                     </li>
-                <% } else { %>
+                    <% } else { %>
                     <li><a href="login.jsp" style="padding: 8px 15px;">Sign In</a></li>
-                <% } %>
-            </ul>
+                        <% } %>
+                </ul>
+            </div>
         </div>
-    </div>
-    <!-- Offcanvas Menu End -->
+        <!-- Offcanvas Menu End -->
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="header__top__inner">
-                            <div class="header__top__left">
-                                <ul>
-                                    <li>
-                                        <span>VND</span><span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>VND</li>
-                                            <li>USD</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span>Vietnamese</span><span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>Vietnamese</li>
-                                            <li>ENG</li>
-                                        </ul>
-                                    </li>
-                                    <% if (username != null) { %>
+        <!-- Header Section Begin -->
+        <header class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="header__top__inner">
+                                <div class="header__top__left">
+                                    <ul>
                                         <li>
+                                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="header__logo">
+                                    <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                                </div>
+                                <div class="header__top__right">
+                                    <div class="header__top__right__cart">
+                                        <a href="#"
+                                           ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+                                        >
+                                        <div class="cart__price">Cart: <span>$0.00</span></div>
+                                    </div>
+                                    
+                                    <div class="header__top__right__links">
+                                        <% if (username != null) { %>
+                                       
                                             <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
                                                 <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
                                             </form>
-                                        </li>
-                                    <% } else { %>
+                                        <% } else { %>
                                         <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
-                                    <% } %>
-                                </ul>
-                            </div>
-                            <div class="header__logo">
-                                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-                            </div>
-                            <div class="header__top__right">
-                                <div class="header__top__right__links">
-                                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
-                                </div>
-                                <div class="header__top__right__cart">
-                                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                                            <% }%>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
                 </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
-        </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
+                                <li class="active"><a href="./index.jsp">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
                                 <li><a href="./shop.html">Shop</a></li>
                                 <li>
