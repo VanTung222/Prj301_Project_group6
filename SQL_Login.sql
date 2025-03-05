@@ -147,6 +147,16 @@ CREATE TABLE Shipper (
     Quantity INT
 );
 
+
+CREATE TABLE Favorite_Products (
+    Favorite_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Customer_ID INT,
+    Product_ID INT,
+    Added_Date DATE DEFAULT GETDATE(),
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+);
+
 -- Insert Data
 INSERT INTO Supplier (ID, Name, Phone, Email) VALUES
 (1, N'Công Ty TNHH Minh Phát', N'0987654321', N'minhphat@gmail.com'),

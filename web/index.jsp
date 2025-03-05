@@ -37,10 +37,7 @@
     </head>
 
     <body>
-        <!-- login -->
 
-        <!--  h?t login -->
-        <!-- Page Preloder -->
         <div id="preloder">
             <div class="loader"></div>
         </div>
@@ -49,12 +46,18 @@
         <div class="offcanvas-menu-overlay"></div>
         <div class="offcanvas-menu-wrapper">
             <div class="offcanvas__cart">
+
                 <div class="offcanvas__cart__links">
                     <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                        <%
+                            String username = (String) session.getAttribute("username");
+                            String heartLink = (username == null) ? "login.jsp" : "heart.jsp";
+                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.html";
+                        %>
+                    <a href="<%= heartLink%>" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                 </div>
                 <div class="offcanvas__cart__item">
-                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                    <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
                     <div class="cart__price">Cart: <span>$0.00</span></div>
                 </div>
             </div>
@@ -78,10 +81,7 @@
                             <li>ENG</li>
                         </ul>
                     </li>
-                    <%
-                        String username = (String) session.getAttribute("username");
-                        if (username != null) {
-                    %>
+                    <% if (username != null) { %>
                     <li>
                         <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
                             <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
@@ -108,7 +108,7 @@
                                             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
                                         </li>
                                         <li>
-                                            <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+                                            <a href="<%= heartLink %>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                                         </li>
                                     </ul>
 
@@ -118,18 +118,16 @@
                                 </div>
                                 <div class="header__top__right">
                                     <div class="header__top__right__cart">
-                                        <a href="shoping-cart.html"
-                                           ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
-                                        >
-                                        <div class="cart__price">Cart: <span>$0.00</span></div>
+                                        <a href="<%= cartLink %>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                                    <div class="cart__price">Cart: <span>$0.00</span></div>
                                     </div>
-                                    
+
                                     <div class="header__top__right__links">
                                         <% if (username != null) { %>
-                                       
-                                            <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
-                                                <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
-                                            </form>
+
+                                        <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
+                                            <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
+                                        </form>
                                         <% } else { %>
                                         <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
                                             <% }%>
