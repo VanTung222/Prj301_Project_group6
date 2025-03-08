@@ -71,8 +71,8 @@
                         <span class="ms-2 fs-6">Sign in with Google</span>
                     </a>
                 </div>
-                <span>or use your email password</span>
-                <input type="email" name="email" placeholder="Email" required />
+                <span>or use your username password</span>
+                <input type="text" name="username" placeholder="Username" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <a href="#">Forget Your Password?</a>
                 <button type="submit">Sign In</button>

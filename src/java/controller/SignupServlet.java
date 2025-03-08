@@ -1,17 +1,13 @@
 package controller;
 
+import model.CustomerDAO;
 import emtyp.GoogleAccount;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
-import model.UserDAO;
-import utils.DBUtils;
 
 @WebServlet(name = "SignupServlet", urlPatterns = {"/signup"})
 public class SignupServlet extends HttpServlet {
@@ -37,7 +33,6 @@ public class SignupServlet extends HttpServlet {
         } else {
             handleFormSignup(request, response);
         }
-        
     }
 
     @Override
@@ -54,8 +49,8 @@ public class SignupServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Handles user signup via form or Google authentication";
+    }
 
     private void handleGoogleSignup(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,16 +60,16 @@ public class SignupServlet extends HttpServlet {
         GoogleAccount acc = gg.getUserInfo(accessToken);
 
         try {
-            UserDAO userDAO = new UserDAO();
-            if (!userDAO.isEmailExistsInUserSignUp(acc.getEmail()) && !userDAO.isEmailExistsInUsers(acc.getEmail())) {
-                if (userDAO.insertUserSignUp(
+            CustomerDAO customerDAO = new CustomerDAO();
+            if (!customerDAO.isEmailExists(acc.getEmail())) {
+                String username = acc.getEmail().split("@")[0]; // Tạo username từ email
+                if (customerDAO.insertGoogleCustomer(
                     acc.getId(),
                     acc.getEmail(),
-                    acc.getFullName(),
+                    username,
                     acc.getGiven_name(),
                     acc.getFamily_name(),
-                    acc.getPicture(),
-                    acc.isVerified_email()
+                    acc.getPicture()
                 )) {
                     response.sendRedirect(SUCCESS);
                 } else {
@@ -94,7 +89,7 @@ public class SignupServlet extends HttpServlet {
 
     private void handleFormSignup(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username"); // Sửa thành username
+        String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -106,14 +101,14 @@ public class SignupServlet extends HttpServlet {
         }
 
         try {
-            UserDAO userDAO = new UserDAO();
-            if (userDAO.isEmailExistsInUsers(email) || userDAO.isEmailExistsInUserSignUp(email)) {
+            CustomerDAO customerDAO = new CustomerDAO();
+            if (customerDAO.isEmailExists(email)) {
                 request.setAttribute("error", "Email already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
 
-            if (userDAO.insertUser(username, email, password)) {
+            if (customerDAO.insertCustomer(username, email, password)) {
                 request.setAttribute("message", "Registration successful! Please sign in.");
                 response.sendRedirect("login.jsp");
             } else {

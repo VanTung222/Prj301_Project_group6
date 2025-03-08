@@ -38,15 +38,15 @@
         <div class="offcanvas__cart">
             <div class="offcanvas__cart__links">
                 <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                <a href="wishlist"><img src="img/icon/heart.png" alt=""></a>
             </div>
             <div class="offcanvas__cart__item">
-                <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                <a href="shoping-cart.jsp"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
                 <div class="cart__price">Cart: <span>$0.00</span></div>
             </div>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.jsp"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__option">
@@ -63,7 +63,16 @@
                         <li>ENG</li>
                     </ul>
                 </li>
-                <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                <% String username = (String) session.getAttribute("username"); %>
+                <% if (username != null) { %>
+                <li>
+                    <form action="logout" method="post" style="margin: 0; padding: 0;">
+                        <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
+                    </form>
+                </li>
+                <% } else { %>
+                <li><a href="login.jsp" style="padding: 8px 15px;">Sign in</a></li>
+                <% } %>
             </ul>
         </div>
     </div>
@@ -78,32 +87,30 @@
                         <div class="header__top__inner">
                             <div class="header__top__left">
                                 <ul>
-                                    <li>USD <span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>EUR</li>
-                                            <li>USD</li>
-                                        </ul>
+                                    <li>
+                                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
                                     </li>
-                                    <li>ENG <span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>Spanish</li>
-                                            <li>ENG</li>
-                                        </ul>
+                                    <li>
+                                        <a href="wishlist"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                                     </li>
-                                    <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
                                 </ul>
                             </div>
                             <div class="header__logo">
-                                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                                <a href="./index.jsp"><img src="img/logo.png" alt=""></a>
                             </div>
                             <div class="header__top__right">
-                                <div class="header__top__right__links">
-                                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                                    <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                                </div>
                                 <div class="header__top__right__cart">
-                                    <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                                    <a href="shoping-cart.jsp"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
                                     <div class="cart__price">Cart: <span>$0.00</span></div>
+                                </div>
+                                <div class="header__top__right__links">
+                                    <% if (username != null) { %>
+                                    <form action="logout" method="post" style="margin: 0; display: inline;">
+                                        <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
+                                    </form>
+                                    <% } else { %>
+                                    <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -117,15 +124,15 @@
                 <div class="col-lg-12">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./index.jsp">Home</a></li>
                             <li><a href="./about.html">About</a></li>
                             <li class="active"><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="shoping-cart.jsp">Shopping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./wisslist.html">Wishlist</a></li>
+                                    <li><a href="wishlist">Wishlist</a></li>
                                     <li><a href="./Class.html">Class</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
@@ -151,7 +158,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
+                        <a href="./index.jsp">Home</a>
                         <a href="./shop.html">Shop</a>
                         <span>Favorite Products</span>
                     </div>
@@ -173,7 +180,7 @@
             </div>
             <div class="row">
                 <c:choose>
-                    <c:when test="${hasFavorites}">
+                    <c:when test="${not empty favoriteProducts}">
                         <div class="related__products__slider owl-carousel">
                             <c:forEach var="product" items="${favoriteProducts}">
                                 <div class="col-lg-3">
@@ -186,6 +193,8 @@
                                         <div class="product__item__text">
                                             <h6><a href="#">${product.name}</a></h6>
                                             <div class="product__item__price">$${product.price}</div>
+                                            <p>${product.description}</p>
+                                            <p>Favorited by ${product.favoriteCount} users</p>
                                             <div class="cart_add">
                                                 <a href="#">Add to cart</a>
                                             </div>

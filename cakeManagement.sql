@@ -6,8 +6,8 @@ USE cakeManagement
 CREATE TABLE Customers (
     Customer_ID INT IDENTITY(1,1) PRIMARY KEY,
 	GoogleID NVARCHAR(50), 
-    Email NVARCHAR(255),
 	Username VARCHAR(50) UNIQUE NOT NULL,
+	Email NVARCHAR(255),
 	FirstName NVARCHAR(255),
     LastName NVARCHAR(255),
     Password NVARCHAR(255) not null,
@@ -50,16 +50,7 @@ CREATE TABLE Product (
     FOREIGN KEY (Supplier_ID) REFERENCES Supplier(ID)
 );
 
-INSERT INTO Product (Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img) 
-VALUES 
-('Dozen Cupcakes', 32.00, 100, 'A dozen delicious cupcakes', 4, 1, 'img/shop/product-1.jpg'),
-('Cookies and Cream', 30.00, 100, 'Delicious cookies and cream flavored cupcakes', 4, 4, 'img/shop/product-2.jpg'),
-('Gluten Free Mini Dozen', 31.00, 100, 'Gluten-free mini cupcakes, perfect for any occasion', 4, 1, 'img/shop/product-3.jpg'),
-('Cookie Dough', 25.00, 100, 'Cupcake with cookie dough topping', 4, 2, 'img/shop/product-4.jpg'),
-('Vanilla Salted Caramel', 5.00, 100, 'Classic vanilla with salted caramel topping', 1, 2, 'img/shop/product-5.jpg'),
-('German Chocolate', 14.00, 100, 'Rich chocolate cupcake with coconut and pecan frosting', 1, 3, 'img/shop/product-6.jpg'),
-('Dulce De Leche', 32.00, 100, 'Sweet caramel-flavored cupcake', 1, 4, 'img/shop/product-7.jpg'),
-('Mississippi Mud', 8.00, 100, 'Chocolate cupcake with marshmallow frosting', 4, 3, 'img/shop/product-8.jpg');
+
 
 -- Employee Table
 CREATE TABLE Employee (
@@ -174,3 +165,14 @@ VALUES
 (2, 'Baking Essentials Co.', '0978123456', 'info@bakingessentials.com'),
 (3, 'Cake Masters Ltd.', '0967345678', 'support@cakemasters.com'),
 (4, 'Premium Ingredients Inc.', '0956123456', 'sales@premiumingredients.com');
+
+INSERT INTO Product (Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img) 
+VALUES 
+('Dozen Cupcakes', 32.00, 100, 'A dozen delicious cupcakes', 4, 1, 'img/shop/product-1.jpg'),
+('Cookies and Cream', 30.00, 100, 'Delicious cookies and cream flavored cupcakes', 4, 4, 'img/shop/product-2.jpg'),
+('Gluten Free Mini Dozen', 31.00, 100, 'Gluten-free mini cupcakes, perfect for any occasion', 4, 1, 'img/shop/product-3.jpg'),
+('Cookie Dough', 25.00, 100, 'Cupcake with cookie dough topping', 4, 2, 'img/shop/product-4.jpg'),
+('Vanilla Salted Caramel', 5.00, 100, 'Classic vanilla with salted caramel topping', 1, 2, 'img/shop/product-5.jpg'),
+('German Chocolate', 14.00, 100, 'Rich chocolate cupcake with coconut and pecan frosting', 1, 3, 'img/shop/product-6.jpg'),
+('Dulce De Leche', 32.00, 100, 'Sweet caramel-flavored cupcake', 1, 4, 'img/shop/product-7.jpg'),
+('Mississippi Mud', 8.00, 100, 'Chocolate cupcake with marshmallow frosting', 4, 3, 'img/shop/product-8.jpg');

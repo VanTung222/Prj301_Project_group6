@@ -51,10 +51,10 @@
                     <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
                         <%
                             String username = (String) session.getAttribute("username");
-                            String heartLink = (username == null) ? "login.jsp" : "heart.jsp";
-                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.html";
+                            String heartLink = (username == null) ? "login.jsp" : "wishlist";
+                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.jsp";
                         %>
-                    <a href="<%= heartLink%>" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                    <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                 </div>
                 <div class="offcanvas__cart__item">
                     <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
@@ -89,7 +89,7 @@
                     </li>
                     <% } else { %>
                     <li><a href="login.jsp" style="padding: 8px 15px;">Sign In</a></li>
-                        <% } %>
+                        <% }%>
                 </ul>
             </div>
         </div>
@@ -108,7 +108,7 @@
                                             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
                                         </li>
                                         <li>
-                                            <a href="<%= heartLink %>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                                            <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                                         </li>
                                     </ul>
 
@@ -118,8 +118,8 @@
                                 </div>
                                 <div class="header__top__right">
                                     <div class="header__top__right__cart">
-                                        <a href="<%= cartLink %>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                                        <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
+                                        <div class="cart__price">Cart: <span>$0.00</span></div>
                                     </div>
 
                                     <div class="header__top__right__links">

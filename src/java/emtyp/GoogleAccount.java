@@ -3,15 +3,15 @@ package emtyp;
 
  
 public class GoogleAccount {
-    private String id, email, fullName, first_name, given_name, family_name, picture;
+    private String id, email, Username, first_name, given_name, family_name, picture;
     private boolean verified_email;
 
-    public GoogleAccount(String id, String email, String fullName, String first_name, 
+    public GoogleAccount(String id, String email, String Username, String first_name, 
                         String given_name, String family_name, String picture, 
                         boolean verified_email) {
         this.id = id;
         this.email = email;
-        this.fullName = fullName;
+        this.Username = Username;
         this.first_name = first_name;
         this.given_name = given_name;
         this.family_name = family_name;
@@ -36,11 +36,11 @@ public class GoogleAccount {
     }
 
     public String getFullName() {
-        return fullName;
+        return Username;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.Username = fullName;
     }
 
     public String getFirst_name() {
@@ -86,7 +86,7 @@ public class GoogleAccount {
 
     @Override
     public String toString() {
-        return id + ", " + email + ", " + fullName + ", " + first_name + ", " + 
+        return id + ", " + email + ", " + Username + ", " + first_name + ", " + 
                given_name + ", " + family_name + ", " + picture + ", " + 
                verified_email +  ".";
     }
