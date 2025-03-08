@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Cake Template">
@@ -130,9 +128,9 @@
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="shoping-cart.jsp">Shopping Cart</a></li>
+                                    <li><a href="shoping-cart.html">Shopping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="wishlist">Wishlist</a></li>
+                                    <li><a href="./wishlist.html">Wishlist</a></li>
                                     <li><a href="./Class.html">Class</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
@@ -171,13 +169,6 @@
     <!-- Favorite Products Section Begin -->
     <section class="related-products spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="section-title">
-                        <h2>Favorite Products</h2>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <c:choose>
                     <c:when test="${not empty favoriteProducts}">

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Mar 3, 2025, 10:00:10 AM
-    Author     : admin
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

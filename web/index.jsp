@@ -52,7 +52,7 @@
                         <%
                             String username = (String) session.getAttribute("username");
                             String heartLink = (username == null) ? "login.jsp" : "wishlist";
-                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.jsp";
+                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.html";
                         %>
                     <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                 </div>
