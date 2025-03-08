@@ -1,3 +1,4 @@
+<%@page import="model.Product"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Review" %>
 <%@ page import="controller.ReviewServlet" %>
@@ -932,16 +933,18 @@
         </footer>
         <!-- Footer Section End -->
 
-        <!-- Search Begin -->
-        <div class="search-model">
-            <div class="h-100 d-flex align-items-center justify-content-center">
-                <div class="search-close-switch">+</div>
-                <form class="search-model-form">
-                    <input type="text" id="search-input" placeholder="Search here....." />
-                </form>
-            </div>
-        </div>
-        <!-- Search End -->
+      <div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form action="searchne" method="GET">
+            <input  type="text" id="search-box" name="keyword" placeholder="Enter product name or description" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="search-results"></div>
+    </div>
+</div>
+
+
 
         <!-- Js Plugins -->
         <script src="js/jquery-3.3.1.min.js"></script>
