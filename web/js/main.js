@@ -16,9 +16,41 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    let cartTotal = 0;
-    const cartTotalElements = document.querySelectorAll(".cart__price span"); // Lấy tất cả các thẻ tổng tiền
+    const cartTotalElements = document.querySelectorAll(".cart__price span"); // Tổng tiền
+    const cartCountElement = document.getElementById("cartCount"); // Số lượng sản phẩm trong giỏ hàng
 
+    // 🛒 Cập nhật giao diện giỏ hàng từ dữ liệu server
+    function updateCartUI(data) {
+        if (data.total !== undefined && data.count !== undefined) {
+            // Cập nhật tổng tiền
+            cartTotalElements.forEach(el => {
+                el.textContent = `$${data.total}`;
+            });
+
+            // Cập nhật số lượng sản phẩm
+            if (cartCountElement) {
+                cartCountElement.textContent = data.count;
+            }
+
+            // Lưu dữ liệu vào localStorage để duy trì trạng thái giỏ hàng
+            localStorage.setItem("cart", JSON.stringify(data));
+        } else {
+            console.error("Lỗi: Response từ server không hợp lệ", data);
+        }
+    }
+
+    // 🛒 Khi tải trang, lấy dữ liệu giỏ hàng từ server
+    function fetchCartData() {
+        fetch("CartServlet")
+            .then(response => response.json())
+            .then(data => {
+                console.log("Dữ liệu giỏ hàng từ server:", data);
+                updateCartUI(data);
+            })
+            .catch(error => console.error("Lỗi khi lấy dữ liệu giỏ hàng:", error));
+    }
+
+    // 🛒 Xử lý khi click vào nút "Add to Cart"
     const cartButtons = document.querySelectorAll(".add-to-cart");
 
     cartButtons.forEach((button) => {
@@ -31,31 +63,32 @@ document.addEventListener("DOMContentLoaded", function () {
             let price = parseFloat(productElement.getAttribute("data-price"));
             let description = productElement.querySelector(".product__label span").innerText;
 
-            console.log("Gửi request với:", {id, name, price, description});
+            console.log("Gửi request với:", { id, name, price, description });
 
             if (!id || isNaN(price)) {
                 console.error("Lỗi: ID hoặc Price không hợp lệ");
                 return;
             }
 
+            // 🛒 Gửi request đến CartServlet để thêm sản phẩm
             fetch("CartServlet", {
                 method: "POST",
-                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `id=${id}&name=${encodeURIComponent(name)}&price=${price}&description=${encodeURIComponent(description)}`
             })
-                    .then(response => response.text())
-                    .then(total => {
-                        console.log("Tổng tiền từ server sau khi thêm vào giỏ:", total);
-
-                        // Cập nhật tất cả các thẻ tổng tiền trên UI
-                        cartTotalElements.forEach(el => {
-                            el.textContent = `$${total}`;
-                        });
-                    })
-                    .catch(error => console.error("Lỗi khi gửi request đến CartServlet:", error));
+            .then(response => response.json())  // Chuyển đổi response thành JSON
+            .then(data => {
+                console.log("Dữ liệu nhận từ server:", data);
+                updateCartUI(data); // Cập nhật giao diện giỏ hàng
+            })
+            .catch(error => console.error("Lỗi khi gửi request đến CartServlet:", error));
         });
     });
+
+    // 🛒 Khi tải trang, tự động cập nhật giỏ hàng
+    fetchCartData();
 });
+
 
 
 
