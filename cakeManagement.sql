@@ -49,8 +49,7 @@ CREATE TABLE Product (
     FOREIGN KEY (Product_Category_ID) REFERENCES Product_Category(Category_ID),
     FOREIGN KEY (Supplier_ID) REFERENCES Supplier(ID)
 );
-
-
+SELECT * FROM Product
 
 -- Employee Table
 CREATE TABLE Employee (

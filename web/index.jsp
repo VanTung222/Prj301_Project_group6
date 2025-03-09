@@ -1,3 +1,8 @@
+<%@page import="model.Product"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Review" %>
+<%@ page import="controller.ReviewServlet" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--ddd-->
 <html lang="zxx">
@@ -147,7 +152,7 @@
                             <ul>
                                 <li class="active"><a href="./index.jsp">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
-                                <li><a href="./shop.html">Shop</a></li>
+                                <li><a href="shop.jsp">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
@@ -475,7 +480,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
-                                <h6>Tr?n V?n T˘ng</h6>
+                                <h6>Tr?n V?n T√πng</h6>
                                 <span>Leader</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/tran.van.tung.232700"
@@ -496,7 +501,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
-                                <h6>Ph?m H?ng Qu‚n</h6>
+                                <h6>Ph?m H?ng Qu√¢n</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/quan.edition.9"
@@ -517,7 +522,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
-                                <h6>NgÙ S? Gi·</h6>
+                                <h6>Ng√¥ S? Gi√°</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/ngo.sy.gia.2024"
@@ -560,7 +565,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
-                                <h6>LÍ Qu?c H˘ng</h6>
+                                <h6>L√™ Qu?c H√πng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/LHQ.17G"
@@ -594,7 +599,7 @@
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
                             <span>Testimonial</span>
-                            <h2>Kh·ch h‡ng c?a ch˙ng tÙi nÛi</h2>
+                            <h2>Kh√°ch h√†ng c?a ch√∫ng t√¥i n√≥i</h2>
                         </div>
                     </div>
                 </div>
@@ -619,10 +624,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    "TÙi ?„ mua b·nh n‡y ?? l‡m qu‡ sinh nh?t cho b?n th‚n, v‡ nÛ
-                                    th?c s? g‚y ?n t??ng m?nh! H?p b·nh ???c trang trÌ ??p m?t,
-                                    h??ng v? th?m ngon, khÙng qu· ng?t m‡ v?n ??m ?‡. M?t mÛn qu‡
-                                    tuy?t v?i d‡nh cho nh?ng ng??i yÍu b·nh ng?t."
+                                    "T√¥i ?√£ mua b√°nh n√†y ?? l√†m qu√† sinh nh?t cho b?n th√¢n, v√† n√≥
+                                    th?c s? g√¢y ?n t??ng m?nh! H?p b√°nh ???c trang tr√≠ ??p m?t,
+                                    h??ng v? th?m ngon, kh√¥ng qu√° ng?t m√† v?n ??m ?√†. M?t m√≥n qu√†
+                                    tuy?t v?i d√†nh cho nh?ng ng??i y√™u b√°nh ng?t."
                                 </p>
                             </div>
                         </div>
@@ -645,10 +650,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b·nh n‡y th?c s? khi?n tÙi b?t ng?! L?p kem m?m m?n,
-                                    ng?t v?a ph?i k?t h?p v?i c?t b·nh bÙng x?p, tan ngay trong
-                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi·c nh? m?t b?a ti?c
-                                    h??ng v?! Ch?c ch?n s? quay l?i mua thÍm.?
+                                    ?Chi?c b√°nh n√†y th?c s? khi?n t√¥i b?t ng?! L?p kem m?m m?n,
+                                    ng?t v?a ph?i k?t h?p v?i c?t b√°nh b√¥ng x?p, tan ngay trong
+                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi√°c nh? m?t b?a ti?c
+                                    h??ng v?! Ch?c ch?n s? quay l?i mua th√™m.?
                                 </p>
                             </div>
                         </div>
@@ -671,9 +676,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B·nh r?t th?m v‡ m?m, v? ng?t v?a ph?i. Tuy nhiÍn, l?p kem
-                                    h?i nhi?u so v?i kh?u v? c?a mÏnh, n?u gi?m m?t ch˙t thÏ s?
-                                    ho‡n h?o h?n. D˘ v?y, ch?c ch?n mÏnh v?n s? quay l?i mua l?n
+                                    ?B√°nh r?t th?m v√† m?m, v? ng?t v?a ph?i. Tuy nhi√™n, l?p kem
+                                    h?i nhi?u so v?i kh?u v? c?a m√¨nh, n?u gi?m m?t ch√∫t th√¨ s?
+                                    ho√†n h?o h?n. D√π v?y, ch?c ch?n m√¨nh v?n s? quay l?i mua l?n
                                     n?a!"
                                 </p>
                             </div>
@@ -697,9 +702,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?MÏnh r?t thÌch v? b·nh, ??c bi?t l‡ l?p bÙng lan m?m x?p v‡
-                                    khÙng b? khÙ. Nh?ng l?n n‡y giao h‡ng h?i l‚u h?n mong ??i.
-                                    N?u c?i thi?n t?c ?? giao h‡ng thÏ ch?c ch?n 5 sao!?
+                                    ?M√¨nh r?t th√≠ch v? b√°nh, ??c bi?t l√† l?p b√¥ng lan m?m x?p v√†
+                                    kh√¥ng b? kh√¥. Nh?ng l?n n√†y giao h√†ng h?i l√¢u h?n mong ??i.
+                                    N?u c?i thi?n t?c ?? giao h√†ng th√¨ ch?c ch?n 5 sao!?
                                 </p>
                             </div>
                         </div>
@@ -710,7 +715,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tr?n Th? Kh·nh Linh</h5>
+                                        <h5>Tr?n Th? Kh√°nh Linh</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -722,9 +727,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B·nh ngon, m?m m?n, nh?ng khÙng qu· kh·c bi?t so v?i m?t s?
-                                    ti?m kh·c. MÏnh mong ch? m?t h??ng v? ??c ?·o h?n. D˘ v?y,
-                                    d?ch v? r?t t?t, nh‚n viÍn t? v?n nhi?t tÏnh!?
+                                    ?B√°nh ngon, m?m m?n, nh?ng kh√¥ng qu√° kh√°c bi?t so v?i m?t s?
+                                    ti?m kh√°c. M√¨nh mong ch? m?t h??ng v? ??c ?√°o h?n. D√π v?y,
+                                    d?ch v? r?t t?t, nh√¢n vi√™n t? v?n nhi?t t√¨nh!?
                                 </p>
                             </div>
                         </div>
@@ -735,7 +740,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>T? UyÍn</h5>
+                                        <h5>T? Uy√™n</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -747,9 +752,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b·nh n‡y khÙng ch? ngon m‡ cÚn ??p ??n m?c khÙng n? ?n!
-                                    M?i chi ti?t trang trÌ ??u t? m?, tinh t?, h??ng v? hÚa quy?n
-                                    ho‡n h?o gi?a c·c l?p. M?t chi?c b·nh khÙng ch? ?? ?n m‡ cÚn
+                                    ?Chi?c b√°nh n√†y kh√¥ng ch? ngon m√† c√≤n ??p ??n m?c kh√¥ng n? ?n!
+                                    M?i chi ti?t trang tr√≠ ??u t? m?, tinh t?, h??ng v? h√≤a quy?n
+                                    ho√†n h?o gi?a c√°c l?p. M?t chi?c b√°nh kh√¥ng ch? ?? ?n m√† c√≤n
                                     ?? th??ng th?c!?
                                 </p>
                             </div>
@@ -928,9 +933,11 @@
         <div class="search-model">
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch">+</div>
-                <form class="search-model-form">
-                    <input type="text" id="search-input" placeholder="Search here....." />
+                <form action="searchne" method="GET">
+                    <input  type="text" id="search-box" name="keyword" placeholder="Enter product name or description" required>
+                    <button type="submit">Search</button>
                 </form>
+                <div id="search-results"></div>
             </div>
         </div>
         <!-- Search End -->
