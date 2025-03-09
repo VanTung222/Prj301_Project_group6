@@ -3,27 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/heart.jsp</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/wisslist.html</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/index.jsp</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/model/ProductDAO.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/shop.jsp</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/img/logo.png</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/blog.html</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/img/cake-piece.png</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/ProductServlet.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/SearchServlet1.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/model/FavoriteProduct.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/login.jsp</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/model/Product.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/shoping-cart.html</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/model/Review.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/ReviewServlet.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/css/font-awesome.min.css</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/shop-details.html</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/WishlistServlet.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/img/about-video.jpg</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/css/bootstrap.min.css</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/SearchServlet.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/review.jsp</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/dao/ProductDAO.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/dao/ReviewDAO.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/web/shop-details.jsp</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans/src/java/controller/LoginServlet.java</file>
         </group>
     </open-files>
 </project-private>

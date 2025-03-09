@@ -1,6 +1,5 @@
 package dao;
 
-import model.Product;
 import utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

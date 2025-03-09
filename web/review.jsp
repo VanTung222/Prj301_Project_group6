@@ -1,12 +1,13 @@
-<%@ page import="model.ReviewDAO" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.ReviewDAO" %>
 <%@ page import="model.Review" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Product" %>
-<%@ page import="model.ProductDAO" %>
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="dao.ProductDAO" %>
+<%@ page import="model.Customer" %>
+
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Cake Template">
@@ -103,10 +104,10 @@
         }
     </style>
 </head>
-
 <body>
-    <% 
-        Integer userId = (Integer) session.getAttribute("user_id"); // Lấy user_id từ session
+    <%
+        Customer customer = (Customer) session.getAttribute("customer");
+        String username = (customer != null) ? customer.getUsername() : null;
         String productIdParam = request.getParameter("product_id");
         int productId = 0;
 
@@ -123,16 +124,24 @@
         <h2>Write a Review</h2>
 
         <% 
-            // Nếu người dùng chưa đăng nhập thì yêu cầu đăng nhập
-            if (userId == null) {
+            // Nếu chưa đăng nhập, hiển thị thông báo và link đến login.jsp
+            if (username == null) {
         %>
         <p><a href="login.jsp">Log in</a> to write a review.</p>
-        <% } else if (productId != 0) { %>
-
+        <% 
+            } else if (productId != 0) { 
+                // Nếu đã đăng nhập và productId hợp lệ, hiển thị form
+                ProductDAO productDAO = new ProductDAO();
+                Product product = productDAO.getProductById(productId);
+                if (product != null) {
+        %>
         <form action="review" method="post">
-            <input type="hidden" name="customer_id" value="<%= userId %>">
+            <input type="hidden" name="customer_id" value="<%= customer.getCustomerId() %>">
             <input type="hidden" name="product_id" value="<%= productId %>">
-            
+
+            <!-- Product Info -->
+            <p>Reviewing: <strong><%= product.getName() %></strong></p>
+
             <!-- Rating Section -->
             <div class="form-group">
                 <label for="rating">Rating:</label>
@@ -155,9 +164,18 @@
             <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
         </form>
 
-        <% } else { %>
+        <% 
+                } else { 
+        %>
+        <p>Product not found!</p>
+        <% 
+                } 
+            } else { 
+        %>
         <p>Invalid product ID!</p>
-        <% } %>
+        <% 
+            } 
+        %>
     </div>
 </body>
 </html>

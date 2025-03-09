@@ -152,11 +152,11 @@
                             <ul>
                                 <li class="active"><a href="./index.jsp">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
-                                <li><a href="shop.jsp">Shop</a></li>
+                                <li><a href="./shop.jsp">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="./shop-details.html">Shop Details</a></li>
+                                        <li><a href="./shop-details.jsp">Shop Details</a></li>
                                         <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                         <li><a href="./checkout.html">Check Out</a></li>
                                         <li><a href="./wisslist.html">Wisslist</a></li>
