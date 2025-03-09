@@ -1,6 +1,6 @@
 package controller;
 
-import model.CustomerDAO;
+import dao.CustomerDAO;
 import emtyp.GoogleAccount;
 import java.io.IOException;
 import javax.servlet.ServletException;

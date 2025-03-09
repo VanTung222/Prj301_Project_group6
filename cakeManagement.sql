@@ -2,7 +2,7 @@
 CREATE DATABASE cakeManagement
 USE cakeManagement
 
-
+DROP TABLE Customers
 CREATE TABLE Customers (
     Customer_ID INT IDENTITY(1,1) PRIMARY KEY,
 	GoogleID NVARCHAR(50), 
@@ -19,7 +19,7 @@ CREATE TABLE Customers (
 );
 SELECT * FROM Customers
 --------------------------------------------------------------------------------
-
+DROP TABLE Supplier
 -- Supplier Table
 CREATE TABLE Supplier (
     ID INT PRIMARY KEY,
@@ -29,6 +29,8 @@ CREATE TABLE Supplier (
 );
 
 -- Product Category Table
+DROP TABLE Product_Category
+
 CREATE TABLE Product_Category (
     Category_ID INT PRIMARY KEY,
     Name VARCHAR(255),
@@ -36,7 +38,11 @@ CREATE TABLE Product_Category (
     Updated_Date DATE
 );
 
+SELECT * FROM Product_Category
+
 -- Product Table
+DROP TABLE Product
+
 CREATE TABLE Product (
     Product_ID INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(255),
@@ -52,6 +58,8 @@ CREATE TABLE Product (
 SELECT * FROM Product
 
 -- Employee Table
+DROP TABLE Employee
+
 CREATE TABLE Employee (
     Employee_ID INT PRIMARY KEY,
     Name NVARCHAR(255),
@@ -63,6 +71,8 @@ CREATE TABLE Employee (
 );
 
 -- Shopping Cart Table
+DROP TABLE Shopping_Cart
+
 CREATE TABLE Shopping_Cart (
     Cart_ID INT PRIMARY KEY,
     Customer_ID INT,
@@ -74,6 +84,8 @@ CREATE TABLE Shopping_Cart (
 );
 
 -- Order Table
+DROP TABLE Orders
+
 CREATE TABLE Orders (
     Order_ID INT PRIMARY KEY,
     Customer_ID INT,
@@ -86,6 +98,8 @@ CREATE TABLE Orders (
 );
 
 -- Order Detail Table
+DROP TABLE OrderDetail
+
 CREATE TABLE OrderDetail (
     OrderDetail_ID INT PRIMARY KEY,
     Order_ID INT,
@@ -98,6 +112,8 @@ CREATE TABLE OrderDetail (
 );
 
 -- Payment Table
+DROP TABLE Payment
+
 CREATE TABLE Payment (
     Payment_ID INT PRIMARY KEY,
     Order_ID INT,
@@ -111,6 +127,8 @@ CREATE TABLE Payment (
 );
 
 -- Review Table
+DROP TABLE Review
+
 CREATE TABLE Review (
     Review_ID INT PRIMARY KEY,
     Customer_ID INT,
@@ -122,12 +140,17 @@ CREATE TABLE Review (
 );
 
 -- Shipper Table
+DROP TABLE Shipper
+
 CREATE TABLE Shipper (
     Shipper_ID INT PRIMARY KEY,
     Shipment_Tracking NVARCHAR(255),
     Quantity INT
 );
 
+
+
+DROP TABLE Favorite_Products
 
 CREATE TABLE Favorite_Products (
     Favorite_ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -137,9 +160,10 @@ CREATE TABLE Favorite_Products (
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
     FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
 );
+SELECT * FROM Favorite_Products
+
 
 -- Insert Data
-
 
 -- Insert data into Product_Category
 INSERT INTO Product_Category (Category_ID, Name, Created_Date, Updated_Date) 
@@ -167,11 +191,18 @@ VALUES
 
 INSERT INTO Product (Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img) 
 VALUES 
-('Dozen Cupcakes', 32.00, 100, 'A dozen delicious cupcakes', 4, 1, 'img/shop/product-1.jpg'),
+('Dozen Cupcakes', 32.00, 100, 'A dozen delicious cupcakes and Delicious cookies', 4, 1, 'img/shop/product-1.jpg'),
 ('Cookies and Cream', 30.00, 100, 'Delicious cookies and cream flavored cupcakes', 4, 4, 'img/shop/product-2.jpg'),
 ('Gluten Free Mini Dozen', 31.00, 100, 'Gluten-free mini cupcakes, perfect for any occasion', 4, 1, 'img/shop/product-3.jpg'),
 ('Cookie Dough', 25.00, 100, 'Cupcake with cookie dough topping', 4, 2, 'img/shop/product-4.jpg'),
 ('Vanilla Salted Caramel', 5.00, 100, 'Classic vanilla with salted caramel topping', 1, 2, 'img/shop/product-5.jpg'),
 ('German Chocolate', 14.00, 100, 'Rich chocolate cupcake with coconut and pecan frosting', 1, 3, 'img/shop/product-6.jpg'),
-('Dulce De Leche', 32.00, 100, 'Sweet caramel-flavored cupcake', 1, 4, 'img/shop/product-7.jpg'),
+('Dulce De Leche', 32.00, 100, 'Sweet caramel-flavored cupcake and cream flavored cupcakes', 1, 4, 'img/shop/product-7.jpg'),
 ('Mississippi Mud', 8.00, 100, 'Chocolate cupcake with marshmallow frosting', 4, 3, 'img/shop/product-8.jpg');
+
+INSERT INTO Favorite_Products (Customer_ID, Product_ID)
+VALUES 
+(1, 1), 
+(1, 2), 
+(2, 3),
+(2, 4);

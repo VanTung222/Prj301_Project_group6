@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
-import model.ProductDAO;
+import dao.ProductDAO;
 
 @WebServlet(name = "ProductServlet", urlPatterns = {"/shop"})
 public class ProductServlet extends HttpServlet {

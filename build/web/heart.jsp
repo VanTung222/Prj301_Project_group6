@@ -1,4 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="model.Product" %>
+<%@page import="dao.FavoriteProductDAO" %>
+<%@page import="model.Customer" %>
+
+<% 
+    HttpSession sess = request.getSession();
+    Customer customer = (Customer) sess.getAttribute("customer");
+    List<Product> favoriteProducts = new ArrayList<>();
+        FavoriteProductDAO favoriteDAO = new FavoriteProductDAO();
+        favoriteProducts = favoriteDAO.getFavoriteProductsWithDetailsByCustomer(customer.getCustomerId());
+    if (favoriteProducts == null) 
+        favoriteProducts = new ArrayList<>(); // Khởi tạo ArrayList nếu favoriteProducts là null
+    
+%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +28,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -49,28 +67,11 @@
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__option">
             <ul>
-                <li>USD <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>EUR</li>
-                        <li>USD</li>
-                    </ul>
-                </li>
-                <li>ENG <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>Spanish</li>
-                        <li>ENG</li>
-                    </ul>
-                </li>
-                <% String username = (String) session.getAttribute("username"); %>
-                <% if (username != null) { %>
                 <li>
-                    <form action="logout" method="post" style="margin: 0; padding: 0;">
+                    <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
                         <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
                     </form>
                 </li>
-                <% } else { %>
-                <li><a href="login.jsp" style="padding: 8px 15px;">Sign in</a></li>
-                <% } %>
             </ul>
         </div>
     </div>
@@ -102,13 +103,9 @@
                                     <div class="cart__price">Cart: <span>$0.00</span></div>
                                 </div>
                                 <div class="header__top__right__links">
-                                    <% if (username != null) { %>
-                                    <form action="logout" method="post" style="margin: 0; display: inline;">
+                                    <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
                                         <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
                                     </form>
-                                    <% } else { %>
-                                    <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
-                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -124,11 +121,11 @@
                         <ul>
                             <li><a href="./index.jsp">Home</a></li>
                             <li><a href="./about.html">About</a></li>
-                            <li class="active"><a href="./shop.html">Shop</a></li>
+                            <li><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="shoping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     <li><a href="./wishlist.html">Wishlist</a></li>
                                     <li><a href="./Class.html">Class</a></li>
@@ -145,66 +142,43 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__text">
-                        <h2>Favorite Products</h2>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="breadcrumb__links">
-                        <a href="./index.jsp">Home</a>
-                        <a href="./shop.html">Shop</a>
-                        <span>Favorite Products</span>
-                    </div>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h3 id="tops-section" class="text-center">FAVORITE PRODUCTS</h3>
+                <div class="row">
+                    <% if (favoriteProducts != null && !favoriteProducts.isEmpty()) { 
+                        for (Product p : favoriteProducts) { %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <a href="productdetails.jsp?id=<%= p.getProductId() %>">
+                                        <img src="<%= p.getProductImg() %>" class="card-img-top" alt="<%= p.getName() %>">
+                                    </a>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title"><%= p.getName() %></h5>
+                                        <p class="card-text">Giá: <%= String.format("%.2f", p.getPrice()) %> $</p>
+                                        <p class="card-text"><%= p.getDescription() %></p>
+                                        <a href="productdetails.jsp?id=<%= p.getProductId() %>" class="btn btn-primary">Mua ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                    <%  } 
+                    } else { %>
+                        <p class="text-center">Không có sản phẩm nào trong danh sách yêu thích!</p>
+                    <% } %>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Breadcrumb End -->
 
-    <!-- Favorite Products Section Begin -->
-    <section class="related-products spad">
-        <div class="container">
-            <div class="row">
-                <c:choose>
-                    <c:when test="${not empty favoriteProducts}">
-                        <div class="related__products__slider owl-carousel">
-                            <c:forEach var="product" items="${favoriteProducts}">
-                                <div class="col-lg-3">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="img/shop/product-${product.id}.jpg">
-                                            <div class="product__label">
-                                                <span>Cupcake</span>
-                                            </div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6><a href="#">${product.name}</a></h6>
-                                            <div class="product__item__price">$${product.price}</div>
-                                            <p>${product.description}</p>
-                                            <p>Favorited by ${product.favoriteCount} users</p>
-                                            <div class="cart_add">
-                                                <a href="#">Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="col-lg-12 text-center">
-                            <p style="font-size: 18px; color: #777;">Chưa có sản phẩm nào được yêu thích.</p>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-    </section>
-    <!-- Favorite Products Section End -->
+    <style>
+        .col-md-3 {
+            padding: 15px; 
+        }
+        .text-center {
+            margin: 40px 0px;
+        }
+    </style>
 
     <!-- Footer Section Begin -->
     <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">

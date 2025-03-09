@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
-import model.ProductDAO;
+import dao.ProductDAO;
  
 @WebServlet(name="SearchServlet1", urlPatterns={"/searchne"})
 public class SearchServlet1 extends HttpServlet {
