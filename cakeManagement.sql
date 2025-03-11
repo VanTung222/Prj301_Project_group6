@@ -130,7 +130,7 @@ CREATE TABLE Payment (
 DROP TABLE Review
 
 CREATE TABLE Review (
-    Review_ID INT PRIMARY KEY,
+    Review_ID INT IDENTITY(1,1) PRIMARY KEY,
     Customer_ID INT,
     Product_ID INT,
     Rating INT CHECK (Rating BETWEEN 1 AND 5),
@@ -138,6 +138,8 @@ CREATE TABLE Review (
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
     FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
 );
+
+SELECT * FROM Review
 
 -- Shipper Table
 DROP TABLE Shipper
@@ -206,3 +208,7 @@ VALUES
 (1, 2), 
 (2, 3),
 (2, 4);
+
+INSERT INTO Review ( Customer_ID, Product_ID, Rating, Comment) VALUES
+( 1, 1, 5, N'Sản phẩm rất tốt'),
+( 2, 2, 4, N'Chất lượng ổn');

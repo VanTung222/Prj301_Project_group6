@@ -38,6 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <script>
     function changeImage(imageUrl) {
@@ -243,7 +244,15 @@
                 <div class="col-lg-6">
                     <div class="product__details__text">
                         <div class="product__label">Cupcake</div>
-                        <h4><%= product.getName() %></h4>
+                        <h4>
+                            <%= product.getName() %>
+                            <button class="btn btn-outline-danger favorite-btn ms-2" 
+                                    data-product-id="<%= product.getProductId() %>" 
+                                    onclick="toggleFavorite(<%= product.getProductId() %>, this)" 
+                                    title="Add to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </h4>
                         <h5>$<%= product.getPrice() %></h5>
                         <p><%= product.getDescription() %></p>
                         <ul>
@@ -626,6 +635,16 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/js/favorite.js"></script>
+<script>
+    // Initialize favorite buttons when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeFavoriteButtons();
+    });
+</script>
 </body>
 
 </html>

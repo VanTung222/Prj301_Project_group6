@@ -1,14 +1,17 @@
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class FavoriteProduct {
     private int favoriteId;
     private int customerId;
     private int productId;
     private Date addedDate;
+    private Product product; // Reference to the associated product
 
-    // Constructor
+    public FavoriteProduct() {
+    }
+
     public FavoriteProduct(int favoriteId, int customerId, int productId, Date addedDate) {
         this.favoriteId = favoriteId;
         this.customerId = customerId;
@@ -16,16 +19,44 @@ public class FavoriteProduct {
         this.addedDate = addedDate;
     }
 
-    // Getters và Setters
-    public int getFavoriteId() { return favoriteId; }
-    public void setFavoriteId(int favoriteId) { this.favoriteId = favoriteId; }
+    // Getters and Setters
+    public int getFavoriteId() {
+        return favoriteId;
+    }
 
-    public int getCustomerId() { return customerId; }
-    public void setCustomerId(int customerId) { this.customerId = customerId; }
+    public void setFavoriteId(int favoriteId) {
+        this.favoriteId = favoriteId;
+    }
 
-    public int getProductId() { return productId; }
-    public void setProductId(int productId) { this.productId = productId; }
+    public int getCustomerId() {
+        return customerId;
+    }
 
-    public Date getAddedDate() { return addedDate; }
-    public void setAddedDate(Date addedDate) { this.addedDate = addedDate; }
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

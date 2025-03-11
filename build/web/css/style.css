@@ -4100,3 +4100,35 @@ ol {
   }
 }
 
+/* Favorite button styles */
+.favorite-btn {
+  border: 2px solid #f08632;
+  background-color: transparent;
+  color: #f08632;
+  padding: 8px 15px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.favorite-btn:hover {
+  background-color: #f08632;
+  color: white;
+}
+
+.favorite-btn i {
+  transition: all 0.3s ease;
+}
+
+.favorite-btn:hover i {
+  transform: scale(1.2);
+}
+
+.favorite-btn .fas {
+  color: #f08632;
+}
+
+.favorite-btn:hover .fas {
+  color: white;
+}

@@ -22,7 +22,14 @@ public class Product {
         this.supplierId = supplierId;
         this.productImg = productImg;
     }
-
+    public Product(int productId, String name, double price, String description, String productImg) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.productImg = productImg;
+    }
+    
     // Constructor dùng cho WishlistServlet (bao gồm favoriteCount)
     public Product(int productId, String name, double price, String description, int favoriteCount, String productImg) {
         this.productId = productId;
