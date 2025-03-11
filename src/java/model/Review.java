@@ -1,36 +1,44 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Review {
     private int reviewId;
-    private int customerId;
     private int productId;
+    private int customerId;
+    private String customerName;
     private int rating;
     private String comment;
+    private Timestamp reviewDate;
 
-    // Constructor đầy đủ
-    public Review(int reviewId, int customerId, int productId, int rating, String comment) {
+    public Review() {
+    }
+
+    public Review(int reviewId, int productId, int customerId, String customerName, 
+                 int rating, String comment, Timestamp reviewDate) {
         this.reviewId = reviewId;
-        this.customerId = customerId;
         this.productId = productId;
+        this.customerId = customerId;
+        this.customerName = customerName;
         this.rating = rating;
         this.comment = comment;
+        this.reviewDate = reviewDate;
     }
 
-    // Constructor không có Review_ID (khi thêm mới)
-    public Review(int customerId, int productId, int rating, String comment) {
-        this.customerId = customerId;
-        this.productId = productId;
-        this.rating = rating;
-        this.comment = comment;
-    }
-
-    // Getter & Setter
     public int getReviewId() {
         return reviewId;
     }
 
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getCustomerId() {
@@ -41,12 +49,12 @@ public class Review {
         this.customerId = customerId;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public int getRating() {
@@ -63,5 +71,13 @@ public class Review {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Timestamp getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Timestamp reviewDate) {
+        this.reviewDate = reviewDate;
     }
 }
