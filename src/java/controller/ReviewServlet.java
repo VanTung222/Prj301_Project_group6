@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import model.Review;
 import dao.ReviewDAO;
 import model.Customer;
-import java.util.Date;
 import dao.CustomerDAO;
 
 @WebServlet(name = "ReviewServlet", urlPatterns = {"/review"})
@@ -23,19 +22,10 @@ public class ReviewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        int productId = Integer.parseInt(request.getParameter("product_id"));
         
-        if ("edit".equals(action)) {
-            int reviewId = Integer.parseInt(request.getParameter("id"));
-            Review review = reviewDAO.getReviewById(reviewId);
-            if (review != null) {
-                request.setAttribute("review", review);
-                request.getRequestDispatcher("review.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("shop-details.jsp?error=not_found");
-            }
-        } else {
-            response.sendRedirect("shop-details.jsp");
-        }
+        // Chuyển hướng về trang chi tiết sản phẩm
+        response.sendRedirect("shop-details.jsp?product_id=" + productId);
     }
 
     @Override
@@ -43,7 +33,6 @@ public class ReviewServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         
@@ -52,7 +41,6 @@ public class ReviewServlet extends HttpServlet {
             return;
         }
 
-        // Lấy customer_id từ database dựa vào username
         Customer customer = customerDAO.getCustomerByUsername(username);
         if (customer == null) {
             response.sendRedirect("login.jsp");
@@ -60,92 +48,93 @@ public class ReviewServlet extends HttpServlet {
         }
 
         int customerId = customer.getCustomerId();
+        int productId = Integer.parseInt(request.getParameter("product_id"));
+
+        try {
+            switch (action) {
+                case "add":
+                    handleAddReview(request, response, customerId);
+                    break;
+                case "edit":
+                    handleEditReview(request, response, customerId);
+                    break;
+                case "delete":
+                    handleDeleteReview(request, response, customerId, productId);
+                    break;
+                default:
+                    response.sendRedirect("shop-details.jsp?product_id=" + productId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=error_processing");
+        }
+    }
+
+    private void handleAddReview(HttpServletRequest request, HttpServletResponse response, int customerId)
+            throws ServletException, IOException {
+        int productId = Integer.parseInt(request.getParameter("product_id"));
+        int rating = Integer.parseInt(request.getParameter("rating"));
+        String comment = request.getParameter("comment");
+
+        if (reviewDAO.hasUserReviewed(productId, customerId)) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=already_reviewed");
+            return;
+        }
+
+        Review review = new Review();
+        review.setProductId(productId);
+        review.setCustomerId(customerId);
+        review.setRating(rating);
+        review.setComment(comment);
+
+        if (reviewDAO.addReview(review)) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&success=added");
+        } else {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=add_failed");
+        }
+    }
+
+    private void handleEditReview(HttpServletRequest request, HttpServletResponse response, int customerId)
+            throws ServletException, IOException {
+        int reviewId = Integer.parseInt(request.getParameter("id"));
+        int productId = Integer.parseInt(request.getParameter("product_id"));
+        int rating = Integer.parseInt(request.getParameter("rating"));
+        String comment = request.getParameter("comment");
+
+        Review existingReview = reviewDAO.getReviewById(reviewId);
+        if (existingReview == null || existingReview.getCustomerId() != customerId) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=unauthorized");
+            return;
+        }
+
+        Review review = new Review();
+        review.setReviewId(reviewId);
+        review.setCustomerId(customerId);
+        review.setRating(rating);
+        review.setComment(comment);
+        review.setProductId(productId);
+
+        if (reviewDAO.updateReview(review)) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&success=updated");
+        } else {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=update_failed");
+        }
+    }
+
+    private void handleDeleteReview(HttpServletRequest request, HttpServletResponse response, int customerId, int productId)
+            throws ServletException, IOException {
+        int reviewId = Integer.parseInt(request.getParameter("id"));
+        Review review = reviewDAO.getReviewById(reviewId);
         
-        if ("add".equals(action)) {
-            handleAddReview(request, response, customerId);
-        } else if ("edit".equals(action)) {
-            handleEditReview(request, response, customerId);
-        } else if ("delete".equals(action)) {
-            handleDeleteReview(request, response, customerId);
+        if (review == null || review.getCustomerId() != customerId) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=unauthorized");
+            return;
         }
-    }
 
-    private void handleAddReview(HttpServletRequest request, HttpServletResponse response, int customerId) 
-            throws ServletException, IOException {
-        try {
-            int productId = Integer.parseInt(request.getParameter("product_id"));
-            int rating = Integer.parseInt(request.getParameter("rating"));
-            String comment = request.getParameter("comment");
-
-            // Kiểm tra xem người dùng đã đánh giá sản phẩm này chưa
-            if (reviewDAO.hasUserReviewed(productId, customerId)) {
-                response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=duplicate");
-                return;
-            }
-
-            // Validate input
-            if (rating < 1 || rating > 5 || comment == null || comment.trim().length() < 10) {
-                response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=invalid");
-                return;
-            }
-
-            Review review = new Review();
-            review.setProductId(productId);
-            review.setCustomerId(customerId);
-            review.setRating(rating);
-            review.setComment(comment.trim());
-
-            if (reviewDAO.addReview(review)) {
-                response.sendRedirect("shop-details.jsp?product_id=" + productId + "&success=added");
-            } else {
-                response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=failed");
-            }
-        } catch (NumberFormatException e) {
-            response.sendRedirect("shop-details.jsp?error=invalid");
-        }
-    }
-
-    private void handleEditReview(HttpServletRequest request, HttpServletResponse response, int customerId) 
-            throws ServletException, IOException {
-        try {
-            int reviewId = Integer.parseInt(request.getParameter("id"));
-            int rating = Integer.parseInt(request.getParameter("rating"));
-            String comment = request.getParameter("comment");
-
-            // Validate input
-            if (rating < 1 || rating > 5 || comment == null || comment.trim().length() < 10) {
-                response.sendRedirect("shop-details.jsp?error=invalid");
-                return;
-            }
-
-            Review review = new Review();
-            review.setReviewId(reviewId);
-            review.setCustomerId(customerId);
-            review.setRating(rating);
-            review.setComment(comment.trim());
-
-            if (reviewDAO.updateReview(review)) {
-                response.sendRedirect("shop-details.jsp?success=updated");
-            } else {
-                response.sendRedirect("shop-details.jsp?error=failed");
-            }
-        } catch (NumberFormatException e) {
-            response.sendRedirect("shop-details.jsp?error=invalid");
-        }
-    }
-
-    private void handleDeleteReview(HttpServletRequest request, HttpServletResponse response, int customerId) 
-            throws ServletException, IOException {
-        try {
-            int reviewId = Integer.parseInt(request.getParameter("id"));
-            
-            if (reviewDAO.deleteReview(reviewId, customerId)) {
-                response.getWriter().write("success");
-            } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (reviewDAO.deleteReview(reviewId, customerId)) {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&success=deleted");
+        } else {
+            response.sendRedirect("shop-details.jsp?product_id=" + productId + "&error=delete_failed");
         }
     }
 
