@@ -184,7 +184,6 @@
 }
 
     User user = (User) session.getAttribute("user");
-    User user = (User) session.getAttribute("email");
     if (user == null) {
         response.sendRedirect("login.jsp");
         return;
@@ -257,7 +256,7 @@
                                 <img src="assets/avatar.jpg" alt="Avatar" class="rounded-circle mb-3" width="100">
                                 <h5 class="card-title">Xin chào, <%= session.getAttribute("username") %>!</h5>
                                 <p class="text-muted">Email: <%= session.getAttribute("email") %></p>
-                                <a href="settings.jsp" class="btn btn-outline-secondary btn-sm">Cài đặt tài khoản</a>
+                                <a href="edit-profile.jsp" class="btn btn-outline-secondary btn-sm">Cài đặt tài khoản</a>
                             </div>
                         </div>  
 

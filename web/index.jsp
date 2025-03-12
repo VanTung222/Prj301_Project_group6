@@ -54,8 +54,20 @@
                             String heartLink = (username == null) ? "login.jsp" : "heart.jsp";
                             String cartLink = (username == null) ? "login.jsp" : "shoping-cart.html";
                         %>
-                    <a href="<%= heartLink%>" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                    <a href="<%= heartLink %>" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                    <a href="<%= (username == null) ? "login.jsp" : "profile.jsp" %>">
+                        <img src="img/icon/icon_us_1.png" alt="User Profile" style="width:30px; height:30px;">
+                        <% if (session.getAttribute("username") != null) { %>
+                        <a href="profile.jsp">
+                            <img src="img/icon/user-icon.png" alt="User Profile" style="width:30px; height:30px;">
+                        </a>
+                        <% } else { %>
+                        <a href="login.jsp">Login</a>
+                        <% } %>
+
+                    </a>
                 </div>
+
                 <div class="offcanvas__cart__item">
                     <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
                     <div class="cart__price">Cart: <span>$0.00</span></div>
@@ -119,7 +131,7 @@
                                 <div class="header__top__right">
                                     <div class="header__top__right__cart">
                                         <a href="<%= cartLink %>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                                        <div class="cart__price">Cart: <span>$0.00</span></div>
                                     </div>
 
                                     <div class="header__top__right__links">

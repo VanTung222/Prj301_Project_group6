@@ -3,12 +3,12 @@
 
 <%
     // Kiểm tra session
-    if (session == null || session.getAttribute("id") == null) {
+    if (session.getAttribute("id") == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 
-    int userId = (Integer) session.getAttribute("id"); // Lấy userId từ session
+    int userId = Integer.parseInt(session.getAttribute("id").toString());
     String username = "";
     String email = "";
     String fullName = "";
@@ -42,9 +42,16 @@
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
-        if (rs != null) rs.close();
-        if (pstmt != null) pstmt.close();
-        if (conn != null) conn.close();
+        try {
+    if (rs != null) rs.close();
+} catch (SQLException e) { e.printStackTrace(); }
+try {
+    if (pstmt != null) pstmt.close();
+} catch (SQLException e) { e.printStackTrace(); }
+try {
+    if (conn != null) conn.close();
+} catch (SQLException e) { e.printStackTrace(); }
+
     }
 %>
 
