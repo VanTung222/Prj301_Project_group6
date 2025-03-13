@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--ddd-->
-<html lang="zxx">
+<html lang="vi">
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content="Cake Template" />
@@ -158,21 +159,20 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a href="./index.jsp">Home</a></li>
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./shop.html">Shop</a></li>
+                                <li><a href="./about.jsp">About</a></li>
+                                <li><a href="./shop.jsp">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="./shop-details.html">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wisslist.html">Wisslist</a></li>
-                                        <li><a href="./Class.html">Class</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><a href="./shop-details.jsp">Shop Details</a></li>
+                                        <li><a href="./shoping-cart.jsp">Shoping Cart</a></li>
+                                        <li><a href="./checkout.jsp">Check Out</a></li>
+                                        <li><a href="./wisslist.jsp">Wisslist</a></li>
+                                        <li><a href="./class.jsp">Class</a></li>
+                                        
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -487,7 +487,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
-                                <h6>Tr?n V?n T�ng</h6>
+                                <h6>Trần Văn Tùng</h6>
                                 <span>Leader</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/tran.van.tung.232700"
@@ -508,7 +508,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
-                                <h6>Ph?m H?ng Qu�n</h6>
+                                <h6>Phạm Hồng Quân</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/quan.edition.9"
@@ -529,7 +529,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
-                                <h6>Ng� S? Gi�</h6>
+                                <h6>Ngô Sỹ Giá</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/ngo.sy.gia.2024"
@@ -550,7 +550,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-4.jpg">
                             <div class="team__item__text">
-                                <h6>Nguy?n Ti?n ??t</h6>
+                                <h6>Nguyễn Tiến Đạt</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a
@@ -572,7 +572,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
-                                <h6>L� Qu?c H�ng</h6>
+                                <h6>Lê Quốc Hùng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/LHQ.17G"
@@ -596,17 +596,14 @@
 
         <!-- Team Section End -->
 
-        <!-- Testimonial Section Begin -->
-
-        <!-- Instagram Section Begin --><!-- Testimonial Section Begin -->
-        <!-- Testimonial Section Begin -->
+         <!-- Testimonial Section Begin -->
         <section class="testimonial spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
                             <span>Testimonial</span>
-                            <h2>Kh�ch h�ng c?a ch�ng t�i n�i</h2>
+                            <h2>Khách hàng của chúng tôi nói</h2>
                         </div>
                     </div>
                 </div>
@@ -616,10 +613,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-1.jpg" alt="" />
+                                        <img src="img/testimonial/linh_kh1 (1).png" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Phan ??ng Qu?nh Linh</h5>
+                                        <h5>Phan Đặng Quỳnh Linh</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -631,10 +628,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    "T�i ?� mua b�nh n�y ?? l�m qu� sinh nh?t cho b?n th�n, v� n�
-                                    th?c s? g�y ?n t??ng m?nh! H?p b�nh ???c trang tr� ??p m?t,
-                                    h??ng v? th?m ngon, kh�ng qu� ng?t m� v?n ??m ?�. M?t m�n qu�
-                                    tuy?t v?i d�nh cho nh?ng ng??i y�u b�nh ng?t."
+                                    "Tôi đã mua bánh này để làm quà sinh nhật cho bạn thân, và nó
+                                    thực sự gây ấn tượng mạnh! Hộp bánh được trang trí đẹp mắt,
+                                    hương vị thơm ngon, không quá ngọt mà vẫn đậm đà."
                                 </p>
                             </div>
                         </div>
@@ -642,10 +638,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-2.jpg" alt="" />
+                                        <img src="img/testimonial/kh_anh.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tr?n Ph??ng Th?o</h5>
+                                        <h5>Trần Thị Ngọc Ánh</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -657,10 +653,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b�nh n�y th?c s? khi?n t�i b?t ng?! L?p kem m?m m?n,
-                                    ng?t v?a ph?i k?t h?p v?i c?t b�nh b�ng x?p, tan ngay trong
-                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi�c nh? m?t b?a ti?c
-                                    h??ng v?! Ch?c ch?n s? quay l?i mua th�m.?
+                                    “Chiếc bánh này thực sự khiến tôi bất ngờ! Lớp kem mềm mịn,
+                                    ngọt vừa phải kết hợp với cốt bánh bông xốp, tan ngay trong
+                                    miệng. Mỗi miếng cắn đều mang lại cảm giác như một bữa tiệc
+                                    hương vị!”
                                 </p>
                             </div>
                         </div>
@@ -668,10 +664,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-1.jpg" alt="" />
+                                        <img src="img/testimonial/kh_nhi.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Nguy?n Minh H?ng</h5>
+                                        <h5>Trần Tuyết Nhi</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -683,10 +679,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B�nh r?t th?m v� m?m, v? ng?t v?a ph?i. Tuy nhi�n, l?p kem
-                                    h?i nhi?u so v?i kh?u v? c?a m�nh, n?u gi?m m?t ch�t th� s?
-                                    ho�n h?o h?n. D� v?y, ch?c ch?n m�nh v?n s? quay l?i mua l?n
-                                    n?a!"
+                                    “Bánh rất thơm và mềm, vị ngọt vừa phải. Tuy nhiên, lớp kem
+                                    hơi nhiều so với khẩu vị của mình, nếu giảm một chút thì sẽ
+                                    hoàn hảo hơn. Dù vậy, chắc chắn mình vẫn sẽ quay lại mua lần
+                                    nữa!"
                                 </p>
                             </div>
                         </div>
@@ -694,10 +690,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-2.jpg" alt="" />
+                                        <img src="img/testimonial/dung.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Ti?n D?ng</h5>
+                                        <h5>Trần Thế Lượng</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -709,9 +705,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?M�nh r?t th�ch v? b�nh, ??c bi?t l� l?p b�ng lan m?m x?p v�
-                                    kh�ng b? kh�. Nh?ng l?n n�y giao h�ng h?i l�u h?n mong ??i.
-                                    N?u c?i thi?n t?c ?? giao h�ng th� ch?c ch?n 5 sao!?
+                                    “Mình rất thích vị bánh, đặc biệt là lớp bông lan mềm xốp và
+                                    không bị khô. Nhưng lần này giao hàng hơi lâu hơn mong đợi.
+                                    Nếu cải thiện tốc độ giao hàng thì chắc chắn 5 sao!”
                                 </p>
                             </div>
                         </div>
@@ -719,10 +715,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-1.jpg" alt="" />
+                                        <img src="img/testimonial/nhism.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tr?n Th? Kh�nh Linh</h5>
+                                        <h5>Trần Thái Linh</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -734,9 +730,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B�nh ngon, m?m m?n, nh?ng kh�ng qu� kh�c bi?t so v?i m?t s?
-                                    ti?m kh�c. M�nh mong ch? m?t h??ng v? ??c ?�o h?n. D� v?y,
-                                    d?ch v? r?t t?t, nh�n vi�n t? v?n nhi?t t�nh!?
+                                    “Bánh ngon, mềm mịn, nhưng không quá khác biệt so với một số
+                                    tiệm khác. Mình mong chờ một hương vị độc đáo hơn. Dù vậy,
+                                    dịch vụ rất tốt, nhân viên tư vấn nhiệt tình!”
                                 </p>
                             </div>
                         </div>
@@ -744,10 +740,10 @@
                             <div class="testimonial__item">
                                 <div class="testimonial__author">
                                     <div class="testimonial__author__pic">
-                                        <img src="img/testimonial/ta-2.jpg" alt="" />
+                                        <img src="img/testimonial/uyen_kh2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>T? Uy�n</h5>
+                                        <h5>Nguyễn Xuân Tố Uyên</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -759,10 +755,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b�nh n�y kh�ng ch? ngon m� c�n ??p ??n m?c kh�ng n? ?n!
-                                    M?i chi ti?t trang tr� ??u t? m?, tinh t?, h??ng v? h�a quy?n
-                                    ho�n h?o gi?a c�c l?p. M?t chi?c b�nh kh�ng ch? ?? ?n m� c�n
-                                    ?? th??ng th?c!?
+                                    “Chiếc bánh này không chỉ ngon mà còn đẹp đến mức không nỡ ăn!
+                                    Mỗi chi tiết trang trí đều tỉ mỉ, tinh tế, hương vị hòa quyện
+                                    hoàn hảo giữa các lớp. Một chiếc bánh không chỉ để ăn mà còn
+                                    để thưởng thức!”
                                 </p>
                             </div>
                         </div>
@@ -772,7 +768,6 @@
         </section>
         <!-- Testimonial Section End -->
 
-        <!-- Testimonial Section End -->
         <section class="instagram spad">
             <div class="container">
                 <div class="row">
@@ -861,9 +856,9 @@
                         <div class="footer__widget">
                             <h6>WORKING HOURS</h6>
                             <ul>
-                                <li>Monday - Friday: 08:00 am ? 08:30 pm</li>
-                                <li>Saturday: 10:00 am ? 16:30 pm</li>
-                                <li>Sunday: 10:00 am ? 16:30 pm</li>
+                                <li>Monday - Friday: 08:00 am - 08:30 pm</li>
+                                <li>Saturday: 10:00 am - 16:30 pm</li>
+                                <li>Sunday: 10:00 am - 16:30 pm</li>
                             </ul>
                         </div>
                     </div>
@@ -873,8 +868,7 @@
                                 <a href="#"><img src="img/footer-logo.png" alt="" /></a>
                             </div>
                             <p>
-                                Lorem ipsum dolor amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore dolore magna aliqua.
+                                Freshly baked treats made with love and quality ingredients. Visit us and indulge in sweetness!
                             </p>
                             <div class="footer__social">
                                 <a href="https://www.facebook.com/profile.php?id=61572957316241"
@@ -933,6 +927,7 @@
                     </div>
                 </div>
             </div>
+            <script src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat" defer="defer"></script>
         </footer>
         <!-- Footer Section End -->
 
@@ -940,22 +935,23 @@
         <div class="search-model">
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch">+</div>
-                <form class="search-model-form">
-                    <input type="text" id="search-input" placeholder="Search here....." />
+                <form action="searchne" method="GET">
+                    <input  type="text" id="search-box" name="keyword" placeholder="Enter product name or description" required>
+                    <button type="submit">Search</button>
                 </form>
+                <div id="search-results"></div>
             </div>
-        </div>
-        <!-- Search End -->
+            <!-- Search End -->
 
-        <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.barfiller.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/main.js"></script>
+            <!-- Js Plugins -->
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.nice-select.min.js"></script>
+            <script src="js/jquery.barfiller.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/jquery.slicknav.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.nicescroll.min.js"></script>
+            <script src="js/main.js"></script>
     </body>
 </html>

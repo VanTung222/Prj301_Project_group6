@@ -1,9 +1,10 @@
 package controller;
 
+import dao.CustomerDAO;
+import model.Customer;
+import utils.DBUtils;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,41 +14,127 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/UpdateProfileServlet")
 public class UpdateProfileServlet extends HttpServlet {
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userID") == null) {
+        if (session == null || session.getAttribute("Customer_ID") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        int userID = (int) session.getAttribute("userID");
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-CGID9TIO;databaseName=managementSignUpz", "sa", "123")) {
-            String sql = password.isEmpty()
-                    ? "UPDATE Users SET fullName=?, email=? WHERE userID=?"
-                    : "UPDATE Users SET fullName=?, email=?, password=? WHERE userID=?";
-
-            try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, fullName);
-                ps.setString(2, email);
-                if (!password.isEmpty()) {
-                    ps.setString(3, password);
-                    ps.setInt(4, userID);
-                } else {
-                    ps.setInt(3, userID);
-                }
-                ps.executeUpdate();
+        int customerId = (int) session.getAttribute("Customer_ID");
+        CustomerDAO customerDAO = new CustomerDAO();
+        
+        try {
+            Customer customer = customerDAO.getCustomerById(customerId);
+            if (customer != null) {
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher("edit-profile.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("profile");
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("profile");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        
+        if (session == null || session.getAttribute("Customer_ID") == null) {
+            response.sendRedirect("login.jsp");
+            return;
         }
 
-        session.setAttribute("fullName", fullName);
-        session.setAttribute("email", email);
-        response.sendRedirect("profile.jsp");
+        int customerId = (int) session.getAttribute("Customer_ID");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        // Validate input
+        if (username == null || username.trim().isEmpty() ||
+            email == null || email.trim().isEmpty() ||
+            firstName == null || firstName.trim().isEmpty() ||
+            lastName == null || lastName.trim().isEmpty() ||
+            phone == null || phone.trim().isEmpty()) {
+            request.setAttribute("error", "Vui lòng điền đầy đủ thông tin bắt buộc");
+            doGet(request, response);
+            return;
+        }
+
+        // Validate phone number format
+        if (!phone.matches("\\d{10}")) {
+            request.setAttribute("error", "Số điện thoại không hợp lệ");
+            doGet(request, response);
+            return;
+        }
+
+        // Validate email format
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            request.setAttribute("error", "Email không hợp lệ");
+            doGet(request, response);
+            return;
+        }
+
+        // Check if passwords match when changing password
+        if (password != null && !password.trim().isEmpty()) {
+            if (!password.equals(confirmPassword)) {
+                request.setAttribute("error", "Mật khẩu xác nhận không khớp");
+                doGet(request, response);
+                return;
+            }
+            if (password.length() < 6) {
+                request.setAttribute("error", "Mật khẩu phải có ít nhất 6 ký tự");
+                doGet(request, response);
+                return;
+            }
+        }
+
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            
+            // Check if username is already taken by another user
+            Customer existingCustomer = customerDAO.getCustomerByUsername(username);
+            if (existingCustomer != null && existingCustomer.getCustomerId() != customerId) {
+                request.setAttribute("error", "Tên đăng nhập đã tồn tại");
+                doGet(request, response);
+                return;
+            }
+
+            // Update customer information
+            boolean updated = customerDAO.updateCustomerProfile(
+                customerId,
+                username,
+                email,
+                firstName,
+                lastName,
+                phone,
+                address,
+                password
+            );
+
+            if (updated) {
+                request.setAttribute("success", "Cập nhật thông tin thành công");
+                response.sendRedirect("profile");
+            } else {
+                request.setAttribute("error", "Không thể cập nhật thông tin");
+                doGet(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Đã xảy ra lỗi khi cập nhật thông tin");
+            doGet(request, response);
+        }
     }
 }
