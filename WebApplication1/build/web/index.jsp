@@ -1,7 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List" %>
-<%@ page import="model.Review" %>
-<%@ page import="controller.ReviewServlet" %>
 <!DOCTYPE html>
 <!--ddd-->
 <html lang="zxx">
@@ -50,120 +46,114 @@
         </div>
 
         <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__cart">
-            <div class="offcanvas__cart__links">
-                <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+            <div class="offcanvas__cart">
+                <div class="offcanvas__cart__links">
+                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
+                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                </div>
+                <div class="offcanvas__cart__item">
+                    <a href="#"><img src="img/icon/cart.png" alt="" /> <span>0</span></a>
+                    <div class="cart__price">Cart: <span id="cartTotal">$0.00</span></div>
+                </div>
             </div>
-            <div class="offcanvas__cart__item">
-                <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                <div class="cart__price">Cart: <span>$0.00</span></div>
+            <div class="offcanvas__logo">
+                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
             </div>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__option">
-            <ul>
-                <li>
-                    <span>USD</span> <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>EUR</li>
-                        <li>USD</li>
-                    </ul>
-                </li>
-                <li>
-                    <span>ENG</span> <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li>Spanish</li>
-                        <li>ENG</li>
-                    </ul>
-                </li>
-                <% 
-                    String username = (String) session.getAttribute("username");
-                    if (username != null) {
-                %>
+            <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__option">
+                <ul>
+                    <li>
+                        <span>USD</span> <span class="arrow_carrot-down"></span>
+                        <ul>
+                            <li>EUR</li>
+                            <li>USD</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>ENG</span> <span class="arrow_carrot-down"></span>
+                        <ul>
+                            <li>Spanish</li>
+                            <li>ENG</li>
+                        </ul>
+                    </li>
+                    <%
+                        String username = (String) session.getAttribute("username");
+                        if (username != null) {
+                    %>
                     <li>
                         <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
                             <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
                         </form>
                     </li>
-                <% } else { %>
+                    <% } else { %>
                     <li><a href="login.jsp" style="padding: 8px 15px;">Sign In</a></li>
-                <% } %>
-            </ul>
+                        <% } %>
+                </ul>
+            </div>
         </div>
-    </div>
-    <!-- Offcanvas Menu End -->
+        <!-- Offcanvas Menu End -->
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="header__top__inner">
-                            <div class="header__top__left">
-                                <ul>
-                                    <li>
-                                        <span>VND</span><span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>VND</li>
-                                            <li>USD</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span>Vietnamese</span><span class="arrow_carrot-down"></span>
-                                        <ul>
-                                            <li>Vietnamese</li>
-                                            <li>ENG</li>
-                                        </ul>
-                                    </li>
-                                    <% if (username != null) { %>
+        <!-- Header Section Begin -->
+        <header class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="header__top__inner">
+                                <div class="header__top__left">
+                                    <ul>
                                         <li>
-                                            <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
-                                                <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
-                                            </form>
+                                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
                                         </li>
-                                    <% } else { %>
-                                        <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
-                                    <% } %>
-                                </ul>
-                            </div>
-                            <div class="header__logo">
-                                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-                            </div>
-                            <div class="header__top__right">
-                                <div class="header__top__right__links">
-                                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                                    <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                                        <li>
+                                            <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+                                        </li>
+                                    </ul>
+
                                 </div>
-                                <div class="header__top__right__cart">
-                                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                                <div class="header__logo">
+                                    <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                                </div>
+                                <div class="header__top__right">
+                                    <div class="header__top__right__cart">
+                                        <a href="./shoping-cart.html"
+                                           ><img src="img/icon/cart.png" alt="" /> <span id="cartCount" >0</span></a
+                                        >
+                                        <div id="cart__price" class="cart__price" >Cart: <span>$0.00</span></div>
+                                    </div>
+
+                                    <div class="header__top__right__links">
+                                        <% if (username != null) { %>
+
+                                        <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
+                                            <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
+                                        </form>
+                                        <% } else { %>
+                                        <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
+                                            <% }%>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
                 </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
-        </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
+                                <li class="active"><a href="./index.jsp">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
-                                <li><a href="./shop.jsp">Shop</a></li>
+                                <li><a href="./shop.html">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="./shop-details.jsp">Shop Details</a></li>
+                                        <li><a href="./shop-details.html">Shop Details</a></li>
                                         <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                         <li><a href="./checkout.html">Check Out</a></li>
                                         <li><a href="./wisslist.html">Wisslist</a></li>
@@ -311,42 +301,61 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div
-                                class="product__item__pic set-bg"
-                                data-setbg="img/shop/product-1.jpg"
-                                >
-                                <div class="product__label">
-                                    <span>Cupcake</span>
-                                </div>
+                        
+                        
+                        <!--?i?u ch?nh-->
+                        <div class="product__item" data-id="1" data-price="32.00">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-1.jpg">
+                                <div class="product__label"><span>Cupcake</span></div>
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="#">Dozen Cupcakes</a></h6>
-                                <div class="product__item__price">$32.00</div>
+                                <div class="product__item__price">$32.00</div> <!-- Hi?n th? gi· -->
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <a href="#" class="add-to-cart">Add to cart</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div
-                                class="product__item__pic set-bg"
-                                data-setbg="img/shop/product-2.jpg"
-                                >
-                                <div class="product__label">
-                                    <span>Cupcake</span>
-                                </div>
+                        <!--                        <div class="product__item">
+                                                    <div
+                                                        class="product__item__pic set-bg"
+                                                        data-setbg="img/shop/product-2.jpg"
+                                                        >
+                                                        <div class="product__label">
+                                                            <span>Cupcake</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__item__text">
+                                                        <h6><a href="#">Cookies and Cream</a></h6>
+                                                        <div class="product__item__price">$30.00</div>
+                                                        <div class="cart_add">
+                                                            <a href="#">Add to cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+
+
+                                <!--?i?u ch?nh-->
+                        <div class="product__item" data-id="2" data-price="30.00">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-2.jpg">
+                                <div class="product__label"><span>Cupcake</span></div>
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="#">Cookies and Cream</a></h6>
-                                <div class="product__item__price">$30.00</div>
+                                <div class="product__item__price">$30.00</div> <!-- Hi?n th? gi· -->
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <a href="#" class="add-to-cart">Add to cart</a>
                                 </div>
                             </div>
                         </div>
+
+                        
+                        
+                        
+                        
+
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">
@@ -487,7 +496,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
-                                <h6>Tr?n V?n T√πng</h6>
+                                <h6>Tr?n V?n T˘ng</h6>
                                 <span>Leader</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/tran.van.tung.232700"
@@ -508,7 +517,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
-                                <h6>Ph?m H?ng Qu√¢n</h6>
+                                <h6>Ph?m H?ng Qu‚n</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/quan.edition.9"
@@ -529,7 +538,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
-                                <h6>Ng√¥ S? Gi√°</h6>
+                                <h6>NgÙ S? Gi·</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/ngo.sy.gia.2024"
@@ -572,7 +581,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
-                                <h6>L√™ Qu?c H√πng</h6>
+                                <h6>LÍ Qu?c H˘ng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/LHQ.17G"
@@ -596,14 +605,17 @@
 
         <!-- Team Section End -->
 
-  <!-- Testimonial Section Begin -->
+        <!-- Testimonial Section Begin -->
+
+        <!-- Instagram Section Begin --><!-- Testimonial Section Begin -->
+        <!-- Testimonial Section Begin -->
         <section class="testimonial spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="section-title">
                             <span>Testimonial</span>
-                            <h2>Kh√°ch h√†ng c·ªßa ch√∫ng t√¥i n√≥i</h2>
+                            <h2>Kh·ch h‡ng c?a ch˙ng tÙi nÛi</h2>
                         </div>
                     </div>
                 </div>
@@ -616,7 +628,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Ph·∫°m H√¥ng Qu√¢n</h5>
+                                        <h5>Phan ??ng Qu?nh Linh</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -628,10 +640,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    "T√¥i ƒë√£ mua b√°nh n√†y ?? l√†m qu√† sinh nh·∫≠t  cho b?n th√¢n, v√† n√≥
-                                    th·ª±c s·ª± g√¢y ?n t??ng m?nh! H?p b√°nh ???c trang tr√≠ ??p m?t,
-                                    h??ng v? th?m ngon, kh√¥ng qu√° ng?t m√† v?n ??m ?√†. M?t m√≥n qu√†
-                                    tuy?t v?i d√†nh cho nh?ng ng??i y√™u b√°nh ng?t."
+                                    "TÙi ?„ mua b·nh n‡y ?? l‡m qu‡ sinh nh?t cho b?n th‚n, v‡ nÛ
+                                    th?c s? g‚y ?n t??ng m?nh! H?p b·nh ???c trang trÌ ??p m?t,
+                                    h??ng v? th?m ngon, khÙng qu· ng?t m‡ v?n ??m ?‡. M?t mÛn qu‡
+                                    tuy?t v?i d‡nh cho nh?ng ng??i yÍu b·nh ng?t."
                                 </p>
                             </div>
                         </div>
@@ -642,7 +654,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Nguy·ªÖn Ti·∫øn ƒê·∫°t</h5>
+                                        <h5>Tr?n Ph??ng Th?o</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -654,10 +666,10 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b√°nh n√†y th?c s? khi?n t√¥i b?t ng?! L?p kem m?m m?n,
-                                    ng?t v?a ph?i k?t h?p v?i c?t b√°nh b√¥ng x?p, tan ngay trong
-                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi√°c nh? m?t b?a ti?c
-                                    h??ng v?! Ch?c ch?n s? quay l?i mua th√™m.?
+                                    ?Chi?c b·nh n‡y th?c s? khi?n tÙi b?t ng?! L?p kem m?m m?n,
+                                    ng?t v?a ph?i k?t h?p v?i c?t b·nh bÙng x?p, tan ngay trong
+                                    mi?ng. M?i mi?ng c?n ??u mang l?i c?m gi·c nh? m?t b?a ti?c
+                                    h??ng v?! Ch?c ch?n s? quay l?i mua thÍm.?
                                 </p>
                             </div>
                         </div>
@@ -680,9 +692,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B√°nh r?t th?m v√† m?m, v? ng?t v?a ph?i. Tuy nhi√™n, l?p kem
-                                    h?i nhi?u so v?i kh?u v? c?a m√¨nh, n?u gi?m m?t ch√∫t th√¨ s?
-                                    ho√†n h?o h?n. D√π v?y, ch?c ch?n m√¨nh v?n s? quay l?i mua l?n
+                                    ?B·nh r?t th?m v‡ m?m, v? ng?t v?a ph?i. Tuy nhiÍn, l?p kem
+                                    h?i nhi?u so v?i kh?u v? c?a mÏnh, n?u gi?m m?t ch˙t thÏ s?
+                                    ho‡n h?o h?n. D˘ v?y, ch?c ch?n mÏnh v?n s? quay l?i mua l?n
                                     n?a!"
                                 </p>
                             </div>
@@ -706,9 +718,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?M√¨nh r?t th√≠ch v? b√°nh, ??c bi?t l√† l?p b√¥ng lan m?m x?p v√†
-                                    kh√¥ng b? kh√¥. Nh?ng l?n n√†y giao h√†ng h?i l√¢u h?n mong ??i.
-                                    N?u c?i thi?n t?c ?? giao h√†ng th√¨ ch?c ch?n 5 sao!?
+                                    ?MÏnh r?t thÌch v? b·nh, ??c bi?t l‡ l?p bÙng lan m?m x?p v‡
+                                    khÙng b? khÙ. Nh?ng l?n n‡y giao h‡ng h?i l‚u h?n mong ??i.
+                                    N?u c?i thi?n t?c ?? giao h‡ng thÏ ch?c ch?n 5 sao!?
                                 </p>
                             </div>
                         </div>
@@ -719,7 +731,7 @@
                                         <img src="img/testimonial/ta-1.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Tr?n Th? Kh√°nh Linh</h5>
+                                        <h5>Tr?n Th? Kh·nh Linh</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -731,9 +743,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?B√°nh ngon, m?m m?n, nh?ng kh√¥ng qu√° kh√°c bi?t so v?i m?t s?
-                                    ti?m kh√°c. M√¨nh mong ch? m?t h??ng v? ??c ?√°o h?n. D√π v?y,
-                                    d?ch v? r?t t?t, nh√¢n vi√™n t? v?n nhi?t t√¨nh!?
+                                    ?B·nh ngon, m?m m?n, nh?ng khÙng qu· kh·c bi?t so v?i m?t s?
+                                    ti?m kh·c. MÏnh mong ch? m?t h??ng v? ??c ?·o h?n. D˘ v?y,
+                                    d?ch v? r?t t?t, nh‚n viÍn t? v?n nhi?t tÏnh!?
                                 </p>
                             </div>
                         </div>
@@ -744,7 +756,7 @@
                                         <img src="img/testimonial/ta-2.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>T? Uy√™n</h5>
+                                        <h5>T? UyÍn</h5>
                                         <span>Viet Nam </span>
                                     </div>
                                 </div>
@@ -756,9 +768,9 @@
                                     <span class="icon_star-half_alt"></span>
                                 </div>
                                 <p>
-                                    ?Chi?c b√°nh n√†y kh√¥ng ch? ngon m√† c√≤n ??p ??n m?c kh√¥ng n? ?n!
-                                    M?i chi ti?t trang tr√≠ ??u t? m?, tinh t?, h??ng v? h√≤a quy?n
-                                    ho√†n h?o gi?a c√°c l?p. M?t chi?c b√°nh kh√¥ng ch? ?? ?n m√† c√≤n
+                                    ?Chi?c b·nh n‡y khÙng ch? ngon m‡ cÚn ??p ??n m?c khÙng n? ?n!
+                                    M?i chi ti?t trang trÌ ??u t? m?, tinh t?, h??ng v? hÚa quy?n
+                                    ho‡n h?o gi?a c·c l?p. M?t chi?c b·nh khÙng ch? ?? ?n m‡ cÚn
                                     ?? th??ng th?c!?
                                 </p>
                             </div>
@@ -768,6 +780,7 @@
             </div>
         </section>
         <!-- Testimonial Section End -->
+
         <!-- Testimonial Section End -->
         <section class="instagram spad">
             <div class="container">

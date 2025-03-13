@@ -1,66 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-import utils.DBUtils;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
+    private static final String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=cakeManagement1;user=sa;password=123456789;encrypt=false;trustServerCertificate=true";
+
     public static List<Product> getAllProducts() {
-        List<Product> productList = new ArrayList<>();
-        String query = "SELECT Product_ID, Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID FROM Product";
-
-        try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
+        List<Product> products = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+            String query = "SELECT Product_ID, Name, Price, Stock, Product_Description, Product_img FROM Product";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
-                product.setProductID(rs.getInt("Product_ID"));
-                product.setName(rs.getString("Name"));
-                product.setPrice(rs.getDouble("Price"));
-                product.setStock(rs.getInt("Stock"));
-                product.setDescription(rs.getString("Product_Description"));
-                product.setCategoryID(rs.getInt("Product_Category_ID"));
-                product.setSupplierID(rs.getInt("Supplier_ID"));
-                productList.add(product);
+                products.add(new Product(
+                    rs.getInt("Product_ID"),
+                    rs.getString("Name"),
+                    rs.getDouble("Price"),
+                    rs.getInt("Stock"),
+                    rs.getString("Product_Description"),
+                    rs.getString("Product_img")
+                ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return productList;
-    }
-
-    public static Product getProductById(int productId) {
-        Product product = null;
-        String query = "SELECT * FROM Product WHERE Product_ID = ?";
-        
-        try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            
-            ps.setInt(1, productId);
-            ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                product = new Product();
-                product.setProductID(rs.getInt("Product_ID"));
-                product.setName(rs.getString("Name"));
-                product.setPrice(rs.getDouble("Price"));
-                product.setStock(rs.getInt("Stock"));
-                product.setDescription(rs.getString("Product_Description"));
-                product.setCategoryID(rs.getInt("Product_Category_ID"));
-                product.setSupplierID(rs.getInt("Supplier_ID"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return product;
+        return products;
     }
 }
-

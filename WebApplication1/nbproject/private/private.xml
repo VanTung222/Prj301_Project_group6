@@ -3,11 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ki_4/WebApplication1/web/shop-details.html</file>
-            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/ReviewServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/shoping-cart.html</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-1.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/index123.jsp</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-11.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/CartItem.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/UserDAO.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/ProductServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/User.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/LogoutServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/cart/cart-2.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/CheckSessionServlet.java</file>
             <file>file:/D:/Ki_4/WebApplication1/src/java/controller/SignupServlet.java</file>
-            <file>file:/D:/Ki_4/WebApplication1/web/shop-details.jsp</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-3.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-10.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/UserSignUp.java</file>
             <file>file:/D:/Ki_4/WebApplication1/src/java/model/ReviewDAO.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/utils/DBUtils.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/cart/cart-3.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/shop-details.html</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/ProductDAO.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/Review.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-4.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/model/CartDAO.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/index.jsp</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/RemoveFromCartServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/cart/cart-4.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/CartServlet.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/product-12.jpg</file>
+            <file>file:/D:/Ki_4/WebApplication1/src/java/controller/GoogleLogin.java</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/shop-details.jsp</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/js/main.js</file>
+            <file>file:/D:/Ki_4/WebApplication1/web/img/shop/cart/cart-1.jpg</file>
         </group>
     </open-files>
 </project-private>

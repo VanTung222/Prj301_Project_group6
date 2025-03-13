@@ -79,8 +79,8 @@ p {
   margin: 0 0 15px 0;
 }
 
-img {
-  max-width: 100%;
+img:not(.product__cart__item__pic img) {
+    max-width: 100%;
 }
 
 input:focus,

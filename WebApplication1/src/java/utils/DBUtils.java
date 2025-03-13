@@ -13,7 +13,7 @@ public class DBUtils {
         String password = "123456789";
         Connection connection = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=managementSignUp;encrypt=false;trustServerCertificate=true";
+        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=cakeManagement1;encrypt=false;trustServerCertificate=true";
         connection = DriverManager.getConnection(url, user, password);
         return connection;
     }
