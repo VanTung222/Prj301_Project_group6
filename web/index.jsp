@@ -54,8 +54,8 @@
                     <a href="#" class="heart-switch"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                 </div>
                 <div class="offcanvas__cart__item">
-                    <a href="#"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                    <a href="#"><img src="img/icon/cart.png" alt="" /> <span>0</span></a>
+                    <div class="cart__price">Cart: <span id="cartTotal">$0.00</span></div>
                 </div>
             </div>
             <div class="offcanvas__logo">
@@ -118,18 +118,18 @@
                                 </div>
                                 <div class="header__top__right">
                                     <div class="header__top__right__cart">
-                                        <a href="shoping-cart.html"
-                                           ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+                                        <a href="./shoping-cart.html"
+                                           ><img src="img/icon/cart.png" alt="" /> <span id="cartCount" >0</span></a
                                         >
-                                        <div class="cart__price">Cart: <span>$0.00</span></div>
+                                        <div id="cart__price" class="cart__price" >Cart: <span>$0.00</span></div>
                                     </div>
-                                    
+
                                     <div class="header__top__right__links">
                                         <% if (username != null) { %>
-                                       
-                                            <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
-                                                <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
-                                            </form>
+
+                                        <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
+                                            <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
+                                        </form>
                                         <% } else { %>
                                         <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
                                             <% }%>
@@ -301,42 +301,61 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div
-                                class="product__item__pic set-bg"
-                                data-setbg="img/shop/product-1.jpg"
-                                >
-                                <div class="product__label">
-                                    <span>Cupcake</span>
-                                </div>
+                        
+                        
+                        <!--?i?u ch?nh-->
+                        <div class="product__item" data-id="1" data-price="32.00">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-1.jpg">
+                                <div class="product__label"><span>Cupcake</span></div>
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="#">Dozen Cupcakes</a></h6>
-                                <div class="product__item__price">$32.00</div>
+                                <div class="product__item__price">$32.00</div> <!-- Hi?n th? giá -->
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <a href="#" class="add-to-cart">Add to cart</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div
-                                class="product__item__pic set-bg"
-                                data-setbg="img/shop/product-2.jpg"
-                                >
-                                <div class="product__label">
-                                    <span>Cupcake</span>
-                                </div>
+                        <!--                        <div class="product__item">
+                                                    <div
+                                                        class="product__item__pic set-bg"
+                                                        data-setbg="img/shop/product-2.jpg"
+                                                        >
+                                                        <div class="product__label">
+                                                            <span>Cupcake</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__item__text">
+                                                        <h6><a href="#">Cookies and Cream</a></h6>
+                                                        <div class="product__item__price">$30.00</div>
+                                                        <div class="cart_add">
+                                                            <a href="#">Add to cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+
+
+                                <!--?i?u ch?nh-->
+                        <div class="product__item" data-id="2" data-price="30.00">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-2.jpg">
+                                <div class="product__label"><span>Cupcake</span></div>
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="#">Cookies and Cream</a></h6>
-                                <div class="product__item__price">$30.00</div>
+                                <div class="product__item__price">$30.00</div> <!-- Hi?n th? giá -->
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <a href="#" class="add-to-cart">Add to cart</a>
                                 </div>
                             </div>
                         </div>
+
+                        
+                        
+                        
+                        
+
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">

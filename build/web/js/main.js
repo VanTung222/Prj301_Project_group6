@@ -9,9 +9,58 @@
 
 "use strict";
 
+console.log("JS Loaded");
+window.addToCart = function () {
+    console.log("Item added to cart");
+};
 
 
-
+//document.addEventListener("DOMContentLoaded", function () {
+//    checkLoginStatus();
+//});
+//
+//// ✅ Kiểm tra trạng thái đăng nhập
+//function checkLoginStatus() {
+//    fetch("CheckSessionServlet")
+//        .then(response => response.json())
+//        .then(data => {
+//            if (data.loggedIn) {
+//                document.getElementById("userAvatar").src = data.avatar || "img/default-user.png";
+//                document.getElementById("userAvatar").style.display = "block";
+//                document.getElementById("logoutBtn").style.display = "inline-block";
+//            }
+//        });
+//}
+//
+//// ✅ Đăng xuất
+//function logout() {
+//    fetch("LogoutServlet", { method: "POST" })
+//        .then(() => window.location.reload());
+//}
+//
+//// ✅ Thêm sản phẩm vào giỏ hàng
+//function addToCart(productName, price) {
+//    fetch("CartServlet", {
+//        method: "POST",
+//        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//        body: `productName=${productName}&price=${price}`
+//    })
+//        .then(response => response.json())
+//        .then(data => {
+//            if (data.status === "success") {
+//                updateCartTotal(price);
+//            } else {
+//                alert("Please login first!");
+//            }
+//        });
+//}
+//
+//// ✅ Cập nhật tổng tiền trong giỏ hàng
+//function updateCartTotal(price) {
+//    let cartTotal = parseFloat(document.getElementById("cartTotal").textContent.replace("$", ""));
+//    cartTotal += parseFloat(price);
+//    document.getElementById("cartTotal").textContent = `$${cartTotal.toFixed(2)}`;
+//}
 
 
 
@@ -93,6 +142,106 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
+
+
+
+
+//document.addEventListener("DOMContentLoaded", function () {
+//    let cartTotal = 0;
+//    const cartTotalElements = document.querySelectorAll(".cart__price span"); // Lấy tất cả các thẻ tổng tiền
+//
+//    const cartButtons = document.querySelectorAll(".add-to-cart");
+//
+//    cartButtons.forEach((button) => {
+//        button.addEventListener("click", function (event) {
+//            event.preventDefault();
+//
+//            let productElement = this.closest(".product__item");
+//            let id = productElement.getAttribute("data-id");
+//            let name = productElement.querySelector(".product__item__text h6 a").innerText;
+//            let price = parseFloat(productElement.getAttribute("data-price"));
+//            let description = productElement.querySelector(".product__label span").innerText;
+//
+//            console.log("Gửi request với:", { id, name, price, description });
+//
+//            if (!id || isNaN(price)) {
+//                console.error("Lỗi: ID hoặc Price không hợp lệ");
+//                return;
+//            }
+//
+//            fetch("CartServlet", {
+//                method: "POST",
+//                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//                body: `id=${id}&name=${encodeURIComponent(name)}&price=${price}&description=${encodeURIComponent(description)}`
+//            })
+//            .then(response => response.text())
+//            .then(total => {
+//                console.log("Tổng tiền từ server sau khi thêm vào giỏ:", total);
+//
+//                // Cập nhật tất cả các thẻ tổng tiền trên UI
+//                cartTotalElements.forEach(el => {
+//                    el.textContent = `$${total}`;
+//                });
+//            })
+//            .catch(error => console.error("Lỗi khi gửi request đến CartServlet:", error));
+//        });
+//    });
+//});
+
+
+//document.addEventListener("DOMContentLoaded", function () {
+//    let cartTotal = 0;
+//    const cartTotalElement = document.querySelector(".cart__price span");
+//
+//    const cartButtons = document.querySelectorAll(".add-to-cart");
+//
+//    cartButtons.forEach((button) => {
+//        button.addEventListener("click", function (event) {
+//            event.preventDefault();
+//
+//            let productElement = this.closest(".product__item");
+//            let id = productElement.getAttribute("data-id");
+//            let name = productElement.querySelector(".product__item__text h6 a").innerText;
+//            let price = parseFloat(productElement.getAttribute("data-price"));
+//            let description = productElement.querySelector(".product__label span").innerText;
+//
+//            console.log("Gửi request với:", { id, name, price, description });
+//
+//            if (!id || isNaN(price)) {
+//                console.error("Lỗi: ID hoặc Price không hợp lệ");
+//                return;
+//            }
+//
+//            fetch("CartServlet", {
+//                method: "POST",
+//                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//                body: `id=${id}&name=${encodeURIComponent(name)}&price=${price}&description=${encodeURIComponent(description)}`
+//            })
+//            .then(response => response.text())
+//            .then(total => {
+//                console.log("Tổng tiền từ server sau khi thêm vào giỏ:", total);
+//                cartTotalElement.textContent = `$${total}`;
+//            })
+//            .catch(error => console.error("Lỗi khi gửi request đến CartServlet:", error));
+//        });
+//    });
+//});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //cập nhật thay đổi số lượng hoặc xóa sản phẩm
 
 function updateQuantity(id, change) {
@@ -114,6 +263,20 @@ function removeItem(id) {
             .then(response => response.text())
             .then(() => location.reload());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -317,6 +480,11 @@ function removeItem(id) {
         }
     });
 
+
+
+
+
+
     /*-------------------
      Quantity change
      --------------------- */
@@ -346,3 +514,41 @@ function removeItem(id) {
     });
 })(jQuery);
 
+// login
+// Login JavaScript
+function openAuthPopup() {
+    document.getElementById("authPopup").classList.add("show");
+    document.getElementById("popupOverlay").classList.add("show");
+}
+
+function closeAuthPopup() {
+    document.getElementById("authPopup").classList.remove("show");
+    document.getElementById("popupOverlay").classList.remove("show");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const signInButtons = document.querySelectorAll(".sign-in-btn");
+    const container = document.getElementById("container-login");
+    const registerBtn = document.getElementById("register");
+    const loginBtn = document.getElementById("login");
+
+    signInButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            openAuthPopup();
+        });
+    });
+
+    document
+            .getElementById("popupOverlay")
+            .addEventListener("click", closeAuthPopup);
+
+    registerBtn.addEventListener("click", function () {
+        container.classList.add("active");
+    });
+
+    loginBtn.addEventListener("click", function () {
+        container.classList.remove("active");
+    });
+});
+// hết login

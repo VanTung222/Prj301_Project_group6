@@ -9,33 +9,56 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
-import model.UserDAO;
 import utils.DBUtils;
 
 @WebServlet(name = "SignupServlet", urlPatterns = {"/signup"})
 public class SignupServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    public static final String ERROR = "login.jsp";
-    public static final String SUCCESS = "index.jsp";
+    public static final String ERROR = "error.jsp";
+    public static final String SUCCESS = "success.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String error = request.getParameter("error");
-
-        if (error != null) {
-            request.setAttribute("error", "Google authentication failed!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
-
         String code = request.getParameter("code");
-        if (code != null) {
-            handleGoogleSignup(request, response);
-        } else {
-            handleFormSignup(request, response);
+        String error = request.getParameter("error");
+        if (error != null) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        GoogleLogin gg = new GoogleLogin();
+        String accessToken = gg.getToken(code);
+        GoogleAccount acc = gg.getUserInfo(accessToken);
+        //check tk da dky chua
+        System.out.println(code);
+        System.out.println(acc);
+
+        try {
+            Connection con = DBUtils.getConnection();
+            String sql = "INSERT INTO userSignUp(GoogleID, Email, FullName, GivenName, FamilyName, ProfilePicture, VerifiedEmail) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, acc.getId());
+            stmt.setString(2, acc.getEmail());
+            stmt.setString(3, acc.getFullName());
+            stmt.setString(4, acc.getGiven_name());
+            stmt.setString(5, acc.getFamily_name());
+            stmt.setString(6, acc.getPicture());
+            stmt.setBoolean(7, acc.isVerified_email());
+            int rowsInserted = stmt.executeUpdate();
+            stmt.close();
+            con.close();
+
+            if (rowsInserted > 0) {
+                url = SUCCESS;
+            } else {
+                url = ERROR;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("error.jsp " + e.getMessage());
+        } finally {
+            response.sendRedirect(url);
         }
         
     }
@@ -57,73 +80,4 @@ public class SignupServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void handleGoogleSignup(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String code = request.getParameter("code");
-        GoogleLogin gg = new GoogleLogin();
-        String accessToken = gg.getToken(code);
-        GoogleAccount acc = gg.getUserInfo(accessToken);
-
-        try {
-            UserDAO userDAO = new UserDAO();
-            if (!userDAO.isEmailExistsInUserSignUp(acc.getEmail()) && !userDAO.isEmailExistsInUsers(acc.getEmail())) {
-                if (userDAO.insertUserSignUp(
-                    acc.getId(),
-                    acc.getEmail(),
-                    acc.getFullName(),
-                    acc.getGiven_name(),
-                    acc.getFamily_name(),
-                    acc.getPicture(),
-                    acc.isVerified_email()
-                )) {
-                    response.sendRedirect(SUCCESS);
-                } else {
-                    request.setAttribute("error", "Google signup failed!");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            } else {
-                request.setAttribute("error", "Email already registered!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "An error occurred: " + e.getMessage());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-    }
-
-    private void handleFormSignup(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String username = request.getParameter("username"); // Sửa thành username
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        if (username == null || email == null || password == null || 
-            username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
-            request.setAttribute("error", "All fields are required!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
-
-        try {
-            UserDAO userDAO = new UserDAO();
-            if (userDAO.isEmailExistsInUsers(email) || userDAO.isEmailExistsInUserSignUp(email)) {
-                request.setAttribute("error", "Email already exists!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                return;
-            }
-
-            if (userDAO.insertUser(username, email, password)) {
-                request.setAttribute("message", "Registration successful! Please sign in.");
-                response.sendRedirect("login.jsp");
-            } else {
-                request.setAttribute("error", "Registration failed!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "An error occurred: " + e.getMessage());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-    }
 }
