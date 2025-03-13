@@ -1,6 +1,5 @@
 package controller;
 
-import com.google.gson.Gson;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 import dao.ProductDAO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 @WebServlet(name="SearchServlet", urlPatterns={"/SearchServlet"})
 public class SearchServlet extends HttpServlet {
     
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("text/html;charset=UTF-8");

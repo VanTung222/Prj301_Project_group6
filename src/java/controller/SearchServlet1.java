@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 
 package controller;
 
@@ -20,7 +16,7 @@ import dao.ProductDAO;
 @WebServlet(name="SearchServlet1", urlPatterns={"/searchne"})
 public class SearchServlet1 extends HttpServlet {
 
- 
+  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,7 +34,7 @@ public class SearchServlet1 extends HttpServlet {
         }
     }
 
- 
+     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -80,7 +76,8 @@ public class SearchServlet1 extends HttpServlet {
         request.setAttribute("productList", productList);
         request.getRequestDispatcher("search.jsp").forward(request, response);
     }
- 
+
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

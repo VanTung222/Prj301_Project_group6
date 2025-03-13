@@ -356,6 +356,73 @@ public class CustomerDAO {
         return null;
     }
 
+    // Cập nhật thông tin profile của khách hàng
+    public boolean updateCustomerProfile(
+        int customerId,
+        String username,
+        String email,
+        String firstName,
+        String lastName,
+        String phone,
+        String address,
+        String password
+    ) throws SQLException {
+        boolean updated = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql;
+                if (password != null && !password.trim().isEmpty()) {
+                    sql = "UPDATE Customers SET Username=?, Email=?, FirstName=?, LastName=?, Phone=?, Address=?, Password=? WHERE Customer_ID=?";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1, username);
+                    ps.setString(2, email);
+                    ps.setString(3, firstName);
+                    ps.setString(4, lastName);
+                    ps.setString(5, phone);
+                    ps.setString(6, address);
+                    ps.setString(7, password);
+                    ps.setInt(8, customerId);
+                } else {
+                    sql = "UPDATE Customers SET Username=?, Email=?, FirstName=?, LastName=?, Phone=?, Address=? WHERE Customer_ID=?";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1, username);
+                    ps.setString(2, email);
+                    ps.setString(3, firstName);
+                    ps.setString(4, lastName);
+                    ps.setString(5, phone);
+                    ps.setString(6, address);
+                    ps.setInt(7, customerId);
+                }
+                updated = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return updated;
+    }
+
+    public boolean updateProfilePicture(int customerId, String profilePicture) throws SQLException {
+        boolean updated = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE Customers SET ProfilePicture=? WHERE Customer_ID=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, profilePicture);
+                ps.setInt(2, customerId);
+                updated = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return updated;
+    }
+
     private void closeResources() {
         try {
             if (rs != null) rs.close();

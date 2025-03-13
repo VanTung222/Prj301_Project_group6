@@ -55,10 +55,22 @@
                 <div class="offcanvas__cart__links">
                     <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
                         <%
-                            String username = (String) session.getAttribute("username");
-                            String heartLink = (username == null) ? "login.jsp" : "wishlist";
-                            String cartLink = (username == null) ? "login.jsp" : "shoping-cart.html";
+                            HttpSession sessionObj = request.getSession(false);
+                            String username = null;
+                            String heartLink = "login.jsp";
+                            String cartLink = "login.jsp";
+                            String profileLink = "login.jsp";
+                            
+                            if (sessionObj != null) {
+                                username = (String) sessionObj.getAttribute("username");
+                                if (username != null) {
+                                    heartLink = "wishlist";
+                                    cartLink = "shoping-cart.html";
+                                    profileLink = "profile";
+                                }
+                            }
                         %>
+                    %>
                     <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
                 </div>
                 <div class="offcanvas__cart__item">
@@ -107,44 +119,67 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="header__top__inner">
+                                <!-- Left side - Search and Wishlist -->
                                 <div class="header__top__left">
                                     <ul>
                                         <li>
-                                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""/></a>
+                                            <a href="#" class="search-switch">
+                                                <i class="fa fa-search"></i>
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
+                                            <a href="<%= heartLink%>" class="wishlist-link">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
                                         </li>
                                     </ul>
+                                </div>
 
-                                </div>
+                                <!-- Center - Logo -->
                                 <div class="header__logo">
-                                    <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                                    <a href="./index.jsp">
+                                        <img src="img/logo.png" alt="Cake Shop Logo" />
+                                    </a>
                                 </div>
+
+                                <!-- Right side - Cart and User -->
                                 <div class="header__top__right">
+                                    <!-- Cart -->
                                     <div class="header__top__right__cart">
                                         <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
                                         <div class="cart__price">Cart: <span>$0.00</span></div>
                                     </div>
 
+                                    <!-- User Menu -->
                                     <div class="header__top__right__links">
                                         <% if (username != null) { %>
-
-                                        <form action="LogoutServlet" method="post" style="margin: 0; display: inline;">
-                                            <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px;">Logout</button>
-                                        </form>
+                                            <div class="user-menu">
+                                                <a href="<%= profileLink%>" class="profile-link">
+                                                    <img src="img/icon/person_logo.jpg" alt="Profile" class="profile-img" />
+                                                </a>
+                                                <form action="LogoutServlet" method="post" class="logout-form">
+                                                    <button type="submit" class="btn btn-outline-danger">
+                                                        <i class="fa fa-sign-out"></i> Logout
+                                                    </button>
+                                                </form>
+                                            </div>
                                         <% } else { %>
-                                        <li><a href="login.jsp" class="btn btn-outline-primary" style="margin-left: 10px;">Sign In</a></li>
-                                            <% }%>
+                                            <a href="login.jsp" class="btn btn-outline-primary">
+                                                <i class="fa fa-sign-in"></i> Sign In
+                                            </a>
+                                        <% } %>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+                    <div class="canvas__open">
+                        <i class="fa fa-bars"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Main Navigation -->
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -157,10 +192,10 @@
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                        <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                                         <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wisslist.html">Wisslist</a></li>
-                                        <li><a href="./Class.html">Class</a></li>
+                                        <li><a href="./wishlist.html">Wishlist</a></li>
+                                        <li><a href="./class.html">Class</a></li>
                                         <li><a href="./blog-details.html">Blog Details</a></li>
                                     </ul>
                                 </li>
@@ -926,6 +961,7 @@
                     </div>
                 </div>
             </div>
+            <script src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat" defer="defer"></script>
         </footer>
         <!-- Footer Section End -->
 
@@ -939,18 +975,203 @@
                 </form>
                 <div id="search-results"></div>
             </div>
-        </div>
-        <!-- Search End -->
+            <!-- Search End -->
 
-        <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.barfiller.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/main.js"></script>
+            <!-- Js Plugins -->
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.nice-select.min.js"></script>
+            <script src="js/jquery.barfiller.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/jquery.slicknav.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.nicescroll.min.js"></script>
+            <script src="js/main.js"></script>
     </body>
 </html>
+
+<style>
+    /* Header Styles */
+    .header {
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header__top {
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .header__top__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header__top__left ul {
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .header__top__left ul li a {
+        color: #333;
+        font-size: 18px;
+        transition: color 0.3s;
+    }
+
+    .header__top__left ul li a:hover {
+        color: #e44d26;
+    }
+
+    .header__logo {
+        padding: 0 20px;
+    }
+
+    .header__logo img {
+        max-height: 60px;
+    }
+
+    .header__top__right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .header__top__right__cart {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .header__top__right__cart a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .header__top__right__cart img {
+        margin-right: 5px;
+    }
+
+    .header__top__right__cart span {
+        background: #e44d26;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+    .cart__price {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+    }
+
+    .header__top__right__cart:hover .cart__price {
+        display: block;
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e44d26;
+    }
+
+    .logout-form {
+        margin: 0;
+    }
+
+    /* Main Navigation */
+    .header__menu {
+        padding: 15px 0;
+    }
+
+    .header__menu ul {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .header__menu ul li a {
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .header__menu ul li a:hover,
+    .header__menu ul li.active a {
+        color: #e44d26;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        min-width: 200px;
+        padding: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+    }
+
+    .header__menu ul li:hover .dropdown {
+        display: block;
+    }
+
+    .dropdown li {
+        display: block;
+        padding: 8px 20px;
+    }
+
+    .dropdown li a {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .dropdown li a:hover {
+        color: #e44d26;
+    }
+
+    /* Mobile Menu Button */
+    .canvas__open {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+        .canvas__open {
+            display: block;
+        }
+
+        .header__menu {
+            display: none;
+        }
+    }
+</style>

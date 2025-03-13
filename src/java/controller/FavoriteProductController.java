@@ -13,6 +13,8 @@ import model.FavoriteProduct;
 import model.Customer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "FavoriteProductController", urlPatterns = {"/favorite/*"})
 public class FavoriteProductController extends HttpServlet {
@@ -69,8 +71,12 @@ public class FavoriteProductController extends HttpServlet {
         
         JsonObject jsonResponse = new JsonObject();
         if (customer != null) {
-            boolean isFavorite = favoriteProductDAO.isFavorite(customer.getCustomerId(), productId);
-            jsonResponse.addProperty("isFavorite", isFavorite);
+            try {
+                boolean isFavorite = favoriteProductDAO.isFavorite(customer.getCustomerId(), productId);
+                jsonResponse.addProperty("isFavorite", isFavorite);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FavoriteProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             jsonResponse.addProperty("error", "User not logged in");
         }
@@ -87,8 +93,12 @@ public class FavoriteProductController extends HttpServlet {
         
         JsonObject jsonResponse = new JsonObject();
         if (customer != null) {
-            boolean success = favoriteProductDAO.addToFavorites(customer.getCustomerId(), productId);
-            jsonResponse.addProperty("success", success);
+            try {
+                boolean success = favoriteProductDAO.addToFavorites(customer.getCustomerId(), productId);
+                jsonResponse.addProperty("success", success);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FavoriteProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             jsonResponse.addProperty("error", "User not logged in");
         }
@@ -105,8 +115,12 @@ public class FavoriteProductController extends HttpServlet {
         
         JsonObject jsonResponse = new JsonObject();
         if (customer != null) {
-            boolean success = favoriteProductDAO.removeFromFavorites(customer.getCustomerId(), productId);
-            jsonResponse.addProperty("success", success);
+            try {
+                boolean success = favoriteProductDAO.removeFromFavorites(customer.getCustomerId(), productId);
+                jsonResponse.addProperty("success", success);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FavoriteProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             jsonResponse.addProperty("error", "User not logged in");
         }

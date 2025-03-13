@@ -5,8 +5,8 @@ import java.util.Date;
 public class Customer {
     private int customerId;
     private String googleId;
-    private String email;
     private String username;
+    private String email;
     private String firstName;
     private String lastName;
     private String password;
@@ -17,7 +17,7 @@ public class Customer {
     private boolean role; // 1: user, 0: admin
 
     // Constructor đầy đủ
-    public Customer(int customerId, String googleId, String email, String username, String firstName, 
+    public Customer(int customerId, String googleId, String username, String email, String firstName, 
                     String lastName, String password, String profilePicture, String address, 
                     String phone, Date registrationDate, boolean role) {
         this.customerId = customerId;
@@ -34,7 +34,7 @@ public class Customer {
         this.role = role;
     }
 
-    public Customer(int customerId, String googleId, String email, String username, String firstName, String lastName, String profilePicture, boolean role) {
+    public Customer(int customerId, String googleId, String username, String email,  String firstName, String lastName, String profilePicture, boolean role) {
         this.customerId = customerId;
         this.googleId = googleId;
         this.email = email;
@@ -54,8 +54,13 @@ public class Customer {
         this.password = password;
     }
     
-    
-
+    // Phương thức lấy họ tên đầy đủ
+    public String getFullName() {
+        if (firstName == null && lastName == null) return username;
+        if (firstName == null) return lastName;
+        if (lastName == null) return firstName;
+        return firstName + " " + lastName;
+    }
 
     // Getters và Setters
     public int getCustomerId() { return customerId; }
