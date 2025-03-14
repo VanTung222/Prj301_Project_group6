@@ -22,7 +22,7 @@ public class CustomerDAO {
     private static final String CHECK_EMAIL = "SELECT Customer_ID FROM Customers WHERE Email=?";
     private static final String GET_CUSTOMER_BY_ID = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers WHERE Customer_ID=?";
     private static final String GET_ALL_CUSTOMERS = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers";
-    private static final String UPDATE_CUSTOMER = "UPDATE Customers SET GoogleID=?, Email=?, Username=?, FirstName=?, LastName=?, ProfilePicture=?, Address=?, Phone=?, Registration_Date=?, Role=? WHERE Customer_ID=?";
+    private static final String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
     private static final String DELETE_ACCOUNT = "UPDATE Customers SET Role=0 WHERE Customer_ID=?";
     private static final String EDIT_PASSWORD = "UPDATE Customers SET Password=? WHERE Customer_ID=?";
 
@@ -197,35 +197,7 @@ public class CustomerDAO {
         return customerList;
     }
 
-    // Cập nhật thông tin khách hàng
-    public boolean updateCustomer(Customer customer) throws SQLException {
-        boolean updated = false;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                ps = conn.prepareStatement(UPDATE_CUSTOMER);
-                ps.setString(1, customer.getGoogleId());
-                ps.setString(2, customer.getEmail());
-                ps.setString(3, customer.getUsername());
-                ps.setString(4, customer.getFirstName());
-                ps.setString(5, customer.getLastName());
-                ps.setString(6, customer.getProfilePicture());
-                ps.setString(7, customer.getAddress());
-                ps.setString(8, customer.getPhone());
-                ps.setDate(9, new java.sql.Date(customer.getRegistrationDate().getTime()));
-                ps.setBoolean(10, customer.isRole());
-                ps.setInt(11, customer.getCustomerId());
-                updated = ps.executeUpdate() > 0;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
-        }
-        return updated;
-    }
-
+   
     // Xóa tài khoản (chuyển Role thành 0)
     public boolean deleteAccount(int customerId) throws SQLException {
         boolean deleted = false;
@@ -244,7 +216,7 @@ public class CustomerDAO {
         }
         return deleted;
     }
-
+    
     // Sửa mật khẩu
     public boolean editPassword(int customerId, String newPassword) throws SQLException {
         boolean updated = false;
@@ -355,8 +327,63 @@ public class CustomerDAO {
         }
         return null;
     }
+    
+    public boolean updateProfilePicture(int customerId, String profilePicture) throws SQLException {
+        boolean updated = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE Customers SET ProfilePicture=? WHERE Customer_ID=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, profilePicture);
+                ps.setInt(2, customerId);
+                updated = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return updated;
+    }
+    
+    public boolean updateCustomer(Customer customer) throws ClassNotFoundException {
+        boolean success = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getEmail());
+            ps.setString(2, customer.getFirstName());
+            ps.setString(3, customer.getLastName());
+            ps.setString(4, customer.getAddress());
+            ps.setString(5, customer.getPhone());
+            ps.setInt(6, customer.getCustomerId());
+            
+            int rowsAffected = ps.executeUpdate();
+            success = rowsAffected > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
 
-    // Cập nhật thông tin profile của khách hàng
+    // Giữ nguyên phương thức updateCustomerProfile của bạn
     public boolean updateCustomerProfile(
         int customerId,
         String username,
@@ -404,32 +431,20 @@ public class CustomerDAO {
         return updated;
     }
 
-    public boolean updateProfilePicture(int customerId, String profilePicture) throws SQLException {
-        boolean updated = false;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "UPDATE Customers SET ProfilePicture=? WHERE Customer_ID=?";
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, profilePicture);
-                ps.setInt(2, customerId);
-                updated = ps.executeUpdate() > 0;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return updated;
-    }
-
     private void closeResources() {
         try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
-        } catch (Exception e) {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
 }
