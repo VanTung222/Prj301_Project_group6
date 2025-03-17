@@ -305,34 +305,7 @@
             </div>
         </section>
 
-        <!-- Map Begin -->
-        <div class="map">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-7">
-                        <div class="map__inner">
-                            <h6>Danang</h6>
-                            <ul>
-                                <li>FPT, Hoa Hai, Ngu Hanh Son, Da Nang, Viet Nam</li>
-                                <li>chandecake@gmail.com</li>
-                                <li>01234567780</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="map__iframe">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.3270146336316!2d108.25121437604646!3d16.048313084636836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421948299babb5%3A0x35692bc43e0ac4e8!2zRmFwdCBVbml2ZXJzaXR5IMSQw6AgTuG6tW5n!5e0!3m2!1svi!2s!4v1708268901234!5m2!1svi!2s"
-                    height="300"
-                    style="border: 0"
-                    allowfullscreen=""
-                    aria-hidden="false"
-                    tabindex="0"
-                    ></iframe>
-            </div>
-        </div>
-        <!-- Map End -->
+        
 
         <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
             <div class="container">
