@@ -26,6 +26,8 @@
         <!-- Css Styles -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style_search.css" type="text/css" />
     </head>
 
     <body>
@@ -39,33 +41,80 @@
         <div class="offcanvas-menu-wrapper">
             <div class="offcanvas__cart">
                 <div class="offcanvas__cart__links">
-                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                    <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                    <a href="#" class="search-switch"
+                       ><img src="img/icon/search.png" alt="Search"
+                          /></a>
+                        <% HttpSession sessionObj = request.getSession(false);
+                            String username
+                                    = null;
+                            String heartLink = "login.jsp";
+                            String cartLink = "login.jsp";
+                            String profileLink = "login.jsp";
+                            if (sessionObj != null) {
+                                username
+                                        = (String) sessionObj.getAttribute("username");
+                                if (username != null) {
+                                    heartLink = "wishlist";
+                                    cartLink = "shoping-cart.html";
+                                    profileLink
+                                            = "profile";
+                                }
+                            }%> %>
+                    <a href="<%= heartLink%>"
+                       ><img src="img/icon/heart.png" alt="Wishlist"
+                          /></a>
                 </div>
                 <div class="offcanvas__cart__item">
-                    <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                    <a href="<%= cartLink%>"
+                       ><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a
+                    >
                     <div class="cart__price">Cart: <span>$0.00</span></div>
                 </div>
             </div>
             <div class="offcanvas__logo">
-                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__option">
                 <ul>
-                    <li>USD <span class="arrow_carrot-down"></span>
+                    <li>
+                        <span>USD</span> <span class="arrow_carrot-down"></span>
                         <ul>
                             <li>EUR</li>
                             <li>USD</li>
                         </ul>
                     </li>
-                    <li>ENG <span class="arrow_carrot-down"></span>
+                    <li>
+                        <span>ENG</span> <span class="arrow_carrot-down"></span>
                         <ul>
                             <li>Spanish</li>
                             <li>ENG</li>
                         </ul>
                     </li>
-                    <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                    <% if (username != null) { %>
+                    <li>
+                        <form
+                            action="LogoutServlet"
+                            method="post"
+                            style="margin: 0; padding: 0"
+                            >
+                            <button
+                                type="submit"
+                                style="
+                                background: none;
+                                border: none;
+                                color: #fff;
+                                cursor: pointer;
+                                padding: 8px 15px;
+                                "
+                                >
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                    <% } else { %>
+                    <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+                        <% }%>
                 </ul>
             </div>
         </div>
@@ -78,42 +127,78 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="header__top__inner">
+                                <!-- Left side - Search and Wishlist -->
                                 <div class="header__top__left">
                                     <ul>
-                                        <li>USD <span class="arrow_carrot-down"></span>
-                                            <ul>
-                                                <li>EUR</li>
-                                                <li>USD</li>
-                                            </ul>
+                                        <li>
+                                            <a href="#" class="search-switch">
+                                                <i class="fa fa-search"></i>
+                                            </a>
                                         </li>
-                                        <li>ENG <span class="arrow_carrot-down"></span>
-                                            <ul>
-                                                <li>Spanish</li>
-                                                <li>ENG</li>
-                                            </ul>
+                                        <li>
+                                            <a href="<%= heartLink%>" class="wishlist-link">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
                                         </li>
-                                        <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
                                     </ul>
                                 </div>
+
+                                <!-- Center - Logo -->
                                 <div class="header__logo">
-                                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                                    <a href="./index.jsp">
+                                        <img src="img/logo.png" alt="Cake Shop Logo" />
+                                    </a>
                                 </div>
+
+                                <!-- Right side - Cart and User -->
                                 <div class="header__top__right">
-                                    <div class="header__top__right__links">
-                                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                                    </div>
+                                    <!-- Cart -->
                                     <div class="header__top__right__cart">
-                                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                                        <a href="<%= cartLink%>"
+                                           ><img src="img/icon/cart.png" alt="Cart" />
+                                            <span>0</span></a
+                                        >
                                         <div class="cart__price">Cart: <span>$0.00</span></div>
+                                    </div>
+
+                                    <!-- User Menu -->
+                                    <div class="header__top__right__links">
+                                        <% if (username != null) {%>
+                                        <div class="user-menu">
+                                            <a href="<%= profileLink%>" class="profile-link">
+                                                <img
+                                                    src="img/icon/person_logo.jpg"
+                                                    alt="Profile"
+                                                    class="profile-img"
+                                                    />
+                                            </a>
+                                            <form
+                                                action="LogoutServlet"
+                                                method="post"
+                                                class="logout-form"
+                                                >
+                                                <button type="submit" class="btn btn-outline-danger">
+                                                    <i class="fa fa-sign-out"></i> Logout
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <% } else { %>
+                                        <a href="login.jsp" class="btn btn-outline-primary">
+                                            <i class="fa fa-sign-in"></i> Sign In
+                                        </a>
+                                        <% }%>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+                    <div class="canvas__open">
+                        <i class="fa fa-bars"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Main Navigation -->
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -121,14 +206,15 @@
                             <ul>
                                 <li><a href="./index.jsp">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
-                                <li class="active"><a href="./shop.html">Shop</a></li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="./shop.jsp">Shop</a></li>
+                                <li>
+                                    <a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                        <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                                         <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wisslist.html">Wisslist</a></li>
-                                        <li><a href="./Class.html">Class</a></li>
+                                        <li><a href="./wishlist.html">Wishlist</a></li>
+                                        <li><a href="./class.html">Class</a></li>
                                         <li><a href="./blog-details.html">Blog Details</a></li>
                                     </ul>
                                 </li>
@@ -148,23 +234,28 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h2>Shop</h2>
-                        <section class="search-section">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-6">
-                                        <form id="search-form" class="search-form">
-                                            <div class="input-group">
-                                                <input oninput="searchProductsByName(this)"type="text" id="search" name="search" placeholder="Tìm sản phẩm..." class="form-control">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div id="search-results"></div>
-                                    </div>
+                        <div class="search-model">
+                            <div class="search-wrap">
+                                <div class="search-close-switch">
+                                    <i class="fa fa-times"></i>
                                 </div>
+                                <form action="search" method="GET" class="search-form">
+                                    <div class="search-input-wrap">
+                                        <i class="fa fa-search search-icon"></i>
+                                        <input
+                                            type="text"
+                                            id="search-box"
+                                            name="keyword"
+                                            placeholder="Search for products..."
+                                            required
+                                            autocomplete="off"
+                                            oninput="searchProductsByName(this.value)"
+                                            />
+                                    </div>
+                                </form>
+                                <div id="search-results" class="search-results"></div>
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,7 +305,35 @@
             </div>
         </section>
 
-        <!-- Footer -->
+        <!-- Map Begin -->
+        <div class="map">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-7">
+                        <div class="map__inner">
+                            <h6>Danang</h6>
+                            <ul>
+                                <li>FPT, Hoa Hai, Ngu Hanh Son, Da Nang, Viet Nam</li>
+                                <li>chandecake@gmail.com</li>
+                                <li>01234567780</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="map__iframe">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.3270146336316!2d108.25121437604646!3d16.048313084636836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421948299babb5%3A0x35692bc43e0ac4e8!2zRmFwdCBVbml2ZXJzaXR5IMSQw6AgTuG6tW5n!5e0!3m2!1svi!2s!4v1708268901234!5m2!1svi!2s"
+                    height="300"
+                    style="border: 0"
+                    allowfullscreen=""
+                    aria-hidden="false"
+                    tabindex="0"
+                    ></iframe>
+            </div>
+        </div>
+        <!-- Map End -->
+
         <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
             <div class="container">
                 <div class="row">
@@ -222,50 +341,121 @@
                         <div class="footer__widget">
                             <h6>WORKING HOURS</h6>
                             <ul>
-                                <li>Monday - Friday: 08:00 am – 08:30 pm</li>
-                                <li>Saturday: 10:00 am – 16:30 pm</li>
-                                <li>Sunday: 10:00 am – 16:30 pm</li>
+                                <li>Monday - Friday: 08:00 am ? 08:30 pm</li>
+                                <li>Saturday: 10:00 am ? 16:30 pm</li>
+                                <li>Sunday: 10:00 am ? 16:30 pm</li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="footer__about">
+                            <div class="footer__logo">
+                                <a href="#"><img src="img/footer-logo.png" alt="" /></a>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore dolore magna aliqua.
+                            </p>
+                            <div class="footer__social">
+                                <a href="https://www.facebook.com/profile.php?id=61572957316241"
+                                   ><i class="fa fa-facebook"></i
+                                    ></a>
+                                <a href="https://x.com/BanhLife78128"
+                                   ><i class="fa fa-twitter"></i
+                                    ></a>
+                                <a href="https://www.instagram.com/quannrau2410/"
+                                   ><i class="fa fa-instagram"></i
+                                    ></a>
+                                <a
+                                    href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                    ><i class="fa fa-youtube-play"></i
+                                    ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="footer__newslatter">
+                            <h6>Subscribe</h6>
+                            <p>Get latest updates and offers.</p>
+                            <form action="#">
+                                <input type="text" placeholder="Email" />
+                                <button type="submit"><i class="fa fa-send-o"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <p class="copyright__text text-white">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                All rights reserved | This template is made with
+                                <i class="fa fa-heart" aria-hidden="true"></i> by
+                                <a href="https://colorlib.com" target="_blank">TeamChanDe</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="copyright__widget">
+                                <ul>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Site Map</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script
+                src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat"
+                defer="defer"
+            ></script>
         </footer>
+        <!-- Footer Section End -->
 
         <!-- Js Plugins -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $("#search").on("input", function () {
-                    var searchQuery = $(this).val().trim();
+                                    $(document).ready(function () {
+                                        $("#search").on("input", function () {
+                                            var searchQuery = $(this).val().trim();
 
-                    if (searchQuery === "") {
-                        $("#search-results").html("");
-                        return;
-                    }
+                                            if (searchQuery === "") {
+                                                $("#search-results").html("");
+                                                return;
+                                            }
 
-                    $.ajax({
-                        url: "SearchServlet",
-                        method: "GET",
-                        data: {search: searchQuery},
-                        success: function (response) {
-                            $("#search-results").html(response).show();
-                        },
-                        error: function () {
-                            console.error("Lỗi khi tải dữ liệu, vui lòng thử lại.");
-                        }
-                    });
-                });
+                                            $.ajax({
+                                                url: "search",
+                                                method: "GET",
+                                                data: {search: searchQuery},
+                                                success: function (response) {
+                                                    $("#search-results").html(response).show();
+                                                },
+                                                error: function () {
+                                                    console.error("Lỗi khi tải dữ liệu, vui lòng thử lại.");
+                                                }
+                                            });
+                                        });
 
-                $(document).on("click", ".search-item", function () {
-                    var productName = $(this).text();
-                    $("#search").val(productName);
-                    $("#search-results").html("").hide();
-                });
-            });
+                                        $(document).on("click", ".search-item", function () {
+                                            var productName = $(this).text();
+                                            $("#search").val(productName);
+                                            $("#search-results").html("").hide();
+                                        });
+                                    });
         </script>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/script_search.js"></script>
 
     </body>
 </html>

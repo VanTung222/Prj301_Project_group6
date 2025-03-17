@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 
-@WebServlet(name = "SearchServlet", urlPatterns = {"/searchne"})
+@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
 public class SearchServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +59,11 @@ public class SearchServlet extends HttpServlet {
             out.println(".no-results i { font-size: 64px; color: #ddd; margin-bottom: 20px; }");
             out.println(".no-results h3 { color: #333; margin-bottom: 10px; }");
             out.println(".no-results p { color: #666; }");
+            out.println(".back-home-container { margin-bottom: 30px; }");
+            out.println(".back-home { display: inline-flex; align-items: center; padding: 12px 25px; background: #f08632; color: #fff; text-decoration: none; border-radius: 30px; transition: all 0.3s ease; font-weight: 500; box-shadow: 0 4px 15px rgba(240, 134, 50, 0.2); }");
+            out.println(".back-home:hover { background: #e67422; transform: translateX(-5px); box-shadow: 0 6px 20px rgba(240, 134, 50, 0.3); color: #fff; text-decoration: none; }");
+            out.println(".back-home i { margin-right: 10px; font-size: 16px; transition: all 0.3s ease; }");
+            out.println(".back-home:hover i { transform: translateX(-3px); }");
             out.println("</style>");
             out.println("</head>");
             out.println("<body>");
@@ -68,6 +73,11 @@ public class SearchServlet extends HttpServlet {
             
             out.println("<div class='search-container'>");
             out.println("<div class='container'>");
+            
+            // Back to Home button
+            out.println("<div class='back-home-container'>");
+            out.println("<a href='index.jsp' class='back-home'><i class='fa fa-arrow-left'></i> Back to Home</a>");
+            out.println("</div>");
             
             // Search header
             out.println("<div class='search-header'>");
@@ -79,7 +89,7 @@ public class SearchServlet extends HttpServlet {
             
             // Search form
             out.println("<div class='search-form-container'>");
-            out.println("<form action='searchne' method='GET'>");
+            out.println("<form action='search' method='GET'>");
             out.println("<input type='text' class='search-input' name='keyword' value='" + (keyword != null ? keyword : "") + "' placeholder='Search for products...'>");
             out.println("<button type='submit' class='search-button'><i class='fa fa-search'></i></button>");
             out.println("</form>");
