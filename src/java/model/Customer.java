@@ -44,7 +44,6 @@ public class Customer {
         this.profilePicture = profilePicture;
         this.role = role;
     }
-    
 
     // Constructor tối thiểu cho đăng nhập
     public Customer(int customerId, String username, String email, String password) {

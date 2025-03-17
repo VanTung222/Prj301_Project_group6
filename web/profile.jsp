@@ -57,13 +57,13 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css" type="text/css" />
         <style>
-/*            body {
+            body {
                 font-family: 'Roboto', sans-serif;
                 background-color: #f8f9fa;
-            }*/
-            
+            }
+
             .profile-header {
-                background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+                background: linear-gradient(135deg, #F08632 0%, #969696 100%);
                 padding: 3rem 0;
                 margin-bottom: 2rem;
                 color: white;
@@ -229,169 +229,6 @@
         </style>
     </head>
     <body>
-        <!-- Include Header -->
-        <!-- Offcanvas Menu Begin -->
-        <div class="offcanvas-menu-overlay"></div>
-        <div class="offcanvas-menu-wrapper">
-            <div class="offcanvas__cart">
-
-                <div class="offcanvas__cart__links">
-                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt="Search" /></a>
-                        <%
-//                            HttpSession sessionObj = request.getSession(false);
-//                            String username = null;
-                            String heartLink = "login.jsp";
-                            String cartLink = "login.jsp";
-                            String profileLink = "login.jsp";
-                            
-                            if (sessionObj != null) {
-                                username = (String) sessionObj.getAttribute("username");
-                                if (username != null) {
-                                    heartLink = "wishlist";
-                                    cartLink = "shoping-cart.html";
-                                    profileLink = "profile";
-                                }
-                            }
-                        %>
-                    %>
-                    <a href="<%= heartLink%>"><img src="img/icon/heart.png" alt="Wishlist" /></a>
-                </div>
-                <div class="offcanvas__cart__item">
-                    <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                    <div class="cart__price">Cart: <span>$0.00</span></div>
-                </div>
-            </div>
-            <div class="offcanvas__logo">
-                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-            <div class="offcanvas__option">
-                <ul>
-                    <li>
-                        <span>USD</span> <span class="arrow_carrot-down"></span>
-                        <ul>
-                            <li>EUR</li>
-                            <li>USD</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span>ENG</span> <span class="arrow_carrot-down"></span>
-                        <ul>
-                            <li>Spanish</li>
-                            <li>ENG</li>
-                        </ul>
-                    </li>
-                    <% if (username != null) { %>
-                    <li>
-                        <form action="LogoutServlet" method="post" style="margin: 0; padding: 0;">
-                            <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">Logout</button>
-                        </form>
-                    </li>
-                    <% } else { %>
-                    <li><a href="login.jsp" style="padding: 8px 15px;">Sign In</a></li>
-                        <% }%>
-                </ul>
-            </div>
-        </div>
-        <!-- Offcanvas Menu End -->
-
-        <!-- Header Section Begin -->
-        <header class="header">
-            <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="header__top__inner">
-                                <!-- Left side - Search and Wishlist -->
-                                <div class="header__top__left">
-                                    <ul>
-                                        <li>
-                                            <a href="#" class="search-switch">
-                                                <i class="fa fa-search"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<%= heartLink%>" class="wishlist-link">
-                                                <i class="fa fa-heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <!-- Center - Logo -->
-                                <div class="header__logo">
-                                    <a href="./index.jsp">
-                                        <img src="img/logo.png" alt="Cake Shop Logo" />
-                                    </a>
-                                </div>
-
-                                <!-- Right side - Cart and User -->
-                                <div class="header__top__right">
-                                    <!-- Cart -->
-                                    <div class="header__top__right__cart">
-                                        <a href="<%= cartLink%>"><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a>
-                                        <div class="cart__price">Cart: <span>$0.00</span></div>
-                                    </div>
-
-                                    <!-- User Menu -->
-                                    <div class="header__top__right__links">
-                                        <% if (username != null) { %>
-                                            <div class="user-menu">
-                                                <a href="<%= profileLink%>" class="profile-link">
-                                                    <img src="img/icon/person_logo.jpg" alt="Profile" class="profile-img" />
-                                                </a>
-                                                <form action="LogoutServlet" method="post" class="logout-form">
-                                                    <button type="submit" class="btn btn-outline-danger">
-                                                        <i class="fa fa-sign-out"></i> Logout
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        <% } else { %>
-                                            <a href="login.jsp" class="btn btn-outline-primary">
-                                                <i class="fa fa-sign-in"></i> Sign In
-                                            </a>
-                                        <% } %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="canvas__open">
-                        <i class="fa fa-bars"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Navigation -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                                <li class="active"><a href="./index.jsp">Home</a></li>
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./shop.jsp">Shop</a></li>
-                                <li>
-                                    <a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wishlist.html">Wishlist</a></li>
-                                        <li><a href="./class.html">Class</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- Header Section End -->
-
         <!-- Profile Header -->
         <div class="profile-header">
             <div class="container">
@@ -413,6 +250,9 @@
                             <i class="bi bi-telephone-fill me-2"></i><%= phone%>
                         </p>
                         <div class="d-flex gap-3 flex-wrap" id="profile-actions">
+                            <a href="index.jsp" class="btn btn-light btn-lg">
+                                <i class="bi bi-house-door-fill me-2"></i>Trở về trang chủ
+                            </a>
                             <button type="button" class="btn btn-light btn-lg" onclick="toggleEditForm()">
                                 <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa thông tin
                             </button>
@@ -489,7 +329,7 @@
                             <i class="bi bi-exclamation-circle-fill me-2"></i><%= error%>
                         </div>
                         <% }%>
-                        
+
                         <div class="info-grid">
                             <div class="info-item">
                                 <p class="info-label">
@@ -530,14 +370,14 @@
                         <form action="profile" method="post" class="needs-validation" novalidate>
                             <input type="hidden" name="action" value="update-profile" />
                             <input type="hidden" name="customerId" value="<%= customer.getCustomerId()%>" />
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Tên đăng nhập</label></div>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" value="<%= username%>" readonly disabled />
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Email <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
@@ -546,7 +386,7 @@
                                     <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Họ <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
@@ -555,7 +395,7 @@
                                     <div class="invalid-feedback">Họ phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Tên <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
@@ -564,7 +404,7 @@
                                     <div class="invalid-feedback">Tên phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Số điện thoại <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
@@ -573,7 +413,7 @@
                                     <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 84 hoặc 03, 05, 07, 08, 09)</div>
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Địa chỉ <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
@@ -581,7 +421,7 @@
                                     <div class="invalid-feedback">Địa chỉ phải có ít nhất 10 ký tự</div>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-check-circle me-2"></i>Lưu thay đổi
@@ -612,33 +452,33 @@
                                 </thead>
                                 <tbody>
                                     <% if (recentOrders != null && !recentOrders.isEmpty()) {
-                                        for (Map<String, Object> order : recentOrders) { %>
+                                            for (Map<String, Object> order : recentOrders) {%>
                                     <tr>
-                                        <td class="fw-bold">#<%= order.get("Order_ID") %></td>
+                                        <td class="fw-bold">#<%= order.get("Order_ID")%></td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <i class="bi bi-box me-2 text-primary"></i>
-                                                <%= order.get("ProductName") %> 
-                                                <span class="badge bg-primary ms-2">x<%= order.get("Quantity") %></span>
+                                                <%= order.get("ProductName")%> 
+                                                <span class="badge bg-primary ms-2">x<%= order.get("Quantity")%></span>
                                             </div>
                                         </td>
-                                        <td><%= dateFormat.format(order.get("Order_Date")) %></td>
-                                        <td class="fw-bold"><%= String.format("%,.0f", (Double)order.get("Subtotal")) %>đ</td>
+                                        <td><%= dateFormat.format(order.get("Order_Date"))%></td>
+                                        <td class="fw-bold"><%= String.format("%,.0f", (Double) order.get("Subtotal"))%>đ</td>
                                         <td>
-                                            <% String status = (String)order.get("Status");
+                                            <% String status = (String) order.get("Status");
                                                 String statusClass = "status-processing";
                                                 String statusIcon = "bi-clock-fill";
                                                 if ("Completed".equalsIgnoreCase(status)) {
                                                     statusClass = "status-completed";
                                                     statusIcon = "bi-check-circle-fill";
                                                 }%>
-                                            <span class="order-status <%= statusClass %>">
-                                                <i class="bi <%= statusIcon %> me-1"></i>
-                                                <%= status %>
+                                            <span class="order-status <%= statusClass%>">
+                                                <i class="bi <%= statusIcon%> me-1"></i>
+                                                <%= status%>
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="order-detail.jsp?orderId=<%= order.get("Order_ID") %>" 
+                                            <a href="order-detail.jsp?orderId=<%= order.get("Order_ID")%>" 
                                                class="btn btn-sm btn-primary">
                                                 <i class="bi bi-eye-fill"></i> Chi tiết
                                             </a>
@@ -652,7 +492,7 @@
                                             <p class="text-muted mb-0">Không có đơn hàng nào</p>
                                         </td>
                                     </tr>
-                                    <% } %>
+                                    <% }%>
                                 </tbody>
                             </table>
                         </div>
@@ -661,12 +501,17 @@
             </div>
         </div>
 
-        <!-- Include Footer -->
-        <jsp:include page="footer.jsp" />
+                          
+            <script
+                src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat"
+                defer="defer"
+            ></script>
+
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Custom JS -->
+ 
         <script>
                                     function toggleEditForm() {
                                         const viewMode = document.getElementById('view-mode');

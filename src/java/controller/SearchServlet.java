@@ -1,56 +1,161 @@
 package controller;
 
+import dao.ProductDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
-import dao.ProductDAO;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-@WebServlet(name="SearchServlet", urlPatterns={"/SearchServlet"})
+@WebServlet(name = "SearchServlet", urlPatterns = {"/searchne"})
 public class SearchServlet extends HttpServlet {
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            String searchQuery = request.getParameter("search");
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
+        try (PrintWriter out = response.getWriter()) {
+            String keyword = request.getParameter("keyword");
             
-            ProductDAO productDAO = new ProductDAO();
-            List<Product> productList = productDAO.searchProductsByName(searchQuery);
+            // Start HTML document
+            out.println("<!DOCTYPE html>");
+            out.println("<html lang='en'>");
+            out.println("<head>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            out.println("<title>Search Results - " + (keyword != null ? keyword : "") + "</title>");
+            out.println("<link rel='stylesheet' href='css/bootstrap.min.css'>");
+            out.println("<link rel='stylesheet' href='css/font-awesome.min.css'>");
+            out.println("<link rel='stylesheet' href='css/style.css'>");
+            out.println("<style>");
+            out.println("body { background-color: #f5f5f5; font-family: 'Montserrat', sans-serif; }");
+            out.println(".search-container { padding: 40px 0; }");
+            out.println(".search-header { text-align: center; margin-bottom: 40px; }");
+            out.println(".search-header h2 { color: #333; font-size: 32px; margin-bottom: 10px; }");
+            out.println(".search-header p { color: #666; }");
+            out.println(".search-form-container { max-width: 600px; margin: 0 auto 40px; position: relative; }");
+            out.println(".search-input { width: 100%; height: 50px; padding: 0 60px 0 20px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; transition: all 0.3s; }");
+            out.println(".search-input:focus { border-color: #f08632; outline: none; }");
+            out.println(".search-button { position: absolute; right: 5px; top: 5px; height: 40px; width: 50px; border: none; background: #f08632; color: #fff; border-radius: 20px; cursor: pointer; }");
+            out.println(".search-button:hover { background: #e67422; }");
+            out.println(".product-card { background: #fff; border-radius: 10px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); transition: all 0.3s; }");
+            out.println(".product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.15); }");
+            out.println(".product-image { width: 100%; height: 300px; object-fit: cover; }");
+            out.println(".product-info { padding: 20px; }");
+            out.println(".product-name { font-size: 24px; margin-bottom: 15px; color: #333; }");
+            out.println(".product-name a { color: #333; text-decoration: none; transition: all 0.3s; }");
+            out.println(".product-name a:hover { color: #f08632; }");
+            out.println(".product-price { font-size: 24px; color: #f08632; font-weight: bold; margin-bottom: 10px; }");
+            out.println(".product-stock { color: #666; margin-bottom: 15px; }");
+            out.println(".product-description { color: #777; line-height: 1.6; margin-bottom: 20px; }");
+            out.println(".btn-view-details { background: #333; color: #fff; padding: 10px 25px; border-radius: 25px; text-decoration: none; transition: all 0.3s; display: inline-block; }");
+            out.println(".btn-view-details:hover { background: #f08632; color: #fff; }");
+            out.println(".no-results { text-align: center; padding: 50px 20px; }");
+            out.println(".no-results i { font-size: 64px; color: #ddd; margin-bottom: 20px; }");
+            out.println(".no-results h3 { color: #333; margin-bottom: 10px; }");
+            out.println(".no-results p { color: #666; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
             
-            PrintWriter out = response.getWriter();
-            if (productList.isEmpty()) {
-                out.println("<p style='color:red;'>⚠ Không tìm thấy sản phẩm nào.</p>");
-            } else {
-                for (Product product : productList) {
-                    out.println("<div class='col-lg-3 col-md-6 col-sm-6 product-item'>");
-                    out.println("  <div class='product__item'>");
-                    out.println("    <div class='product__item__pic set-bg' data-setbg='img/shop/product-" + product.getProductId() + ".jpg'>");
-                    out.println("      <div class='product__label'><span>Category</span></div>");
-                    out.println("    </div>");
-                    out.println("    <div class='product__item__text'>");
-                    out.println("      <h6><a href='shop-details.jsp?product_id=" + product.getProductId() + "'>" + product.getName() + "</a></h6>");
-                    out.println("      <div class='product__item__price'>$" + product.getPrice() + "</div>");
-                    out.println("      <div class='cart_add'><a href='#'>Add to cart</a></div>");
-                    out.println("    </div>");
-                    out.println("  </div>");
+            // Include header
+            out.println("<jsp:include page='header.jsp'/>");
+            
+            out.println("<div class='search-container'>");
+            out.println("<div class='container'>");
+            
+            // Search header
+            out.println("<div class='search-header'>");
+            out.println("<h2>Search Results</h2>");
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                out.println("<p>Showing results for: \"" + keyword + "\"</p>");
+            }
+            out.println("</div>");
+            
+            // Search form
+            out.println("<div class='search-form-container'>");
+            out.println("<form action='searchne' method='GET'>");
+            out.println("<input type='text' class='search-input' name='keyword' value='" + (keyword != null ? keyword : "") + "' placeholder='Search for products...'>");
+            out.println("<button type='submit' class='search-button'><i class='fa fa-search'></i></button>");
+            out.println("</form>");
+            out.println("</div>");
+            
+            // Search results
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                ProductDAO productDAO = new ProductDAO();
+                List<Product> products = productDAO.searchProductsByName(keyword);
+                
+                if (products.isEmpty()) {
+                    out.println("<div class='no-results'>");
+                    out.println("<i class='fa fa-search'></i>");
+                    out.println("<h3>No products found</h3>");
+                    out.println("<p>Try different keywords or check your spelling</p>");
                     out.println("</div>");
-                }}
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    out.println("<div class='row'>");
+                    for (Product product : products) {
+                        out.println("<div class='col-lg-6 col-md-6'>");
+                        out.println("<div class='product-card'>");
+                        out.println("<div class='row no-gutters'>");
+                        out.println("<div class='col-md-6'>");
+                        out.println("<img src='" + product.getProductImg() + "' alt='" + product.getName() + "' class='product-image'>");
+                        out.println("</div>");
+                        out.println("<div class='col-md-6'>");
+                        out.println("<div class='product-info'>");
+                        out.println("<h3 class='product-name'><a href='shop-details.jsp?product_id=" + product.getProductId() + "'>" + product.getName() + "</a></h3>");
+                        out.println("<div class='product-price'>$" + String.format("%.2f", product.getPrice()) + "</div>");
+                        out.println("<div class='product-stock'><i class='fa fa-cube'></i> " + product.getStock() + " in stock</div>");
+                        out.println("<p class='product-description'>" + product.getDescription() + "</p>");
+                        out.println("<a href='shop-details.jsp?product_id=" + product.getProductId() + "' class='btn-view-details'>View Details</a>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("</div>");
+                    }
+                    out.println("</div>");
+                }
+            }
+            
+            out.println("</div>");
+            out.println("</div>");
+            
+            // Include footer
+            out.println("<jsp:include page='footer.jsp'/>");
+            
+            // Scripts
+            out.println("<script src='js/jquery-3.3.1.min.js'></script>");
+            out.println("<script src='js/bootstrap.min.js'></script>");
+            out.println("<script src='js/main.js'></script>");
+            
+            out.println("</body>");
+            out.println("</html>");
+        } catch (Exception e) {
+            response.getWriter().println("<div class='alert alert-danger'>An error occurred while searching</div>");
         }
-}
+    }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Search Servlet handles product search functionality";
     }
 }
+
+

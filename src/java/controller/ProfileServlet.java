@@ -113,6 +113,8 @@ public class ProfileServlet extends HttpServlet {
                 e.printStackTrace();
                 request.setAttribute("error", "Lỗi cơ sở dữ liệu khi xử lý yêu cầu");
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             response.sendRedirect("profile");
@@ -120,7 +122,7 @@ public class ProfileServlet extends HttpServlet {
     }
 
     private void handleUpdateProfile(HttpServletRequest request, HttpServletResponse response, int customerId)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         request.setCharacterEncoding("UTF-8");
         
         // Lấy dữ liệu từ form
@@ -171,20 +173,14 @@ public class ProfileServlet extends HttpServlet {
         existingCustomer.setPhone(phone);
         existingCustomer.setAddress(address);
 
-        try {
-            // Cập nhật thông tin vào database
-            if (customerDAO.updateCustomer(existingCustomer)) {
-                // Cập nhật session với thông tin mới
-                request.getSession().setAttribute("customer", existingCustomer);
-                request.setAttribute("success", "Cập nhật thông tin thành công");
-                response.sendRedirect("profile");
-            } else {
-                request.setAttribute("error", "Không thể cập nhật thông tin");
-                doGet(request, response);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Đã xảy ra lỗi khi cập nhật thông tin: " + e.getMessage());
+        // Cập nhật thông tin vào database
+        if (customerDAO.updateCustomer(existingCustomer)) {
+            // Cập nhật session với thông tin mới
+            request.getSession().setAttribute("customer", existingCustomer);
+            request.setAttribute("success", "Cập nhật thông tin thành công");
+            response.sendRedirect("profile");
+        } else {
+            request.setAttribute("error", "Không thể cập nhật thông tin");
             doGet(request, response);
         }
     }
