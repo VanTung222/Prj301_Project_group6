@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Product"%> <%@ page import="java.util.List" %> <%@ page
     import="model.Review" %> <%@ page import="controller.ReviewServlet" %> <%@ page
 import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,6 +42,10 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
             </head>
 
             <body>
+            <p>Debug - Username: ${sessionScope.username}</p>
+<p>Debug - Role: ${sessionScope.role}</p>
+
+
                 <div id="preloder">
                     <div class="loader"></div>
                 </div>
@@ -58,7 +63,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
           String profileLink = "login.jsp"; if (sessionObj != null) { username =
           (String) sessionObj.getAttribute("username"); if (username != null) {
           heartLink = "wishlist"; cartLink = "shopping-cart.jsp"; profileLink =
-          "profile"; } }%> %>
+          "profile";  } }%> %>
                             <a href="<%= heartLink%>"
                                ><img src="img/icon/heart.png" alt="Wishlist"
                                   /></a>
@@ -76,44 +81,39 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                     <div id="mobile-menu-wrap"></div>
                     <div class="offcanvas__option">
                         <ul>
-                            <li>
-                                <span>USD</span> <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span>ENG</span> <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li>Spanish</li>
-                                    <li>ENG</li>
-                                </ul>
-                            </li>
-                            <% if (username != null) { %>
-                            <li>
-                                <form
-                                    action="LogoutServlet"
-                                    method="post"
-                                    style="margin: 0; padding: 0"
-                                    >
-                                    <button
-                                        type="submit"
-                                        style="
-                                        background: none;
-                                        border: none;
-                                        color: #fff;
-                                        cursor: pointer;
-                                        padding: 8px 15px;
-                                        "
-                                        >
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
-                            <% } else { %>
-                            <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
-                                <% }%>
+     
+
+
+        <!-- Kiểm tra nếu user đã đăng nhập -->
+        <c:if test="${sessionScope.username != null}">
+            <li>
+                <span>USD</span> <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
+            </li>
+            <li>
+                <span>ENG</span> <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li>Spanish</li>
+                    <li>ENG</li>
+                </ul>
+            </li>
+            <li>
+                <form action="LogoutServlet" method="post" style="margin: 0; padding: 0">
+                    <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </c:if>
+
+        <!-- Nếu user chưa đăng nhập, hiển thị nút Sign In -->
+        <c:if test="${sessionScope.username == null}">
+            <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+        </c:if>
+                                
                         </ul>
                     </div>
                 </div>
@@ -139,9 +139,17 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                                         <i class="fa fa-heart"></i>
                                                     </a>
                                                 </li>
+                                             <c:if test="${sessionScope.username != null and sessionScope.role eq 0}">
+    <li class="nav-item">
+        <a class="nav-link" href="dashboard.jsp">Dashboard</a>
+    </li>
+</c:if>
+
+
+
                                             </ul>
                                         </div>
-
+                                           
                                         <!-- Center - Logo -->
                                         <div class="header__logo">
                                             <a href="./index.jsp">
@@ -161,7 +169,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                                     Cart: <span>$0.00</span>
                                                 </div>
                                             </div>
-
+                                            
                                             <!-- User Menu -->
                                             <div class="header__top__right__links">
                                                 <% if (username != null) {%>
@@ -197,7 +205,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                 <i class="fa fa-bars"></i>
                             </div>
                         </div>
-                    </div>
+                    </div>"
 
                     <!-- Main Navigation -->
                     <div class="container">
