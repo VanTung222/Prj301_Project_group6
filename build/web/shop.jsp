@@ -55,7 +55,7 @@
                                         = (String) sessionObj.getAttribute("username");
                                 if (username != null) {
                                     heartLink = "wishlist";
-                                    cartLink = "shoping-cart.html";
+                                    cartLink = "shopping-cart.jsp";
                                     profileLink
                                             = "profile";
                                 }
@@ -211,7 +211,7 @@
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shopping Cart</a></li>
+                                        <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
                                         <li><a href="./checkout.html">Check Out</a></li>
                                         <li><a href="./wishlist.html">Wishlist</a></li>
                                         <li><a href="./class.html">Class</a></li>
