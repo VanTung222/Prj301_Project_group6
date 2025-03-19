@@ -57,7 +57,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
           = null; String heartLink = "login.jsp"; String cartLink = "login.jsp";
           String profileLink = "login.jsp"; if (sessionObj != null) { username =
           (String) sessionObj.getAttribute("username"); if (username != null) {
-          heartLink = "wishlist"; cartLink = "shoping-cart.html"; profileLink =
+          heartLink = "wishlist"; cartLink = "shopping-cart.jsp"; profileLink =
           "profile"; } }%> %>
                             <a href="<%= heartLink%>"
                                ><img src="img/icon/heart.png" alt="Wishlist"
@@ -153,7 +153,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                         <div class="header__top__right">
                                             <!-- Cart -->
                                             <div class="header__top__right__cart">
-                                                <a href="./shoping-cart.html"
+                                                <a href="<%= cartLink%>"
                                                    ><img src="img/icon/cart.png" alt="" />
                                                     <span id="cartCount">0</span></a
                                                 >
@@ -212,7 +212,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                             <a href="#">Pages</a>
                                             <ul class="dropdown">
                                                 <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                                <li><a href="./shoping-cart.html">Shopping Cart</a></li>
+                                                <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
                                                 <li><a href="./checkout.html">Check Out</a></li>
                                                 <li><a href="./wishlist.html">Wishlist</a></li>
                                                 <li><a href="./class.html">Class</a></li>
@@ -905,6 +905,6 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                 <script src="js/jquery.nicescroll.min.js"></script>
                 <script src="js/main.js"></script>
                 <script src="js/script_search.js"></script>
-    <script src="js/cart.js"></script>
+                <script src="js/cart.js"></script>
             </body>
         </html>

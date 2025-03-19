@@ -72,11 +72,23 @@ public class CartServlet extends HttpServlet {
                 cartDAO.removeFromCart(customerId, productId);
             } else if ("update".equals(action)) {
                 cartDAO.updateCart(customerId, productId, quantity);
+            } else {
+                throw new IllegalArgumentException("Invalid action: " + action);
             }
             JSONObject cartData = getCartData(customerId);
             out.print(cartData.toString());
         } catch (SQLException | ClassNotFoundException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error: " + e.getMessage());
+            JSONObject error = new JSONObject();
+            error.put("error", e.getMessage());
+            out.print(error.toString());
+        } catch (IllegalArgumentException e) {
+            JSONObject error = new JSONObject();
+            error.put("error", e.getMessage());
+            out.print(error.toString());
+        } catch (Exception e) {
+            JSONObject error = new JSONObject();
+            error.put("error", "An unexpected error occurred");
+            out.print(error.toString());
         }
     }
 

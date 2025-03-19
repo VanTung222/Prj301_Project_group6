@@ -69,24 +69,35 @@ public class CartDAO {
 
     public void updateCart(int customerId, int productId, int quantity) throws ClassNotFoundException {
         try (Connection conn = DBUtils.getConnection()) {
+            // First check if the item exists in cart
+            String checkCartQuery = "SELECT Quantity FROM Shopping_Cart WHERE Customer_ID = ? AND Product_ID = ?";
+            PreparedStatement checkCartStmt = conn.prepareStatement(checkCartQuery);
+            checkCartStmt.setInt(1, customerId);
+            checkCartStmt.setInt(2, productId);
+            ResultSet cartRs = checkCartStmt.executeQuery();
+
+            if (!cartRs.next()) {
+                throw new SQLException("Item not found in cart");
+            }
+
+            // Check stock availability
+            String checkStockQuery = "SELECT Stock FROM Product WHERE Product_ID = ?";
+            PreparedStatement checkStockStmt = conn.prepareStatement(checkStockQuery);
+            checkStockStmt.setInt(1, productId);
+            ResultSet stockRs = checkStockStmt.executeQuery();
+
+            if (!stockRs.next()) {
+                throw new SQLException("Product not found");
+            }
+
+            int stock = stockRs.getInt("Stock");
+            if (quantity > stock) {
+                throw new SQLException("Not enough stock available");
+            }
+
             if (quantity <= 0) {
                 removeFromCart(customerId, productId);
             } else {
-                // Check stock availability
-                String checkStockQuery = "SELECT Stock FROM Product WHERE Product_ID = ?";
-                PreparedStatement checkStockStmt = conn.prepareStatement(checkStockQuery);
-                checkStockStmt.setInt(1, productId);
-                ResultSet stockRs = checkStockStmt.executeQuery();
-
-                if (!stockRs.next()) {
-                    throw new SQLException("Product not found");
-                }
-
-                int stock = stockRs.getInt("Stock");
-                if (quantity > stock) {
-                    throw new SQLException("Not enough stock available");
-                }
-
                 String updateCartQuery = "UPDATE Shopping_Cart SET Quantity = ? WHERE Customer_ID = ? AND Product_ID = ?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateCartQuery);
                 updateStmt.setInt(1, quantity);
