@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import org.json.JSONObject;
+import utils.DBUtils;
 
 @WebServlet("/RemoveFromCartServlet")
 public class RemoveFromCartServlet extends HttpServlet {
-    private static final String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=cakeManagement;user=sa;password=Tung@123456789;encrypt=false;trustServerCertificate=true";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -25,7 +24,7 @@ public class RemoveFromCartServlet extends HttpServlet {
         }
         int productId = Integer.parseInt(request.getParameter("id"));
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+        try (Connection conn = DBUtils.getConnection()) {
             String deleteCartQuery = "DELETE FROM Shopping_Cart WHERE Customer_ID = ? AND Product_ID = ?";
             PreparedStatement deleteStmt = conn.prepareStatement(deleteCartQuery);
             deleteStmt.setInt(1, customerId);

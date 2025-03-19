@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("customer", customer); // Lưu đối tượng Customer
                 session.setAttribute("username", customer.getUsername()); // Lưu username để tương thích
-                session.setAttribute("cusId", customer.getCustomerId());
+                session.setAttribute("customerId", customer.getCustomerId());
                 response.sendRedirect("index.jsp");
             } else {
                 request.setAttribute("error", "Invalid username or password!");

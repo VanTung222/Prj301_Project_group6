@@ -9,7 +9,7 @@ public class Product {
     private int productCategoryId;
     private int supplierId;
     private String productImg;
-
+    
     // Constructor đầy đủ
     public Product(int productId, String name, double price, int stock, String description, 
                    int productCategoryId, int supplierId, String productImg) {
@@ -39,6 +39,18 @@ public class Product {
         this.productImg = productImg;
         this.favoriteCount = favoriteCount;
     }
+    
+//    orders
+
+    public Product(int productId, String name, double price, int stock, String description, String productImg) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.description = description;
+        this.productImg = productImg;
+    }
+    
 
     private int favoriteCount; // Để dùng trong Wishlist
 

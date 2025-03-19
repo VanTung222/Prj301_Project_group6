@@ -1,18 +1,17 @@
-
 "use strict";
 
 (function ($) {
   /*------------------
-        Preloader
-    --------------------*/
+     Preloader
+     --------------------*/
   $(window).on("load", function () {
     $(".loader").fadeOut();
     $("#preloder").delay(200).fadeOut("slow");
   });
 
   /*------------------
-        Background Set
-    --------------------*/
+     Background Set
+     --------------------*/
   $(".set-bg").each(function () {
     var bg = $(this).data("setbg");
     $(this).css("background-image", "url(" + bg + ")");
@@ -41,16 +40,16 @@
   });
 
   /*------------------
-		Navigation
-	--------------------*/
+     Navigation
+     --------------------*/
   $(".mobile-menu").slicknav({
     prependTo: "#mobile-menu-wrap",
     allowParentLinks: true,
   });
 
   /*-----------------------
-        Hero Slider
-    ------------------------*/
+     Hero Slider
+     ------------------------*/
   $(".hero__slider").owlCarousel({
     loop: true,
     margin: 0,
@@ -69,8 +68,8 @@
   });
 
   /*--------------------------
-        Categories Slider
-    ----------------------------*/
+     Categories Slider
+     ----------------------------*/
   $(".categories__slider").owlCarousel({
     loop: true,
     margin: 22,
@@ -105,8 +104,8 @@
   });
 
   /*-----------------------------
-        Testimonial Slider
-    -------------------------------*/
+     Testimonial Slider
+     -------------------------------*/
   $(".testimonial__slider").owlCarousel({
     loop: true,
     margin: 0,
@@ -126,8 +125,8 @@
   });
 
   /*---------------------------------
-        Related Products Slider
-    ----------------------------------*/
+     Related Products Slider
+     ----------------------------------*/
   $(".related__products__slider").owlCarousel({
     loop: true,
     margin: 0,
@@ -158,20 +157,20 @@
   });
 
   /*--------------------------
-        Select
-    ----------------------------*/
+     Select
+     ----------------------------*/
   $("select").niceSelect();
 
   /*------------------
-		Magnific
-	--------------------*/
+     Magnific
+     --------------------*/
   $(".video-popup").magnificPopup({
     type: "iframe",
   });
 
   /*------------------
-        Barfiller
-    --------------------*/
+     Barfiller
+     --------------------*/
   $("#bar1").barfiller({
     barColor: "#111111",
     duration: 2000,
@@ -186,8 +185,8 @@
   });
 
   /*------------------
-		Single Product
-	--------------------*/
+     Single Product
+     --------------------*/
   $(".product__details__thumb img").on("click", function () {
     $(".product__details__thumb .pt__item").removeClass("active");
     $(this).addClass("active");
@@ -201,8 +200,8 @@
   });
 
   /*-------------------
-		Quantity change
-	--------------------- */
+     Quantity change
+     --------------------- */
   var proQty = $(".pro-qty");
   proQty.prepend('<span class="dec qtybtn">-</span>');
   proQty.append('<span class="inc qtybtn">+</span>');
@@ -229,3 +228,41 @@
   });
 })(jQuery);
 
+// login
+// Login JavaScript
+function openAuthPopup() {
+  document.getElementById("authPopup").classList.add("show");
+  document.getElementById("popupOverlay").classList.add("show");
+}
+
+function closeAuthPopup() {
+  document.getElementById("authPopup").classList.remove("show");
+  document.getElementById("popupOverlay").classList.remove("show");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const signInButtons = document.querySelectorAll(".sign-in-btn");
+  const container = document.getElementById("container-login");
+  const registerBtn = document.getElementById("register");
+  const loginBtn = document.getElementById("login");
+
+  signInButtons.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      openAuthPopup();
+    });
+  });
+
+  document
+    .getElementById("popupOverlay")
+    .addEventListener("click", closeAuthPopup);
+
+  registerBtn.addEventListener("click", function () {
+    container.classList.add("active");
+  });
+
+  loginBtn.addEventListener("click", function () {
+    container.classList.remove("active");
+  });
+});
+// hết login

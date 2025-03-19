@@ -264,10 +264,16 @@
                         <div class="product__details__option">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="2">
+                                    <input type="number" id="quantity" value="1" min="1" max="<%= product.getStock()%>">
                                 </div>
                             </div>
-                            <a href="#" class="primary-btn">Add to cart</a>
+                            <div class="product__details__cart">
+                                <% if (sessionObj != null && sessionObj.getAttribute("username") != null) { %>
+                                    <a href="#" onclick="addToCartWithQuantity(<%= product.getProductId()%>); return false;" class="primary-btn">Add to cart</a>
+                                <% } else { %>
+                                    <a href="login.jsp" class="primary-btn">Add to cart</a>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1099,6 +1105,36 @@
                                         initializeFavoriteButtons();
                                     });
         </script>
+        <script src="js/cart.js"></script>
+        <script>
+        function addToCartWithQuantity(productId) {
+            const quantity = document.getElementById('quantity').value;
+            fetch('CartServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=add&id=' + productId + '&quantity=' + quantity
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    if (data.error.includes("login")) {
+                        window.location.href = "login.jsp";
+                    } else {
+                        alert(data.error);
+                    }
+                } else {
+                    alert('Product added to cart successfully!');
+                    updateCartDisplay(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error adding product to cart');
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -277,6 +277,7 @@
                             for (Product product : productList) {
                     %>
                     <div class="col-lg-3 col-md-6 col-sm-6">
+                        
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="img/shop/product-<%= product.getProductId()%>.jpg">
                                 <div class="product__label">
@@ -284,17 +285,21 @@
                                 </div>
                             </div>
                             <div class="product__item__text">
-                                <!-- Link sản phẩm đến trang shop-details.jsp -->
                                 <h6><a href="shop-details.jsp?product_id=<%= product.getProductId()%>">
                                         <%= product.getName()%>
                                     </a></h6>
-
                                 <div class="product__item__price">$<%= product.getPrice()%></div>
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <% if (sessionObj != null && sessionObj.getAttribute("username") != null) { %>
+                                        <a href="#" onclick="addToCart(<%= product.getProductId()%>); return false;">Add to cart</a>
+                                    <% } else { %>
+                                        <a href="login.jsp">Add to cart</a>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
+                                
+                                
                     </div>
                     <%
                             }
@@ -429,6 +434,6 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/script_search.js"></script>
-
+        <script src="js/cart.js"></script>
     </body>
 </html>
