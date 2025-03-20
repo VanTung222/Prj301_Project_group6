@@ -18,7 +18,11 @@ CREATE TABLE Customers (
     Role BIT DEFAULT 1
 );
 SELECT * FROM Customers
---------------------------------------------------------------------------------
+
+INSERT INTO Customers (Username, Email, Password, Role) 
+VALUES ('admin1', 'admin1@gmail.com', '123', 0);
+
+
 DROP TABLE Supplier
 -- Supplier Table
 CREATE TABLE Supplier (
@@ -74,53 +78,73 @@ CREATE TABLE Employee (
 DROP TABLE Shopping_Cart
 
 CREATE TABLE Shopping_Cart (
-    Cart_ID INT PRIMARY KEY,
+    Cart_ID INT IDENTITY(1,1) PRIMARY KEY,
     Customer_ID INT,
-	Product_ID INT,
-    Created_Date DATE,
-    Updated_Date DATE,
+    Product_ID INT,
+    Quantity INT DEFAULT 1, -- Thêm ngay từ đầu thay vì ALTER sau
+    Created_Date DATE DEFAULT GETDATE(),
+    Updated_Date DATE DEFAULT GETDATE(),
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
-	FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
 );
+
+SELECT * FROM Shopping_Cart
 
 -- Order Table
 DROP TABLE Orders
-
+SELECT * FROM Orders
+-- Order Table (Đã chỉnh sửa)
 CREATE TABLE Orders (
-    Order_ID INT PRIMARY KEY,
-    Customer_ID INT,
-    Employee_ID INT,
-    Status NVARCHAR(50),
-    Order_Date DATE,
-    Payment_Status NVARCHAR(50),
+    Order_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Customer_ID INT NOT NULL,
+    Employee_ID INT, -- Có thể NULL nếu chưa có nhân viên xử lý
+    Order_Date DATETIME DEFAULT GETDATE(),
+    Total_Amount DECIMAL(10, 2) NOT NULL,
+    Shipping_FirstName NVARCHAR(50) NOT NULL,  -- Tên người nhận
+    Shipping_LastName NVARCHAR(50) NOT NULL,   -- Họ người nhận
+    Shipping_Address NVARCHAR(255) NOT NULL,   -- Địa chỉ giao hàng
+    City NVARCHAR(100) NOT NULL,
+    Country_State NVARCHAR(100) NOT NULL,
+    Postcode NVARCHAR(20) NOT NULL,
+    Phone NVARCHAR(20) NOT NULL,
+    Email NVARCHAR(255) NOT NULL,
+    Order_Notes NVARCHAR(MAX),                 -- Ghi chú đơn hàng
+    Coupon_Code NVARCHAR(50),                  -- Mã giảm giá
+    Discount_Amount DECIMAL(10, 2) DEFAULT 0,  -- Số tiền giảm giá
+	Payment_Method NVARCHAR(50) NOT NULL,      -- Phương thức thanh toán
+    Shipper_ID INT,                            -- ID nhà vận chuyển
+    Estimated_Delivery_Date DATE,              -- Ngày giao hàng dự kiến
+    Status NVARCHAR(50) DEFAULT 'Pending' CHECK (Status IN ('Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled')),
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
-    FOREIGN KEY (Employee_ID) REFERENCES Employee(Employee_ID)
+    FOREIGN KEY (Employee_ID) REFERENCES Employee(Employee_ID),
+    FOREIGN KEY (Shipper_ID) REFERENCES Shipper(Shipper_ID)
 );
 
--- Order Detail Table
-DROP TABLE OrderDetail
+SELECT * FROM Orders
 
-CREATE TABLE OrderDetail (
-    OrderDetail_ID INT PRIMARY KEY,
+-- Order Detail Table (Đổi tên từ OrderDetail cho đồng bộ)
+DROP Table OrderDetail
+CREATE TABLE Order_Details (
+    Order_Detail_ID INT IDENTITY(1,1) PRIMARY KEY,
     Order_ID INT,
     Product_ID INT,
-    Quantity INT,
-    Subtotal DECIMAL(10,2),
-    Delivery_Address NVARCHAR(MAX),
+    Quantity INT CHECK (Quantity > 0),
+    Unit_Price DECIMAL(10, 2) NOT NULL, -- Giá tại thời điểm đặt hàng
+    Subtotal AS (Quantity * Unit_Price), -- Tính tự động
     FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
     FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
 );
 
 -- Payment Table
 DROP TABLE Payment
-
 CREATE TABLE Payment (
-    Payment_ID INT PRIMARY KEY,
+    Payment_ID INT IDENTITY(1,1) PRIMARY KEY,
     Order_ID INT,
     Customer_ID INT,
     Employee_ID INT,
     Amount DECIMAL(10,2),
     Method NVARCHAR(50),
+    Payment_Date DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
     FOREIGN KEY (Employee_ID) REFERENCES Employee(Employee_ID)
@@ -129,17 +153,17 @@ CREATE TABLE Payment (
 -- Review Table
 DROP TABLE Review
 
-CREATE TABLE Review (
+CREATE TABLE Reviews (
     Review_ID INT IDENTITY(1,1) PRIMARY KEY,
-    Customer_ID INT,
-    Product_ID INT,
-    Rating INT CHECK (Rating BETWEEN 1 AND 5),
-    Comment NVARCHAR(MAX),
-    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
-    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+    Product_ID INT NOT NULL,
+    Customer_ID INT NOT NULL,
+    Rating INT NOT NULL CHECK (Rating >= 1 AND Rating <= 5),
+    Comment NVARCHAR(1000) NOT NULL,
+    Review_Date DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
 );
-
-SELECT * FROM Review
+SELECT * FROM Reviews
 
 -- Shipper Table
 DROP TABLE Shipper
@@ -209,6 +233,18 @@ VALUES
 (2, 3),
 (2, 4);
 
-INSERT INTO Review ( Customer_ID, Product_ID, Rating, Comment) VALUES
+INSERT INTO Reviews ( Customer_ID, Product_ID, Rating, Comment) VALUES
 ( 1, 1, 5, N'Sản phẩm rất tốt'),
 ( 2, 2, 4, N'Chất lượng ổn');
+
+
+
+-- Cập nhật ProfilePicture cho bảng Customers
+UPDATE Customers SET ProfilePicture = 'img/team/team-1.jpg' WHERE Customer_ID = 1;
+UPDATE Customers SET ProfilePicture = 'img/team/team-2.jpg' WHERE Customer_ID = 2;
+UPDATE Customers SET ProfilePicture = 'img/team/team-3.jpg' WHERE Customer_ID = 3;
+UPDATE Customers SET ProfilePicture = 'img/team/team-4.jpg' WHERE Customer_ID = 4;
+UPDATE Customers SET ProfilePicture = 'img/team/team-5.jpg' WHERE Customer_ID = 5;
+
+INSERT INTO Shopping_Cart (Customer_ID, Product_ID, Quantity, Created_Date, Updated_Date)
+VALUES (1, 1, 1, '2025-03-18', '2025-03-18')

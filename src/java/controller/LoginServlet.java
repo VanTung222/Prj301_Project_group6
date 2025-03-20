@@ -20,12 +20,12 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Kiểm tra dữ liệu đầu vào
+        // Kiểm tra nếu username hoặc password bị bỏ trống
         if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
             request.setAttribute("error", "Username and password are required!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -38,9 +38,17 @@ public class LoginServlet extends HttpServlet {
 
             if (customer != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("customer", customer); // Lưu đối tượng Customer
-                session.setAttribute("username", customer.getUsername()); // Lưu username để tương thích
+                session.setAttribute("customer", customer);
+                session.setAttribute("username", customer.getUsername());
                 session.setAttribute("customerId", customer.getCustomerId());
+
+                // Lấy role từ database
+                int role = customerDAO.getRoleByCustomerId(customer.getCustomerId());
+                session.setAttribute("role", role);
+
+                // Debug: Kiểm tra giá trị role
+                System.out.println("Login Success: " + username + " | Role: " + role);
+
                 response.sendRedirect("index.jsp");
             } else {
                 request.setAttribute("error", "Invalid username or password!");

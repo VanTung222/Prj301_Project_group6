@@ -69,7 +69,7 @@
                 <span>or use your username password</span>
                 <input type="text" name="username" placeholder="Username" required />
                 <input type="password" name="password" placeholder="Password" required />
-                <a href="#">Forget Your Password?</a>
+                <a href="forgotPassword.jsp">Forget Your Password?</a>
                 <button type="submit">Sign In</button>
             </form>
         </div>

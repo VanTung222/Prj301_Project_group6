@@ -147,7 +147,7 @@ public class CustomerDAO {
                         rs.getString("Address"),
                         rs.getString("Phone"),
                         rs.getDate("Registration_Date"),
-                        rs.getBoolean("Role")
+                        rs.getInt("Role")
                     );
                 }
             }
@@ -182,7 +182,7 @@ public class CustomerDAO {
                         rs.getString("Address"),
                         rs.getString("Phone"),
                         rs.getDate("Registration_Date"),
-                        rs.getBoolean("Role")
+                        rs.getInt("Role")
                     );
                     customerList.add(customer);
                 }
@@ -281,7 +281,7 @@ public class CustomerDAO {
                         rs.getString("Address"),
                         rs.getString("Phone"),
                         rs.getDate("Registration_Date"),
-                        rs.getBoolean("Role")
+                        rs.getInt("Role")
                     );
                     customerList.add(customer);
                 }
@@ -317,7 +317,7 @@ public class CustomerDAO {
                     rs.getString("Address"),
                     rs.getString("Phone"),
                     rs.getDate("Registration_Date"),
-                    rs.getBoolean("Role")
+                    rs.getInt("Role")
                 );
             }
         } catch (Exception e) {
@@ -327,7 +327,24 @@ public class CustomerDAO {
         }
         return null;
     }
-    
+    public int getRoleByCustomerId(int customerId) throws SQLException {
+    int role = 0; // Mặc định là 0 (khách hàng)
+    String sql = "SELECT Role FROM Customers WHERE Customer_ID = ?";
+
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, customerId);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                role = rs.getInt("Role");
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return role;
+}
     public boolean updateProfilePicture(int customerId, String profilePicture) throws SQLException {
         boolean updated = false;
         try {
