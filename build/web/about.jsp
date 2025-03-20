@@ -317,7 +317,7 @@
                                         <img src="img/testimonial/kh_nhi.jpg" alt="" />
                                     </div>
                                     <div class="testimonial__author__text">
-                                        <h5>Trần Tuyết Nhi</h5>
+                                        <h5>Trần Thị Tuyết Nhi</h5>
                                         <span>Viet Nam</span>
                                     </div>
                                 </div>
@@ -438,13 +438,20 @@
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
-                                <h6>Randy Butler</h6>
-                                <span>Decorater</span>
+                                <h6>Trần Văn Tùng</h6>
+                                <span>Leader</span>
                                 <div class="team__item__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.facebook.com/tran.van.tung.232700"
+                                       ><i class="fa fa-facebook"></i
+                                        ></a>
+
+                                    <a href="https://www.instagram.com/tugg_tvt.22/"
+                                       ><i class="fa fa-instagram"></i
+                                        ></a>
+                                    <a
+                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                        ><i class="fa fa-youtube-play"></i
+                                        ></a>
                                 </div>
                             </div>
                         </div>
@@ -452,13 +459,20 @@
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
-                                <h6>Randy Butler</h6>
-                                <span>Decorater</span>
+                                <h6>Phạm Hồng Quân</h6>
+                                <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.facebook.com/quan.edition.9"
+                                       ><i class="fa fa-facebook"></i
+                                        ></a>
+
+                                    <a href="https://www.instagram.com/quannrau2410/"
+                                       ><i class="fa fa-instagram"></i
+                                        ></a>
+                                    <a
+                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                        ><i class="fa fa-youtube-play"></i
+                                        ></a>
                                 </div>
                             </div>
                         </div>
@@ -466,13 +480,20 @@
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
-                                <h6>Randy Butler</h6>
-                                <span>Decorater</span>
+                                <h6>Ngô Sỹ Giá</h6>
+                                <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.facebook.com/ngo.sy.gia.2024"
+                                       ><i class="fa fa-facebook"></i
+                                        ></a>
+
+                                    <a href="https://www.instagram.com/nsg0101/"
+                                       ><i class="fa fa-instagram"></i
+                                        ></a>
+                                    <a
+                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                        ><i class="fa fa-youtube-play"></i
+                                        ></a>
                                 </div>
                             </div>
                         </div>
@@ -480,13 +501,21 @@
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-4.jpg">
                             <div class="team__item__text">
-                                <h6>Randy Butler</h6>
-                                <span>Decorater</span>
+                                <h6>Nguyễn Tiến Đạt</h6>
+                                <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a
+                                        href="https://www.facebook.com/profile.php?id=100051145252263"
+                                        ><i class="fa fa-facebook"></i
+                                        ></a>
+
+                                    <a href="https://www.instagram.com/dat.sieunhan.hihi/"
+                                       ><i class="fa fa-instagram"></i
+                                        ></a>
+                                    <a
+                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                        ><i class="fa fa-youtube-play"></i
+                                        ></a>
                                 </div>
                             </div>
                         </div>
@@ -497,10 +526,17 @@
                                 <h6>Le Quoc Hung</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.facebook.com/LHQ.17G"
+                                       ><i class="fa fa-facebook"></i
+                                        ></a>
+
+                                    <a href="https://www.instagram.com/lqh.17g/"
+                                       ><i class="fa fa-instagram"></i
+                                        ></a>
+                                    <a
+                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
+                                        ><i class="fa fa-youtube-play"></i
+                                        ></a>
                                 </div>
                             </div>
                         </div>

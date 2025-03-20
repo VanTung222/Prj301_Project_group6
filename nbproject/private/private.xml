@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/constant/Iconstant.java</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/UpdateProfileServlet.java</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/web/img/cake.jpg</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/constant/ConfigLoader.java</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/web/img/shop/product-10.jpg</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/web/img/shop/product-12.jpg</file>
+            <file>file:/D:/GIT_Bakery/Project_QHung/web/img/shop/product-11.jpg</file>
+        </group>
     </open-files>
 </project-private>
