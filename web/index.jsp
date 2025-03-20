@@ -52,103 +52,114 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
 
                 <!-- Offcanvas Menu Begin -->
                 <div class="offcanvas-menu-overlay"></div>
-                <div class="offcanvas-menu-wrapper">
-                    <div class="offcanvas__cart">
-                        <div class="offcanvas__cart__links">
-                            <a href="#" class="search-switch"
-                               ><img src="img/icon/search.png" alt="Search"
-                                  /></a>
-          <% HttpSession sessionObj = request.getSession(false); String username
-          = null; String heartLink = "login.jsp"; String cartLink = "login.jsp";
-          String profileLink = "login.jsp"; if (sessionObj != null) { username =
-          (String) sessionObj.getAttribute("username"); if (username != null) {
-          heartLink = "wishlist"; cartLink = "shopping-cart.jsp"; profileLink =
-          "profile";  } }%> %>
-                            <a href="<%= heartLink%>"
-                               ><img src="img/icon/heart.png" alt="Wishlist"
-                                  /></a>
+               <div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__cart">
+        <div class="offcanvas__cart__links">
+            <a href="#" class="search-switch">
+                <img src="img/icon/search.png" alt="Search" />
+            </a>
+
+            <% 
+                HttpSession sessionObj = request.getSession(false); 
+                String username = null; 
+                String heartLink = "login.jsp"; 
+                String cartLink = "login.jsp"; 
+                String profileLink = "login.jsp"; 
+                if (sessionObj != null) { 
+                    username = (String) sessionObj.getAttribute("username"); 
+                    if (username != null) { 
+                        heartLink = "wishlist"; 
+                        cartLink = "shopping-cart.jsp"; 
+                        profileLink = "profile";  
+                    } 
+                }
+            %>
+
+            <a href="<%= heartLink %>">
+                <img src="img/icon/heart.png" alt="Wishlist" />
+            </a>
+        </div>
+
+        <div class="offcanvas__cart__item">
+            <a href="<%= cartLink %>">
+                <img src="img/icon/cart.png" alt="Cart" /> <span>0</span>
+            </a>
+            <div class="cart__price">Cart: <span>$0.00</span></div>
+        </div>
+    </div>
+
+    <div class="offcanvas__logo">
+        <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+    </div>
+
+    <div id="mobile-menu-wrap"></div>
+
+    <div class="offcanvas__option">
+        <ul>
+            <!-- Kiểm tra nếu user đã đăng nhập -->
+            <c:if test="${not empty sessionScope.username}">
+                <li>
+                    <span>USD</span> <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li>EUR</li>
+                        <li>USD</li>
+                    </ul>
+                </li>
+                <li>
+                    <span>ENG</span> <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li>Spanish</li>
+                        <li>ENG</li>
+                    </ul>
+                </li>
+                <li>
+                    <form action="LogoutServlet" method="post" style="margin: 0; padding: 0">
+                        <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </c:if>
+
+            <!-- Nếu user chưa đăng nhập, hiển thị nút Sign In -->
+            <c:if test="${empty sessionScope.username}">
+                <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+            </c:if>
+        </ul>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header__top__inner">
+                        <!-- Left side - Search and Wishlist -->
+                        <div class="header__top__left">
+                            <ul>
+                                <li>
+                                    <a href="#" class="search-switch">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<%= heartLink %>" class="wishlist-link">
+                                        <i class="fa fa-heart"></i>
+                                    </a>
+                                </li>
+
+                                <!-- Kiểm tra nếu user là admin (role == 0) -->
+                                <c:if test="${not empty sessionScope.username and sessionScope.role eq 0}">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="dashboard.jsp">Dashboard</a>
+                                    </li>
+                                </c:if>
+                            </ul>
                         </div>
-                        <div class="offcanvas__cart__item">
-                            <a href="<%= cartLink%>"
-                               ><img src="img/icon/cart.png" alt="Cart" /> <span>0</span></a
-                            >
-                            <div class="cart__price">Cart: <span>$0.00</span></div>
-                        </div>
-                    </div>
-                    <div class="offcanvas__logo">
-                        <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
-                    </div>
-                    <div id="mobile-menu-wrap"></div>
-                    <div class="offcanvas__option">
-                        <ul>
-     
 
-
-        <!-- Kiểm tra nếu user đã đăng nhập -->
-        <c:if test="${sessionScope.username != null}">
-            <li>
-                <span>USD</span> <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-            </li>
-            <li>
-                <span>ENG</span> <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li>Spanish</li>
-                    <li>ENG</li>
-                </ul>
-            </li>
-            <li>
-                <form action="LogoutServlet" method="post" style="margin: 0; padding: 0">
-                    <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; padding: 8px 15px;">
-                        Logout
-                    </button>
-                </form>
-            </li>
-        </c:if>
-
-        <!-- Nếu user chưa đăng nhập, hiển thị nút Sign In -->
-        <c:if test="${sessionScope.username == null}">
-            <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
-        </c:if>
-                                
-                        </ul>
-                    </div>
-                </div>
-                <!-- Offcanvas Menu End -->
-
-                <!-- Header Section Begin -->
-                <header class="header">
-                    <div class="header__top">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="header__top__inner">
-                                        <!-- Left side - Search and Wishlist -->
-                                        <div class="header__top__left">
-                                            <ul>
-                                                <li>
-                                                    <a href="#" class="search-switch">
-                                                        <i class="fa fa-search"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="<%= heartLink%>" class="wishlist-link">
-                                                        <i class="fa fa-heart"></i>
-                                                    </a>
-                                                </li>
-                                             <c:if test="${sessionScope.username != null and sessionScope.role eq 0}">
-    <li class="nav-item">
-        <a class="nav-link" href="dashboard.jsp">Dashboard</a>
-    </li>
-</c:if>
-
-
-
-                                            </ul>
-                                        </div>
                                            
                                         <!-- Center - Logo -->
                                         <div class="header__logo">
