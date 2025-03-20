@@ -18,7 +18,6 @@ import model.Customer;
 
 @WebServlet(name = "AdminServlet", urlPatterns = {"/admin"})
 public class AdminServlet extends HttpServlet {
-
     private AdminDAO adminDAO = new AdminDAO();
 
     @Override
@@ -26,7 +25,7 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String pathInfo = request.getPathInfo();
-
+            
             // Check if admin is logged in
             HttpSession session = request.getSession();
             Admin admin = (Admin) session.getAttribute("admin");
@@ -34,7 +33,7 @@ public class AdminServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin-login.jsp");
                 return;
             }
-
+            
             switch (pathInfo) {
                 case "/dashboard":
                     showDashboard(request, response);
@@ -58,7 +57,7 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
-
+        
         switch (pathInfo) {
             case "/login":
                 handleLogin(request, response);
@@ -100,7 +99,7 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         Admin admin = adminDAO.checkLogin(username, password);
         if (admin != null) {
             HttpSession session = request.getSession();
@@ -116,7 +115,7 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
         boolean success = adminDAO.deleteCustomer(customerId);
-
+        
         if (success) {
             request.setAttribute("success", "Customer deleted successfully");
         } else {
@@ -133,4 +132,4 @@ public class AdminServlet extends HttpServlet {
         }
         response.sendRedirect(request.getContextPath() + "/admin-login.jsp");
     }
-}
+} 

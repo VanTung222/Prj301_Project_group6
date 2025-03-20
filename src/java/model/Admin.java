@@ -1,7 +1,6 @@
 package model;
 
 public class Admin {
-
     private int adminId;
     private String username;
     private String password;
@@ -9,10 +8,10 @@ public class Admin {
     private String fullName;
     private String role;
     private String lastLogin;
-
+    
     public Admin() {
     }
-
+    
     public Admin(int adminId, String username, String password, String email, String fullName, String role, String lastLogin) {
         this.adminId = adminId;
         this.username = username;
@@ -78,4 +77,4 @@ public class Admin {
     public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
     }
-}
+} 
