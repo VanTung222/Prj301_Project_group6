@@ -150,7 +150,7 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                                 <!-- Kiểm tra nếu user là admin (role == 0) -->
                                 <c:if test="${not empty sessionScope.username and sessionScope.role eq 0}">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="dashboard.jsp">Dashboard</a>
+                                        <a class="nav-link" href="  dashboard.jsp">Dashboard</a>
                                     </li>
                                 </c:if>
                             </ul>
