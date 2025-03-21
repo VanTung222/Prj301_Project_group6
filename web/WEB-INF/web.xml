@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- Admin Servlets -->
     <servlet>
         <servlet-name>AdminDashboardServlet</servlet-name>
@@ -12,7 +9,6 @@
         <servlet-name>AdminDashboardServlet</servlet-name>
         <url-pattern>/admin/dashboard</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>AdminProductServlet</servlet-name>
         <servlet-class>controller.AdminProductServlet</servlet-class>
@@ -21,16 +17,6 @@
         <servlet-name>AdminProductServlet</servlet-name>
         <url-pattern>/admin/products</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>AdminOrderServlet</servlet-name>
-        <servlet-class>controller.AdminOrderServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminOrderServlet</servlet-name>
-        <url-pattern>/admin/orders</url-pattern>
-    </servlet-mapping>
-    
     <servlet>
         <servlet-name>AdminCustomerServlet</servlet-name>
         <servlet-class>controller.AdminCustomerServlet</servlet-class>
@@ -39,7 +25,6 @@
         <servlet-name>AdminCustomerServlet</servlet-name>
         <url-pattern>/admin/customers</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>AdminReportServlet</servlet-name>
         <servlet-class>controller.AdminReportServlet</servlet-class>
@@ -48,7 +33,6 @@
         <servlet-name>AdminReportServlet</servlet-name>
         <url-pattern>/admin/reports</url-pattern>
     </servlet-mapping>
-    
     <!-- Security Constraints -->
     <security-constraint>
         <web-resource-collection>
@@ -59,23 +43,18 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
     <error-page>
         <error-code>404</error-code>
         <location>/error/404.jsp</location>
     </error-page>
-    
     <error-page>
         <error-code>500</error-code>
         <location>/error/500.jsp</location>
     </error-page>
-    
-</web-app> 
+</web-app>

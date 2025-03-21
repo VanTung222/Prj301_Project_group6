@@ -120,10 +120,21 @@ CREATE TABLE Orders (
     FOREIGN KEY (Shipper_ID) REFERENCES Shipper(Shipper_ID)
 );
 
-SELECT * FROM Orders
+-- Thêm đơn hàng
+INSERT INTO Orders (Customer_ID, Order_Date, Total_Amount, Shipping_FirstName, Shipping_LastName, 
+                   Shipping_Address, City, Country_State, Postcode, Phone, Email, Order_Notes, 
+                   Coupon_Code, Discount_Amount, Payment_Method, Shipper_ID, Estimated_Delivery_Date, Status)
+VALUES (1, '2025-03-21', 64.00, 'Van', 'Tung', '123 Main St', 'Da Nang', 'Vietnam', '55000', 
+        '0123456789', 'Vantung@gmail.com', 'Please deliver in the morning', NULL, 0.0, 'Cash', 1, 
+        '2025-03-24', 'Pending');
+
+INSERT INTO Order_Details (Order_ID, Product_ID, Quantity, Unit_Price)
+VALUES (1, 1, 2, 32.00); -- Sản phẩm "Dozen Cupcakes" với số lượng 2
+
+SELECT * FROM Order_Details
 
 -- Order Detail Table (Đổi tên từ OrderDetail cho đồng bộ)
-DROP Table OrderDetail
+DROP Table Order_Details
 CREATE TABLE Order_Details (
     Order_Detail_ID INT IDENTITY(1,1) PRIMARY KEY,
     Order_ID INT,

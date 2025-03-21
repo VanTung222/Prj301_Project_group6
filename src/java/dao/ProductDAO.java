@@ -118,4 +118,28 @@ public class ProductDAO {
         }
         return productList;
     }
+
+    // Lấy tổng số sản phẩm
+    public int getTotalProducts() throws SQLException, ClassNotFoundException {
+        Connection conn = DBUtils.getConnection();
+        String sql = "SELECT COUNT(*) as count FROM Product";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("count");
+        }
+        return 0;
+    }
+
+    // Lấy số sản phẩm sắp hết hàng (dưới 10 sản phẩm)
+    public int getLowStockItemsCount() throws SQLException, ClassNotFoundException {
+        Connection conn = DBUtils.getConnection();
+        String sql = "SELECT COUNT(*) as count FROM Product WHERE Stock < 10";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("count");
+        }
+        return 0;
+    }
 }

@@ -464,4 +464,15 @@ public class CustomerDAO {
         }
     }
     
+    // Lấy tổng số khách hàng
+    public int getTotalCustomers() throws SQLException, ClassNotFoundException {
+        Connection conn = DBUtils.getConnection();
+        String sql = "SELECT COUNT(*) as count FROM Customers";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("count");
+        }
+        return 0;
+    }
 }

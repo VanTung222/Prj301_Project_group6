@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
 prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -81,6 +82,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       }
     </style>
   </head>
+  
   <body>
     <div class="container-fluid">
       <div class="row">
@@ -88,7 +90,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="col-md-3 col-lg-2 sidebar">
           <div class="text-center mb-4">
             <img
-              src="../img/logo.png"
+              src="img/logo.png"
               alt="Cake Shop Logo"
               style="max-width: 150px"
             />
@@ -100,12 +102,12 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="products.jsp">
+              <a class="nav-link" href="ProductServlet22">
                 <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="admin-orders">
+              <a class="nav-link" href="adminOrder">
                 <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
               </a>
             </li>
@@ -360,4 +362,5 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       });
     </script>
   </body>
+  
 </html>
