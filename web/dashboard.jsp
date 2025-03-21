@@ -1,304 +1,364 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Tiệm Bánh</title>
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Cake Shop</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
     <style>
-        :root {
-            --primary-color: #f08632;
-        }
-        
-        .top-header {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .header-left {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .header-left a {
-            color: #333;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
-        }
-        
-        .logo img {
-            height: 40px;
-            margin-right: 0.5rem;
-        }
-        
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .cart-info {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #333;
-            text-decoration: none;
-        }
-        
-        .cart-info i {
-            font-size: 1.2rem;
-        }
-        
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .logout-btn {
-            padding: 0.5rem 1rem;
-            border: 1px solid #dc3545;
-            color: #dc3545;
-            background: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .logout-btn:hover {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .nav-menu {
-            background: var(--primary-color);
-            padding: 1rem 0;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .nav-menu ul {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
-        }
-        
-        .nav-menu a:hover {
-            opacity: 0.8;
-        }
-
-        .dashboard-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-        }
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-            background: #f08632;
-            color: white;
-        }
-        .table-container {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .table thead th {
-            background: #f08632;
-            color: white;
-            border: none;
-        }
-        .table tbody tr:hover {
-            background-color: rgba(240, 134, 50, 0.1);
-        }
+      :root {
+        --primary-color: #f08632;
+        --secondary-color: #cf6f29;
+        --dark-color: #343a40;
+      }
+      .sidebar {
+        min-height: 100vh;
+        background-color: var(--dark-color);
+        padding-top: 20px;
+      }
+      .sidebar .nav-link {
+        color: #fff;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+      .sidebar .nav-link:hover {
+        background-color: var(--primary-color);
+        transform: translateX(5px);
+      }
+      .sidebar .nav-link.active {
+        background-color: var(--primary-color);
+      }
+      .main-content {
+        padding: 20px;
+        background-color: #f8f9fa;
+      }
+      .stat-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: white;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .stat-card .icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+      .chart-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .user-info {
+        background: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
     </style>
-</head>
-<body>
-    <!-- Top Header -->
-    <header class="top-header">
-        <div class="header-container">
-            <div class="header-left">
-                <a href="#" class="search-link">
-                    <i class="fas fa-search"></i>
-                </a>
-                <a href="#" class="wishlist-link">
-                    <i class="fas fa-heart"></i>
-                </a>
-            </div>
-            
-            <a href="index.jsp" class="logo">
-                <img src="img/logo.png" alt="Cake">
-                
-            </a>
-            
-            <div class="header-right">
-                <a href="#" class="cart-info">
-                    <i class="fas fa-shopping-bag"></i>
-                    Cart: $0.00
-                </a>
-                <div class="profile-section">
-                    <a href="#" class="profile-link">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <form action="LogoutServlet" method="post" style="margin: 0">
-                        <button type="submit" class="logout-btn">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+          <div class="text-center mb-4">
+            <img
+              src="img/logo.png"
+              alt="Cake Shop Logo"
+              style="max-width: 150px"
+            />
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="dashboard.jsp">
+                <i class="fas fa-chart-line me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ProductServlet22">
+                <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-orders">
+                <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="customers.jsp">
+                <i class="fas fa-users me-2"></i> Quản lý Khách hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-reports">
+                <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
+              </a>
+            </li>
+          </ul>
         </div>
-    </header>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-        <div class="nav-container">
-            <ul>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="shop.jsp">Shop</a></li>
-                <li><a href="#">Pages</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content">
+          <!-- Header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Dashboard</h2>
+            <div class="user-info">
+              <span class="me-3">Xin chào, ${sessionScope.username}</span>
+              <a href="LogoutServlet" class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </a>
+            </div>
+          </div>
 
-    <div class="container mt-4">
-        <div class="row">
+          <!-- Statistics Cards -->
+          <div class="row mb-4">
             <div class="col-md-3">
-                <div class="dashboard-card">
-                    <div class="card-icon">
-                        <i class="bi bi-currency-dollar"></i>
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Doanh thu</h6>
+                      <h3 class="card-title mb-0">${totalRevenue}đ</h3>
+                      <small class="text-success">
+                        <i class="fas fa-arrow-up"></i> 12% so với tháng trước
+                      </small>
                     </div>
-                    <h3 class="mb-2">10,000,000 VND</h3>
-                    <p class="text-muted mb-0">Doanh thu hôm nay</p>
+                    <div class="icon">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
             <div class="col-md-3">
-                <div class="dashboard-card">
-                    <div class="card-icon">
-                        <i class="bi bi-cart"></i>
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Đơn hàng</h6>
+                      <h3 class="card-title mb-0">${totalOrders}</h3>
+                      <small class="text-success">
+                        <i class="fas fa-arrow-up"></i> 5 đơn hàng mới
+                      </small>
                     </div>
-                    <h3 class="mb-2">120</h3>
-                    <p class="text-muted mb-0">Số đơn hàng</p>
+                    <div class="icon">
+                      <i class="fas fa-shopping-bag"></i>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
             <div class="col-md-3">
-                <div class="dashboard-card">
-                    <div class="card-icon">
-                        <i class="bi bi-star"></i>
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Khách hàng</h6>
+                      <h3 class="card-title mb-0">${totalCustomers}</h3>
+                      <small class="text-success">
+                        <i class="fas fa-arrow-up"></i> 3 khách hàng mới
+                      </small>
                     </div>
-                    <h3 class="mb-2">Bánh Mousse</h3>
-                    <p class="text-muted mb-0">Sản phẩm bán chạy</p>
+                    <div class="icon">
+                      <i class="fas fa-users"></i>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
             <div class="col-md-3">
-                <div class="dashboard-card">
-                    <div class="card-icon">
-                        <i class="bi bi-exclamation-triangle"></i>
+              <div class="card stat-card">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Sản phẩm</h6>
+                      <h3 class="card-title mb-0">${totalProducts}</h3>
+                      <small class="text-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        ${lowStockItems} sắp hết
+                      </small>
                     </div>
-                    <h3 class="mb-2">Bột mì</h3>
-                    <p class="text-muted mb-0">Nguyên liệu sắp hết</p>
+                    <div class="icon">
+                      <i class="fas fa-birthday-cake"></i>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-        
-        <div class="table-container mt-4">
-            <h3 class="mb-4">Danh sách sản phẩm</h3>
+          </div>
+
+          <!-- Charts -->
+          <div class="row mb-4">
+            <div class="col-md-8">
+              <div class="chart-container">
+                <h5 class="mb-4">Doanh thu theo tháng</h5>
+                <canvas id="revenueChart"></canvas>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="chart-container">
+                <h5 class="mb-4">Phân bố đơn hàng</h5>
+                <canvas id="ordersPieChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders Table -->
+          <div class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="mb-0">Đơn hàng gần đây</h5>
+              <a href="orders.jsp" class="btn btn-primary btn-sm">
+                Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+              </a>
+            </div>
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Đã bán</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Bánh Mousse</td>
-                            <td>50,000 VND</td>
-                            <td>30</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Bánh Su Kem</td>
-                            <td>25,000 VND</td>
-                            <td>50</td>
-                        </tr>
-                    </tbody>
-                </table>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach items="${recentOrders}" var="order">
+                    <tr>
+                      <td>#${order.orderId}</td>
+                      <td>${order.customerName}</td>
+                      <td>${order.orderDate}</td>
+                      <td>${order.totalAmount}đ</td>
+                      <td>
+                        <span class="badge bg-${order.statusColor}"
+                          >${order.status}</span
+                        >
+                      </td>
+                      <td>
+                        <a
+                          href="orders.jsp?id=${order.orderId}"
+                          class="btn btn-sm btn-primary"
+                        >
+                          <i class="fas fa-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.barfiller.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Initialize Charts -->
+    <script>
+      // Revenue Chart
+      const revenueCtx = document
+        .getElementById("revenueChart")
+        .getContext("2d");
+      new Chart(revenueCtx, {
+        type: "bar",
+        data: {
+          labels: [
+            "T1",
+            "T2",
+            "T3",
+            "T4",
+            "T5",
+            "T6",
+            "T7",
+            "T8",
+            "T9",
+            "T10",
+            "T11",
+            "T12",
+          ],
+          datasets: [
+            {
+              label: "Doanh thu (triệu đồng)",
+              data: [65, 59, 80, 81, 56, 55, 40, 88, 96, 67, 71, 92],
+              backgroundColor: "#f08632",
+              borderColor: "#cf6f29",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Orders Pie Chart
+      const ordersCtx = document
+        .getElementById("ordersPieChart")
+        .getContext("2d");
+      new Chart(ordersCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["Hoàn thành", "Đang xử lý", "Đã hủy"],
+          datasets: [
+            {
+              data: [65, 25, 10],
+              backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
