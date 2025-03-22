@@ -1,69 +1,55 @@
 package controller;
 
+import dao.CustomerDAO;
+import model.Customer;
+import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
-@WebServlet("/login") // Đảm bảo action trong login.jsp trỏ đúng URL này
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
-    private static final String JDBC_URL = "jdbc:sqlserver://127.0.0.1:1433;databaseName=cakeManagement;encrypt=false;trustServerCertificate=true";
-    private static final String JDBC_USER = "sa";
-    private static final String JDBC_PASSWORD = "1357910";
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("login.jsp").forward(request, response); // Hiển thị login.jsp khi GET
+    }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Không tìm thấy JDBC Driver.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
-
-        String email = request.getParameter("email");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
-            request.setAttribute("error", "Email và mật khẩu không được để trống.");
+        // Kiểm tra dữ liệu đầu vào
+        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
+            request.setAttribute("error", "Username and password are required!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD); PreparedStatement stmt = conn.prepareStatement("SELECT Customer_ID, Username FROM Customers WHERE Email = ? AND Password = ?")) {
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            Customer customer = customerDAO.checkLogin(username, password);
 
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    int customerId = rs.getInt("Customer_ID");
-                    String username = rs.getString("Username");
-
-                    HttpSession session = request.getSession();
-                    session.setAttribute("customerId", customerId);
-                    session.setAttribute("username", username);
-
-                    response.sendRedirect("index.jsp"); // Điều hướng về trang chính
-                } else {
-                    request.setAttribute("error", "Email hoặc mật khẩu không đúng.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
+            if (customer != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("customer", customer); // Lưu đối tượng Customer
+                session.setAttribute("username", customer.getUsername()); // Lưu username để tương thích
+                session.setAttribute("customerId", customer.getCustomerId());
+                response.sendRedirect("index.jsp");
+            } else {
+                request.setAttribute("error", "Invalid username or password!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // In lỗi chi tiết ra console
-            request.setAttribute("error", "Lỗi hệ thống: " + e.getMessage());
+            e.printStackTrace();
+            request.setAttribute("error", "An error occurred. Please try again!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-
     }
 }

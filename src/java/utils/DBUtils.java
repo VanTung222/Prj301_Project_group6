@@ -2,18 +2,16 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBUtils {
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         String user = "sa";
-        String password = "Tung@123456789";
+        String password = "1357910";
         Connection connection = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://TUNG\\VANTUNG:1433;databaseName=managementSignUp;encrypt=false;trustServerCertificate=true";
+        String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=cakeManagement1;encrypt=false;trustServerCertificate=true";
         connection = DriverManager.getConnection(url, user, password);
         return connection;
     }
