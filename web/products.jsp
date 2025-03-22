@@ -8,43 +8,122 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: #343a40;
-            color: white;
-            position: fixed;
-            padding-top: 20px;
-            left: 0;
-            top: 0;
-        }
-        .sidebar a {
-            color: white;
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background: #495057;
-        }
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-        }
-    </style>
-</head>
-<body>
+         :root {
+        --primary-color: #f08632;
+        --secondary-color: #cf6f29;
+        --dark-color: #343a40;
+      }
+    /* Sidebar */
+      .sidebar {
+        min-height: 100vh;
+        background-color: var(--dark-color);
+        padding-top: 20px;
+      }
+      .sidebar .nav-link {
+        color: #fff;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+      .sidebar .nav-link:hover {
+        background-color: var(--primary-color);
+        transform: translateX(5px);
+      }
+      .sidebar .nav-link.active {
+        background-color: var(--primary-color);
+      }
+      .main-content {
+        padding: 20px;
+        background-color: #f8f9fa;
+      }
+      .stat-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: white;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .stat-card .icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+      .chart-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .user-info {
+        background: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+</style>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <h3 class="text-center"> Cake</h3>
-    <a href="dashboard.jsp"> Dashboard</a>
-    <a href="quanlybanh.jsp"> Quản lý Bánh</a>
-    <a href="quanlydonhang.jsp"> Quản lý Đơn hàng</a>
-    <a href="quanlykhachhang.jsp"> Quản lý Khách hàng</a>
-    <a href="baocaothongke.jsp"> Báo cáo & Thống kê</a>
-</div>
+  <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+          <div class="text-center mb-4">
+            <img
+              src="img/logo.png"
+              alt="Cake Shop Logo"
+              style="max-width: 150px"
+            />
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="dashboard.jsp">
+                <i class="fas fa-chart-line me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ProductServlet22">
+                <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-orders">
+                <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="customers.jsp">
+                <i class="fas fa-users me-2"></i> Quản lý Khách hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-reports">
+                <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content">
+          <!-- Header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Dashboard</h2>
+            <div class="user-info">
+              <span class="me-3">Xin chào, ${sessionScope.username}</span>
+              <a href="LogoutServlet" class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </a>
+            </div>
+          </div>
 
 <!-- Nội dung chính -->
 <div class="content">
