@@ -7,10 +7,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Product;
 
 public class ProductDAO {
+  private Connection conn;
 
+    public ProductDAO() {
+        try {
+            try { 
+                conn = DBUtils.getConnection();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // Lấy tất cả sản phẩm
     public List<Product> getAllProducts() throws SQLException {
         List<Product> productList = new ArrayList<>();
@@ -117,5 +131,50 @@ public class ProductDAO {
             e.printStackTrace();
         }
         return productList;
+    }
+  public boolean addProduct(Product product) {
+        String sql = "INSERT INTO Product (Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, product.getName());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setString(4, product.getDescription());
+            ps.setInt(5, product.getProductCategoryId());
+            ps.setInt(6, product.getSupplierId());
+            ps.setString(7, product.getProductImg());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateProduct(Product product) {
+        String sql = "UPDATE Product SET Name=?, Price=?, Stock=?, Product_Description=?, Product_Category_ID=?, Supplier_ID=?, Product_img=? WHERE Product_ID=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, product.getName());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setString(4, product.getDescription());
+            ps.setInt(5, product.getProductCategoryId());
+            ps.setInt(6, product.getSupplierId());
+            ps.setString(7, product.getProductImg());
+            ps.setInt(8, product.getProductId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteProduct(int id) {
+        String sql = "DELETE FROM Product WHERE Product_ID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
