@@ -364,11 +364,11 @@ public class CustomerDAO {
         return updated;
     }
     
-    public boolean updateCustomer(Customer customer) throws ClassNotFoundException {
+     public boolean updateCustomer(Customer customer) throws ClassNotFoundException {
         boolean success = false;
         Connection conn = null;
         PreparedStatement ps = null;
-        
+
         try {
             conn = DBUtils.getConnection();
             String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
@@ -379,75 +379,15 @@ public class CustomerDAO {
             ps.setString(4, customer.getAddress());
             ps.setString(5, customer.getPhone());
             ps.setInt(6, customer.getCustomerId());
-            
-            int rowsAffected = ps.executeUpdate();
-            success = rowsAffected > 0;
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return success;
-    }
 
-    // Giữ nguyên phương thức updateCustomerProfile của bạn
-    public boolean updateCustomerProfile(
-        int customerId,
-        String username,
-        String email,
-        String firstName,
-        String lastName,
-        String phone,
-        String address,
-        String password
-    ) throws SQLException {
-        boolean updated = false;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql;
-                if (password != null && !password.trim().isEmpty()) {
-                    sql = "UPDATE Customers SET Username=?, Email=?, FirstName=?, LastName=?, Phone=?, Address=?, Password=? WHERE Customer_ID=?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, username);
-                    ps.setString(2, email);
-                    ps.setString(3, firstName);
-                    ps.setString(4, lastName);
-                    ps.setString(5, phone);
-                    ps.setString(6, address);
-                    ps.setString(7, password);
-                    ps.setInt(8, customerId);
-                } else {
-                    sql = "UPDATE Customers SET Username=?, Email=?, FirstName=?, LastName=?, Phone=?, Address=? WHERE Customer_ID=?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, username);
-                    ps.setString(2, email);
-                    ps.setString(3, firstName);
-                    ps.setString(4, lastName);
-                    ps.setString(5, phone);
-                    ps.setString(6, address);
-                    ps.setInt(7, customerId);
-                }
-                updated = ps.executeUpdate() > 0;
-            }
-        } catch (Exception e) {
+            success = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeResources();
         }
-        return updated;
+        return success;
     }
-
     private void closeResources() {
         try {
             if (rs != null) {
