@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="home"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__option">
@@ -129,7 +129,7 @@
                                 </ul>
                             </div>
                             <div class="header__logo">
-                                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                                <a href="home"><img src="img/logo.png" alt=""></a>
                             </div>
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
@@ -152,7 +152,7 @@
                 <div class="col-lg-12">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.jsp">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li><a href="./about.html">About</a></li>
                             <li class="active"><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
+                        <a href="home">Home</a>
                         <a href="./shop.html">Shop</a>
                         <span>Sweet autumn leaves</span>
                     </div>

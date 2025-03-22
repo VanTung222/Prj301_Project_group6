@@ -114,7 +114,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/customers.jsp">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/customers">
                             <i class="fas fa-users me-2"></i> Quản lý Khách hàng
                         </a>
                     </li>

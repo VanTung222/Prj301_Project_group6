@@ -380,21 +380,22 @@ CREATE TABLE Reviews (
 -- Chèn dữ liệu vào bảng Reviews
 INSERT INTO Reviews (Product_ID, Customer_ID, Rating, Comment)
 VALUES 
-(1, 1, 5, 'Sản phẩm tuyệt vời, chất lượng tốt!'),
-(2, 1, 4, 'Sản phẩm ok, giá hợp lý nhưng giao hàng lâu.'),
-(3, 2, 3, 'Chất lượng sản phẩm chưa ổn, hy vọng cải thiện.'),
-(4, 3, 5, 'Mua lần thứ hai, rất hài lòng với sản phẩm này!'),
-(5, 1, 2, 'Sản phẩm không như quảng cáo, thất vọng!'),
-(1, 2, 4, 'Sản phẩm chất lượng tốt, sẽ mua lại!'),
-(2, 3, 5, 'Rất hài lòng, chất lượng vượt mong đợi.'),
-(3, 1, 3, 'Không như mong đợi, có thể cải thiện.'),
-(4, 2, 4, 'Sản phẩm ổn, giao hàng nhanh chóng!'),
-(5, 3, 1, 'Quá tệ, tôi không bao giờ mua lại sản phẩm này.'),
-(1, 3, 5, 'Sản phẩm tuyệt vời, đáng mua!'),
-(2, 2, 3, 'Chất lượng sản phẩm vừa phải, giá hơi cao.'),
-(3, 3, 2, 'Không như quảng cáo, không đáng tiền.'),
-(4, 1, 4, 'Sản phẩm tốt, nhưng cần cải thiện bao bì.'),
-(5, 2, 3, 'Tôi không hài lòng, sản phẩm không đúng mô tả.');
+(1, 1, 5, N'Sản phẩm tuyệt vời, chất lượng tốt!'),
+(2, 1, 4, N'Sản phẩm ok, giá hợp lý nhưng giao hàng lâu.'),
+(3, 2, 3, N'Chất lượng sản phẩm chưa ổn, hy vọng cải thiện.'),
+(4, 3, 5, N'Mua lần thứ hai, rất hài lòng với sản phẩm này!'),
+(5, 1, 2, N'Sản phẩm không như quảng cáo, thất vọng!'),
+(1, 2, 4, N'Sản phẩm chất lượng tốt, sẽ mua lại!'),
+(2, 3, 5, N'Rất hài lòng, chất lượng vượt mong đợi.'),
+(3, 1, 3, N'Không như mong đợi, có thể cải thiện.'),
+(4, 2, 4, N'Sản phẩm ổn, giao hàng nhanh chóng!'),
+(5, 3, 1, N'Quá tệ, tôi không bao giờ mua lại sản phẩm này.'),
+(1, 3, 5, N'Sản phẩm tuyệt vời, đáng mua!'),
+(2, 2, 3, N'Chất lượng sản phẩm vừa phải, giá hơi cao.'),
+(3, 3, 2, N'Không như quảng cáo, không đáng tiền.'),
+(4, 1, 4, N'Sản phẩm tốt, nhưng cần cải thiện bao bì.'),
+(5, 2, 3, N'Tôi không hài lòng, sản phẩm không đúng mô tả.');
+
 
 -- Kiểm tra dữ liệu bảng Reviews
 SELECT * FROM Reviews;

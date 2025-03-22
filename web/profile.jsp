@@ -250,7 +250,7 @@
                             <i class="bi bi-telephone-fill me-2"></i><%= phone%>
                         </p>
                         <div class="d-flex gap-3 flex-wrap" id="profile-actions">
-                            <a href="index.jsp" class="btn btn-light btn-lg">
+                            <a href="home" class="btn btn-light btn-lg">
                                 <i class="bi bi-house-door-fill me-2"></i>Trở về trang chủ
                             </a>
                             <button type="button" class="btn btn-light btn-lg" onclick="toggleEditForm()">

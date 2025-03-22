@@ -3,16 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/AdminOrderServlet.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/ProfileServlet.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/model/OrderDetail.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/ProductServlet.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/model/Order.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/ProductController.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/dao/CustomerDAO.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/products.jsp</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/AdminOrderServlet.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/WEB-INF/web.xml</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/dao/OrderDAO.java</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/dao/ProductDAO.java</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/index.jsp</file>
-            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/model/Product.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/dao/ProductDAO.java</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/orders.jsp</file>
+            <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/web/dashboard.jsp</file>
             <file>file:/D:/Specialization4/PRJ301/Project_Prj301_Group6_Netbeans_test/src/java/controller/AdminDashboardServlet.java</file>
         </group>
     </open-files>

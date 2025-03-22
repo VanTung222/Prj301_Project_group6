@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             if (role == 0) { // Giả sử 1 là role của admin
                 response.sendRedirect("dashboard");
             } else {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("home");
             }
         } else {
             request.setAttribute("error", "Invalid username or password!");

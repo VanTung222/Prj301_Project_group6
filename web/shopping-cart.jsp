@@ -76,7 +76,7 @@ sess.getAttribute("customer"); List<CartItem>
           </div>
         </div>
         <div class="offcanvas__logo">
-          <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+          <a href="home"><img src="img/logo.png" alt="Logo" /></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__option">
@@ -149,7 +149,7 @@ sess.getAttribute("customer"); List<CartItem>
 
                   <!-- Center - Logo -->
                   <div class="header__logo">
-                    <a href="./index.jsp">
+                    <a href="home">
                       <img src="img/logo.png" alt="Cake Shop Logo" />
                     </a>
                   </div>
@@ -210,7 +210,7 @@ sess.getAttribute("customer"); List<CartItem>
             <div class="col-lg-12">
               <nav class="header__menu mobile-menu">
                 <ul>
-                  <li class="active"><a href="./index.jsp">Home</a></li>
+                  <li class="active"><a href="home">Home</a></li>
                   <li><a href="./about.html">About</a></li>
                   <li><a href="./shop.jsp">Shop</a></li>
                   <li>
@@ -240,7 +240,7 @@ sess.getAttribute("customer"); List<CartItem>
           <div class="row">
             <div class="col-lg-12">
               <div class="breadcrumb__links">
-                <a href="./index.jsp"><i class="fa fa-home"></i> Home</a>
+                <a href="home"><i class="fa fa-home"></i> Home</a>
                 <span>Shopping Cart</span>
               </div>
             </div>

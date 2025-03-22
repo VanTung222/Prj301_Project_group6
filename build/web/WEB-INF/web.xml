@@ -9,6 +9,7 @@
         <servlet-name>AdminDashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
+   
     <servlet>
         <servlet-name>AdminProductServlet</servlet-name>
         <servlet-class>controller.AdminProductServlet</servlet-class>
@@ -46,9 +47,6 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
         <location>/error/404.jsp</location>

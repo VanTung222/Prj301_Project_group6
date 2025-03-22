@@ -104,7 +104,7 @@ public class ProfileServlet extends HttpServlet {
 
         Customer currentCustomer = (Customer) session.getAttribute("customer");
         int customerId = currentCustomer.getCustomerId();
-
+        
         String action = request.getParameter("action");
         if ("update-profile".equals(action)) {
             try {

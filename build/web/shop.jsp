@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="offcanvas__logo">
-                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                <a href="home"><img src="img/logo.png" alt="Logo" /></a>
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__option">
@@ -145,7 +145,7 @@
 
                                 <!-- Center - Logo -->
                                 <div class="header__logo">
-                                    <a href="./index.jsp">
+                                    <a href="home">
                                         <img src="img/logo.png" alt="Cake Shop Logo" />
                                     </a>
                                 </div>
@@ -204,7 +204,7 @@
                     <div class="col-lg-12">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="./index.jsp">Home</a></li>
+                                <li><a href="home">Home</a></li>
                                 <li><a href="./about.html">About</a></li>
                                 <li><a href="./shop.jsp">Shop</a></li>
                                 <li>
