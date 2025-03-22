@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 public class Customer {
+
     private int customerId;
     private String googleId;
     private String username;
@@ -17,9 +18,9 @@ public class Customer {
     private int role; // 1: user, 0: admin
 
     // Constructor đầy đủ
-    public Customer(int customerId, String googleId, String username, String email, String firstName, 
-                    String lastName, String password, String profilePicture, String address, 
-                    String phone, Date registrationDate, int role) {
+    public Customer(int customerId, String googleId, String username, String email, String firstName,
+            String lastName, String password, String profilePicture, String address,
+            String phone, Date registrationDate, int role) {
         this.customerId = customerId;
         this.googleId = googleId;
         this.email = email;
@@ -34,8 +35,6 @@ public class Customer {
         this.role = role;
     }
 
-    
-
     // Constructor tối thiểu cho đăng nhập
     public Customer(int customerId, String username, String email, String password) {
         this.customerId = customerId;
@@ -43,48 +42,94 @@ public class Customer {
         this.email = email;
         this.password = password;
     }
-    
-    // Phương thức lấy họ tên đầy đủ
-    public String getFullName() {
-        if (firstName == null && lastName == null) return username;
-        if (firstName == null) return lastName;
-        if (lastName == null) return firstName;
-        return firstName + " " + lastName;
+
+    public int getCustomerId() {
+        return customerId;
     }
 
-    // Getters và Setters
-    public int getCustomerId() { return customerId; }
-    public void setCustomerId(int customerId) { this.customerId = customerId; }
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
-    public String getGoogleId() { return googleId; }
-    public void setGoogleId(String googleId) { this.googleId = googleId; }
+    public String getGoogleId() {
+        return googleId;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getProfilePicture() { return profilePicture; }
-    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public Date getRegistrationDate() { return registrationDate; }
-    public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
     public int getRole() {
         return role;
@@ -99,5 +144,4 @@ public class Customer {
         return "Customer{" + "customerId=" + customerId + ", googleId=" + googleId + ", username=" + username + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", profilePicture=" + profilePicture + ", address=" + address + ", phone=" + phone + ", registrationDate=" + registrationDate + ", role=" + role + '}';
     }
 
-   
 }

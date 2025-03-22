@@ -728,7 +728,7 @@
                                                 <img src="img/testimonial/kh_nhi.jpg" alt="" />
                                             </div>
                                             <div class="testimonial__author__text">
-                                                <h5>Trần Tuyết Nhi</h5>
+                                                <h5>Trần Thị Tuyết Nhi</h5>
                                                 <span>Viet Nam</span>
                                             </div>
                                         </div>

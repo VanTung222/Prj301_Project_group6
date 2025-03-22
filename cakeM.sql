@@ -1,6 +1,6 @@
-﻿drop database cakeManagement
-CREATE DATABASE cakeManagement
-USE cakeManagement
+﻿drop database managerCake
+CREATE DATABASE managerCake
+USE managerCake
 
 DROP TABLE Customers
 CREATE TABLE Customers (
@@ -248,3 +248,16 @@ UPDATE Customers SET ProfilePicture = 'img/team/team-5.jpg' WHERE Customer_ID = 
 
 INSERT INTO Shopping_Cart (Customer_ID, Product_ID, Quantity, Created_Date, Updated_Date)
 VALUES (1, 1, 1, '2025-03-18', '2025-03-18')
+
+INSERT INTO Customers (GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role)
+VALUES
+  (NULL, 'john.doe@example.com', 'john_doe', 'John', 'Doe', 'password123', NULL, '123 Main St, City', '1234567890', '2025-03-21', 1),
+  (NULL, 'jane.doe@example.com', 'jane_doe', 'Jane', 'Doe', 'password456', NULL, '456 Elm St, City', '0987654321', '2025-03-21', 1),
+  (NULL, 'alice@example.com', 'alice', 'Alice', 'Smith', 'alicepwd', NULL, '789 Pine St, City', '1112223333', '2025-03-21', 1),
+  (NULL, 'bob@example.com', 'bob', 'Bob', 'Johnson', 'bobpwd', NULL, '321 Oak St, City', '2223334444', '2025-03-21', 1),
+  (NULL, 'charlie@example.com', 'charlie', 'Charlie', 'Brown', 'charliepwd', NULL, '654 Maple St, City', '3334445555', '2025-03-21', 1),
+  (NULL, 'david@example.com', 'david', 'David', 'Williams', 'davidpwd', NULL, '987 Cedar St, City', '4445556666', '2025-03-21', 1),
+  (NULL, 'emma@example.com', 'emma', 'Emma', 'Jones', 'emmapwd', NULL, '135 Spruce St, City', '5556667777', '2025-03-21', 1),
+  (NULL, 'frank@example.com', 'frank', 'Frank', 'Miller', 'frankpwd', NULL, '246 Birch St, City', '6667778888', '2025-03-21', 1),
+  (NULL, 'grace@example.com', 'grace', 'Grace', 'Davis', 'gracepwd', NULL, '357 Walnut St, City', '7778889999', '2025-03-21', 1),
+  (NULL, 'henry@example.com', 'henry', 'Henry', 'Wilson', 'henrypwd', NULL, '468 Chestnut St, City', '8889990000', '2025-03-21', 1);
