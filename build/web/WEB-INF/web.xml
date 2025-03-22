@@ -7,7 +7,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardServlet</servlet-name>
-        <url-pattern>/admin/dashboard</url-pattern>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminProductServlet</servlet-name>
@@ -15,7 +15,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminProductServlet</servlet-name>
-        <url-pattern>/admin/products</url-pattern>
+        <url-pattern>/products</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminCustomerServlet</servlet-name>
@@ -23,7 +23,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminCustomerServlet</servlet-name>
-        <url-pattern>/admin/customers</url-pattern>
+        <url-pattern>/customers</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminReportServlet</servlet-name>
@@ -31,7 +31,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminReportServlet</servlet-name>
-        <url-pattern>/admin/reports</url-pattern>
+        <url-pattern>/reports</url-pattern>
     </servlet-mapping>
     <!-- Security Constraints -->
     <security-constraint>

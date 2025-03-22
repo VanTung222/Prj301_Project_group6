@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 
             // Kiểm tra role để chuyển hướng
             if (role == 0) { // Giả sử 1 là role của admin
-                response.sendRedirect("dashboard.jsp");
+                response.sendRedirect("dashboard");
             } else {
                 response.sendRedirect("index.jsp");
             }
