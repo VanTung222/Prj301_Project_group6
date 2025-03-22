@@ -4,9 +4,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Review" %>
 <%@ page import="controller.ReviewServlet" %>
+
+
+
+
 <%
     // Check session
     HttpSession sessionObj = request.getSession(false);
+
     if (sessionObj == null || sessionObj.getAttribute("customer") == null) {
         response.sendRedirect("login.jsp");
         return;
@@ -18,7 +23,7 @@
         response.sendRedirect("login.jsp");
         return;
     }
-
+        Customer currentUser = (sessionObj != null) ? (Customer) sessionObj.getAttribute("loggedInUser") : null;
     // Get customer info
     String username = customer.getUsername();
     String email = customer.getEmail();
@@ -367,7 +372,7 @@
                     <!-- Edit Mode -->
                     <div class="info-card mb-4 edit-form-container" id="edit-mode">
                         <h5 class="card-title mb-4">Chỉnh sửa thông tin cá nhân</h5>
-                        <form action="profile" method="post" class="needs-validation" novalidate>
+                        <form action="editProfile" method="post" class="needs-validation" novalidate>
                             <input type="hidden" name="action" value="update-profile" />
                             <input type="hidden" name="customerId" value="<%= customer.getCustomerId()%>" />
 
@@ -381,51 +386,41 @@
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Email <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
-                                    <input type="email" class="form-control" name="email" value="<%= email%>" required 
-                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-                                    <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
+                                  <input type="email" name="email" value="<%= currentUser.getEmail() %>" required><br>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Họ <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="firstName" value="<%= firstName%>" required 
-                                           pattern="^[A-Za-zÀ-ỹ\s]{2,}$" />
-                                    <div class="invalid-feedback">Họ phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
+                                <input type="text" name="firstName" value="<%= currentUser.getFirstName() %>"><br>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Tên <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="lastName" value="<%= lastName%>" required 
-                                           pattern="^[A-Za-zÀ-ỹ\s]{2,}$" />
-                                    <div class="invalid-feedback">Tên phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
+                                             <input type="text" name="lastName" value="<%= currentUser.getLastName() %>"><br>
+
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Số điện thoại <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
-                                    <input type="tel" class="form-control" name="phone" value="<%= phone%>" 
-                                           pattern="(84|0[3|5|7|8|9])+([0-9]{8})" required />
-                                    <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 84 hoặc 03, 05, 07, 08, 09)</div>
+                                   <input type="text" name="phone" value="<%= currentUser.getPhone() %>"><br>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-3"><label class="info-label mb-0">Địa chỉ <span class="text-danger">*</span></label></div>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" name="address" rows="3" required minlength="10"><%= address%></textarea>
-                                    <div class="invalid-feedback">Địa chỉ phải có ít nhất 10 ký tự</div>
+                                         <input type="text" name="address" value="<%= currentUser.getAddress() %>"><br>
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-end gap-2">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-check-circle me-2"></i>Lưu thay đổi
-                                </button>
+                               <input type="submit" value="Cập nhật">
                                 <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">
                                     <i class="bi bi-x-circle me-2"></i>Hủy
                                 </button>

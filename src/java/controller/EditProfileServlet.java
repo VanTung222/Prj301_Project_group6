@@ -45,6 +45,6 @@ public class EditProfileServlet extends HttpServlet {
             e.printStackTrace();
             session.setAttribute("errorMessage", "Lỗi hệ thống! Vui lòng thử lại sau.");
         }
-        response.sendRedirect("profile111.jsp");
+        response.sendRedirect("profile.jsp");
     }
 }
