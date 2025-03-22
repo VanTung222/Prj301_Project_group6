@@ -255,38 +255,38 @@
     </head>
     <body>
         <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="index.jsp" class="brand mb-4">
-                <img
-              src="img/logo.png"
-              alt="Cake Shop Logo"
-              style="max-width: 150px"
-            />
-                <span></span>
-            </a>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="dashboard.jsp">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" href="ProductServlet22">
-                    <i class="fas fa-birthday-cake"></i>
-                    <span>Quản lý Bánh</span>
-                </a>
-                <a class="nav-link" href="orders.jsp">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Quản lý Đơn hàng</span>
-                </a>
-                <a class="nav-link active" href="customers.jsp">
-                    <i class="fas fa-users"></i>
-                    <span>Quản lý Khách hàng</span>
-                </a>
-                <a class="nav-link" href="reports.jsp">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Báo cáo & Thống kê</span>
-                </a>
-            </nav>
-        </div>
+        <div class="col-md-3 col-lg-2 sidebar">
+                <div class="text-center mb-4">
+                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="Cake Shop Logo" style="max-width: 150px" />
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/dashboard">
+                            <i class="fas fa-chart-line me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
+                            <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/adminOrder">
+                            <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
+                            <i class="fas fa-users me-2"></i> Quản lý Khách hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
+                            <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
         <!-- Main Content -->
         <div class="main-content">

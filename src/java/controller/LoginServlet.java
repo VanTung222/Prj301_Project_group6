@@ -23,41 +23,45 @@ public class LoginServlet extends HttpServlet {
      protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    String password = request.getParameter("password");
 
-        // Kiểm tra nếu username hoặc password bị bỏ trống
-        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
-            request.setAttribute("error", "Username and password are required!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
+    if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
+        request.setAttribute("error", "Username and password are required!");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;
+    }
 
-        try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            Customer customer = customerDAO.checkLogin(username, password);
+    try {
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.checkLogin(username, password);
 
-            if (customer != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("customer", customer);
-                session.setAttribute("username", customer.getUsername());
-                session.setAttribute("customerId", customer.getCustomerId());
+        if (customer != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("customer", customer);
+            session.setAttribute("username", customer.getUsername());
+            session.setAttribute("customerId", customer.getCustomerId());
 
-                // Lấy role từ database
-                int role = customerDAO.getRoleByCustomerId(customer.getCustomerId());
-                session.setAttribute("role", role);
+            // Lấy role từ database
+            int role = customerDAO.getRoleByCustomerId(customer.getCustomerId());
+            session.setAttribute("role", role);
 
-                // Debug: Kiểm tra giá trị role
-                System.out.println("Login Success: " + username + " | Role: " + role);
+            // Debug: Kiểm tra giá trị role
+            System.out.println("Login Success: " + username + " | Role: " + role);
 
-                response.sendRedirect("index.jsp");
+            // Kiểm tra role để chuyển hướng
+            if (role == 0) { // Giả sử 1 là role của admin
+                response.sendRedirect("dashboard");
             } else {
-                request.setAttribute("error", "Invalid username or password!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.sendRedirect("index.jsp");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "An error occurred. Please try again!");
+        } else {
+            request.setAttribute("error", "Invalid username or password!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+        request.setAttribute("error", "An error occurred. Please try again!");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    }
     }
 }

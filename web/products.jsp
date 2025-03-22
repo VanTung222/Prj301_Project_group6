@@ -127,9 +127,9 @@
     <div class="sidebar">
         <h2>Quản lý</h2>
         <ul>
-            <li><a href="dashboard.jsp">Dashboard</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
            
-            <li><a href="customers.jsp">Customers</a></li>
+            <li><a href="CustomerManagerAd">Customers</a></li>
           
        
         </ul>

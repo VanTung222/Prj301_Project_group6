@@ -80,239 +80,122 @@
                 background: white;
                 border-radius: var(--border-radius);
                 padding: 25px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin: 0 auto;
-                max-width: 95%;
+                box-shadow: var(--box-shadow);
             }
 
             .table {
                 margin-bottom: 0;
                 vertical-align: middle;
-                border-collapse: separate;
-                border-spacing: 0;
-                width: 100%;
-                background: white;
             }
 
             .table th {
                 background-color: #f8f9fa;
                 font-weight: 600;
-                padding: 16px 15px;
-                border: 1px solid #e9ecef;
+                padding: 15px;
+                border-bottom: 2px solid #dee2e6;
                 white-space: nowrap;
-                color: #495057;
-                font-size: 0.9rem;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                font-weight: 600;
             }
 
             .table td {
-                padding: 16px 15px;
+                padding: 15px;
                 vertical-align: middle;
-                border: 1px solid #e9ecef;
-                color: #495057;
-                font-size: 0.9rem;
-                transition: all 0.2s ease;
-            }
-
-            .table tbody tr {
-                transition: all 0.2s ease;
             }
 
             .table tbody tr:hover {
-                background-color: rgba(240, 134, 50, 0.03);
-                transform: translateY(-1px);
-            }
-
-            .table tbody tr:hover td {
-                background-color: rgba(240, 134, 50, 0.03);
-            }
-
-            /* Màu nền cho từng cột */
-            .table th:nth-child(1), /* Customer_ID */
-            .table td:nth-child(1) {
-                background-color: #f8f9fa;
-            }
-
-            .table th:nth-child(2), /* Username */
-            .table td:nth-child(2) {
-                background-color: #fff;
-            }
-
-            .table th:nth-child(3), /* Email */
-            .table td:nth-child(3) {
-                background-color: #f8f9fa;
-            }
-
-            .table th:nth-child(4), /* FirstName */
-            .table td:nth-child(4),
-            .table th:nth-child(5), /* LastName */
-            .table td:nth-child(5) {
-                background-color: #fff;
-            }
-
-            .table th:nth-child(6), /* ProfilePicture */
-            .table td:nth-child(6) {
-                background-color: #f8f9fa;
-            }
-
-            .table th:nth-child(7), /* Address */
-            .table td:nth-child(7) {
-                background-color: #fff;
-            }
-
-            .table th:nth-child(8), /* Phone */
-            .table td:nth-child(8) {
-                background-color: #f8f9fa;
-            }
-
-            .table th:nth-child(9), /* Registration_Date */
-            .table td:nth-child(9) {
-                background-color: #fff;
-            }
-
-            .table th:nth-child(10), /* Role */
-            .table td:nth-child(10) {
-                background-color: #f8f9fa;
-            }
-
-            .table th:nth-child(11), /* Actions */
-            .table td:nth-child(11) {
-                background-color: #fff;
-            }
-
-            /* Bo góc cho bảng */
-            .table thead th:first-child {
-                border-top-left-radius: 8px;
-            }
-
-            .table thead th:last-child {
-                border-top-right-radius: 8px;
-            }
-
-            .table tbody tr:last-child td:first-child {
-                border-bottom-left-radius: 8px;
-            }
-
-            .table tbody tr:last-child td:last-child {
-                border-bottom-right-radius: 8px;
+                background-color: rgba(240, 134, 50, 0.05);
             }
 
             .table .profile-pic {
-                width: 45px;
-                height: 45px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 object-fit: cover;
                 border: 2px solid #fff;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                transition: all 0.2s ease;
-            }
-
-            .table .profile-pic:hover {
-                transform: scale(1.1);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             }
 
             .badge {
                 padding: 8px 12px;
                 font-weight: 500;
                 border-radius: 20px;
-                font-size: 0.85rem;
-                letter-spacing: 0.3px;
-                text-transform: uppercase;
             }
 
             .badge.bg-danger {
                 background-color: #dc3545 !important;
-                color: white !important;
-                box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
             }
 
             .badge.bg-info {
                 background-color: #0dcaf0 !important;
-                color: white !important;
-                box-shadow: 0 2px 4px rgba(13, 202, 240, 0.2);
             }
 
-            .action-buttons .btn {
-                margin: 0 3px;
-                padding: 8px 12px;
-                border-radius: 6px;
-                transition: all 0.2s ease;
-                border: none;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            .action-buttons .btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            }
-
-            .action-buttons .btn-warning {
-                background-color: #ffc107;
-                color: #000;
-            }
-
-            .action-buttons .btn-danger {
-                background-color: #dc3545;
-                color: #fff;
-            }
-
-            .action-buttons .btn i {
-                font-size: 0.9rem;
-            }
-
-            /* Style cho search section */
             .search-section {
                 background: white;
                 border-radius: var(--border-radius);
                 padding: 25px;
                 margin-bottom: 25px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                box-shadow: var(--box-shadow);
             }
 
             .search-box .input-group {
                 border-radius: var(--border-radius);
                 overflow: hidden;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             }
 
             .search-box .input-group-text {
                 border: none;
                 background-color: #fff;
                 padding-left: 15px;
-                color: #6c757d;
             }
 
             .search-box .form-control {
-                border: 1px solid #e9ecef;
+                border: 1px solid #ced4da;
                 padding: 12px;
-                font-size: 0.95rem;
-                transition: all 0.2s ease;
+                font-size: 1rem;
             }
 
             .search-box .form-control:focus {
                 box-shadow: none;
                 border-color: var(--primary-color);
-                background-color: #fff;
             }
 
-            /* Style cho header */
-            .d-flex.justify-content-between.align-items-center.mb-4 {
-                background: white;
-                padding: 20px 25px;
+            .btn {
+                padding: 8px 16px;
                 border-radius: var(--border-radius);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
             }
 
-            .d-flex.justify-content-between.align-items-center.mb-4 h2 {
-                color: #495057;
-                font-weight: 600;
-                margin: 0;
+            .btn-primary {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
             }
 
-            /* Style cho pagination */
+            .btn-primary:hover {
+                background-color: var(--secondary-color);
+                border-color: var(--secondary-color);
+                transform: translateY(-1px);
+            }
+
+            .btn-sm {
+                padding: 5px 10px;
+                font-size: 0.875rem;
+            }
+
+            .btn-warning {
+                background-color: #ffc107;
+                border-color: #ffc107;
+                color: #000;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                border-color: #dc3545;
+                color: #fff;
+            }
+
+            .action-buttons .btn {
+                margin: 0 3px;
+            }
+
             .pagination {
                 margin-top: 25px;
                 margin-bottom: 0;
@@ -321,21 +204,11 @@
             .page-link {
                 color: var(--primary-color);
                 padding: 8px 16px;
-                border: none;
-                margin: 0 2px;
-                border-radius: 6px;
-                transition: all 0.2s ease;
             }
 
             .page-item.active .page-link {
                 background-color: var(--primary-color);
                 border-color: var(--primary-color);
-                box-shadow: 0 2px 4px rgba(240, 134, 50, 0.2);
-            }
-
-            .page-link:hover {
-                background-color: rgba(240, 134, 50, 0.1);
-                transform: translateY(-1px);
             }
 
             .modal-content {
@@ -382,38 +255,38 @@
     </head>
     <body>
         <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="index.jsp" class="brand mb-4">
-                <img
-              src="img/logo.png"
-              alt="Cake Shop Logo"
-              style="max-width: 150px"
-            />
-                <span></span>
-            </a>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="dashboard.jsp">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" href="ProductServlet22">
-                    <i class="fas fa-birthday-cake"></i>
-                    <span>Quản lý Bánh</span>
-                </a>
-                <a class="nav-link" href="orders.jsp">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Quản lý Đơn hàng</span>
-                </a>
-                <a class="nav-link active" href="customers.jsp">
-                    <i class="fas fa-users"></i>
-                    <span>Quản lý Khách hàng</span>
-                </a>
-                <a class="nav-link" href="reports.jsp">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Báo cáo & Thống kê</span>
-                </a>
-            </nav>
-        </div>
+        <div class="col-md-3 col-lg-2 sidebar">
+                <div class="text-center mb-4">
+                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="Cake Shop Logo" style="max-width: 150px" />
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/dashboard">
+                            <i class="fas fa-chart-line me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
+                            <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/adminOrder">
+                            <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
+                            <i class="fas fa-users me-2"></i> Quản lý Khách hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
+                            <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
         <!-- Main Content -->
         <div class="main-content">
