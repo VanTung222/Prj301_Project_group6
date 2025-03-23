@@ -31,7 +31,6 @@ VALUES
 (NULL, 'QuocHung', 'QuocHung@example.com', 'Do', 'Hung', '123', 'img/team/team-5.jpg', 'Can Tho', '0934567890', '2025-03-20', 1),
 (NULL, 'admin', 'admin@example.com', NULL, NULL, 'admin123', 'img/team/team-6.jpg', NULL, NULL, '2025-03-22', 0);
 
--- Kiểm tra dữ liệu bảng Customers
 SELECT * FROM Customers;
 
 -- Tạo bảng Supplier

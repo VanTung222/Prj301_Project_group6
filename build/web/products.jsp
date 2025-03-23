@@ -8,6 +8,11 @@
     <title>Quản lý sản phẩm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
     <style>
          :root {
         --primary-color: #f08632;
@@ -86,7 +91,7 @@
                             <i class="fas fa-chart-line me-2"></i> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
                             <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
                         </a>
@@ -97,13 +102,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/customers">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
                             <i class="fas fa-users me-2"></i> Quản lý Khách hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
-                            <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
                         </a>
                     </li>
                 </ul>

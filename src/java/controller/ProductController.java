@@ -111,7 +111,7 @@ public class ProductController extends HttpServlet {
         Product newProduct = new Product(0, name, price, stock, description, categoryId, supplierId, productImg);
         productDAO.addProduct(newProduct);
 
-        response.sendRedirect("products");
+        response.sendRedirect("ProductController");
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -127,13 +127,13 @@ public class ProductController extends HttpServlet {
         Product updatedProduct = new Product(id, name, price, stock, description, categoryId, supplierId, productImg);
         productDAO.updateProduct(updatedProduct);
 
-        response.sendRedirect("products");
+        response.sendRedirect("ProductController");
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("productId"));
         productDAO.deleteProduct(id);
-        response.sendRedirect("products");
+        response.sendRedirect("ProductController");
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
@@ -145,7 +145,7 @@ public class ProductController extends HttpServlet {
             request.setAttribute("product", product);
             listProducts(request, response);
         } else {
-            response.sendRedirect("products");
+            response.sendRedirect("ProductController");
         }
     }
 }

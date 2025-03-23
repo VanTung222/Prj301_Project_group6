@@ -373,13 +373,9 @@
                     <i class="fas fa-shopping-cart"></i>
                     <span>Quản lý Đơn hàng</span>
                 </a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/customers">
+                <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
                     <i class="fas fa-users"></i>
                     <span>Quản lý Khách hàng</span>
-                </a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/reports">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Báo cáo & Thống kê</span>
                 </a>
             </nav>
         </div>

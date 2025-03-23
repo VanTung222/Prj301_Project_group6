@@ -114,13 +114,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/customers">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
                             <i class="fas fa-users me-2"></i> Quản lý Khách hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
-                            <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
                         </a>
                     </li>
                 </ul>
