@@ -105,16 +105,15 @@ import utils.DBUtils;
 
 public class OrderDAO {
 
-    public int createOrder(int customerId, double finalTotal, String firstName, String lastName, String address, 
-                           String city, String countryState, String postcode, String phone, String email, 
-                           String orderNotes, String paymentMethod, List<CartItem> cartItems, 
-                           String couponCode, double discountAmount) 
+public int createOrder(int customerId, double finalTotal, int shippingAddressId, String firstName, String lastName, 
+                           String address, String city, String countryState, String postcode, String phone, String email, 
+                           String orderNotes, String paymentMethod, List<CartItem> cartItems, String couponCode, double discountAmount) 
             throws SQLException, ClassNotFoundException {
         try (Connection conn = DBUtils.getConnection()) {
             String orderQuery = "INSERT INTO Orders (Customer_ID, Order_Date, Total_Amount, Shipping_FirstName, " +
                                "Shipping_LastName, Shipping_Address, City, Country_State, Postcode, Phone, Email, " +
-                               "Order_Notes, Coupon_Code, Discount_Amount, Payment_Method, Status) " +
-                               "VALUES (?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
+                               "Order_Notes, Coupon_Code, Discount_Amount, Payment_Method, Status, Shipping_Address_ID) " +
+                               "VALUES (?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', ?)";
             PreparedStatement orderStmt = conn.prepareStatement(orderQuery, Statement.RETURN_GENERATED_KEYS);
             orderStmt.setInt(1, customerId);
             orderStmt.setDouble(2, finalTotal);
@@ -130,6 +129,7 @@ public class OrderDAO {
             orderStmt.setString(12, couponCode);
             orderStmt.setDouble(13, discountAmount);
             orderStmt.setString(14, paymentMethod);
+            orderStmt.setInt(15, shippingAddressId);
             orderStmt.executeUpdate();
 
             ResultSet rs = orderStmt.getGeneratedKeys();

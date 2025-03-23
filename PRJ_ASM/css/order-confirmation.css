@@ -1,8 +1,13 @@
-/* Order Confirmation Page Styles */
-.order-confirmation {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+/* Modern Light Order Confirmation Page Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f9fa;
     min-height: 100vh;
+    margin: 0;
+    padding: 40px 0;
+    color: #2d3436;
 }
 
 .confirmation-container {
@@ -11,9 +16,21 @@
     padding: 50px;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     position: relative;
     overflow: hidden;
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .confirmation-container:before {
@@ -23,93 +40,117 @@
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, #4a90e2, #357abd);
+    background: #ff4d8d;
 }
 
 .confirmation-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     position: relative;
 }
 
 .confirmation-header:after {
     content: '✓';
     display: block;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    background: #2ecc71;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    background: #ff4d8d;
     color: white;
     border-radius: 50%;
-    margin: 20px auto 0;
-    font-size: 28px;
-    box-shadow: 0 5px 15px rgba(46,204,113,0.3);
+    margin: 30px auto 0;
+    font-size: 40px;
+    box-shadow: 0 10px 20px rgba(255,77,141,0.2);
+    animation: checkmark 1s ease-in-out forwards;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
 }
 
 .confirmation-header h1 {
-    color: #2ecc71;
-    font-size: 42px;
-    margin-bottom: 15px;
+    color: #2d3436;
+    font-size: 48px;
+    margin-bottom: 20px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 .confirmation-header p {
-    color: #666;
+    color: #636e72;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .order-details {
-    margin-top: 40px;
-    padding: 30px;
-    background: #f8fafc;
+    margin-top: 50px;
+    padding: 40px;
+    background: #fff;
     border-radius: 15px;
-    border: 1px solid #edf2f7;
+    border: 1px solid #f1f2f3;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .order-number {
-    font-size: 20px;
+    font-size: 22px;
     color: #2d3436;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #edf2f7;
+    border-bottom: 2px solid #f1f2f3;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .order-summary {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .order-summary h3 {
     color: #2d3436;
-    margin-bottom: 25px;
-    font-size: 24px;
+    margin-bottom: 30px;
+    font-size: 28px;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .summary-table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 10px;
-}
-
-.summary-table th,
-.summary-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #edf2f7;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .summary-table th {
-    background: #f8f9fa;
+    background: #ff4d8d;
+    padding: 20px;
+    text-align: left;
+    color: #fff;
     font-weight: 600;
-    color: #2d3436;
     text-transform: uppercase;
     font-size: 14px;
-    letter-spacing: 1px;
-    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.summary-table td {
+    padding: 20px;
+    color: #2d3436;
+    border-bottom: 1px solid #f1f2f3;
 }
 
 .summary-table tr:last-child td {
@@ -118,104 +159,116 @@
 
 .total-amount {
     text-align: right;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
-    color: #2d3436;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 2px solid #edf2f7;
+    color: #ff4d8d;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px solid #f1f2f3;
 }
 
 .shipping-info {
-    margin-top: 40px;
-    padding: 30px;
-    background: #f8fafc;
+    margin-top: 50px;
+    padding: 40px;
+    background: #fff;
     border-radius: 15px;
-    border: 1px solid #edf2f7;
+    border: 1px solid #f1f2f3;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .shipping-info h3 {
     color: #2d3436;
-    margin-bottom: 25px;
-    font-size: 24px;
+    margin-bottom: 30px;
+    font-size: 28px;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 40px;
 }
 
 .info-item {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .info-item label {
     display: block;
-    color: #718096;
-    margin-bottom: 8px;
+    color: #636e72;
+    margin-bottom: 10px;
     font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .info-item span {
     color: #2d3436;
     font-weight: 500;
     font-size: 16px;
+    letter-spacing: 0.5px;
 }
 
 .back-to-shop {
     display: inline-block;
-    margin-top: 40px;
-    padding: 18px 35px;
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    margin-top: 50px;
+    padding: 20px 40px;
+    background: #ff4d8d;
     color: white;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.back-to-shop:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
 }
 
 .back-to-shop:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgba(74,144,226,0.2);
-}
-
-.back-to-shop:hover:before {
-    left: 100%;
+    background: #ff1a75;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,77,141,0.3);
 }
 
 /* Print Styles */
 @media print {
-    .order-confirmation {
+    body {
         background: white;
         padding: 0;
+        color: #000;
     }
 
     .confirmation-container {
         box-shadow: none;
         padding: 20px;
+        border: none;
     }
 
-    .confirmation-container:before,
+    .confirmation-header:after {
+        display: none;
+    }
+
+    .confirmation-header h1 {
+        color: #000;
+    }
+
+    .order-details,
+    .shipping-info {
+        border: 1px solid #eee;
+        box-shadow: none;
+    }
+
+    .summary-table th {
+        background: #f5f5f5;
+        color: #000;
+    }
+
+    .summary-table td,
+    .info-item span {
+        color: #000;
+    }
+
     .back-to-shop {
         display: none;
     }
@@ -223,38 +276,56 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        padding: 20px 0;
+    }
+
     .confirmation-container {
         padding: 30px;
         margin: 0 15px;
+        border-radius: 15px;
     }
 
     .confirmation-header h1 {
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .confirmation-header:after {
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 24px;
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+        font-size: 32px;
     }
 
     .info-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .order-details,
     .shipping-info {
-        padding: 20px;
+        padding: 25px;
+    }
+
+    .summary-table {
+        display: block;
+        overflow-x: auto;
     }
 
     .summary-table th,
     .summary-table td {
-        padding: 12px;
+        padding: 15px;
         font-size: 14px;
     }
 
     .total-amount {
-        font-size: 20px;
+        font-size: 24px;
+    }
+
+    .back-to-shop {
+        display: block;
+        text-align: center;
+        margin: 30px 0;
+        padding: 15px 30px;
     }
 } 

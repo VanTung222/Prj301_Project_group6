@@ -1,3 +1,45 @@
+function applyDiscount() {
+    const discountCode = document.getElementById("discountCode").value;
+    if (!discountCode) {
+        document.getElementById("discountMessage").innerText = "Please enter a discount code.";
+        document.getElementById("discountMessage").style.color = "red";
+        return;
+    }
+
+    fetch("CartServlet", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "action=applyDiscount&discountCode=" + encodeURIComponent(discountCode),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("discountMessage").innerText = data.error;
+            document.getElementById("discountMessage").style.color = "red";
+        } else {
+            document.getElementById("discountMessage").innerText = `Discount Applied: ${data.discountPercentage}%`;
+            document.getElementById("discountMessage").style.color = "green";
+            document.getElementById("discountAmount").innerText = `$${data.discountAmount}`;
+            document.getElementById("cart-subtotal").innerText = `$${data.subtotal}`;
+            document.getElementById("cart-total").innerText = `$${data.finalTotal}`;
+        }
+    })
+    .catch(error => {
+        console.error("Error applying discount:", error);
+        document.getElementById("discountMessage").innerText = "Error applying discount.";
+        document.getElementById("discountMessage").style.color = "red";
+    });
+}
+
+
+
+
+
+
+
+
 function addToCart(productId) {
   fetch("CartServlet", {
     method: "POST",

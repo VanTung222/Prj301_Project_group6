@@ -8,10 +8,10 @@ public class DBUtils {
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         String user = "sa";
-        String password = "1357910";
+        String password = "123456789";
         Connection connection = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=cakeManagement1;encrypt=false;trustServerCertificate=true";
+        String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=cakeManagement3;encrypt=false;trustServerCertificate=true";
         connection = DriverManager.getConnection(url, user, password);
         return connection;
     }
