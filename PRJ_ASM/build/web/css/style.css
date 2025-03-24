@@ -4785,3 +4785,148 @@ ol {
 .favorite-btn:hover .fas {
   color: white;
 }
+
+/* Login Page Styles */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    color: #ff6b00;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #ff6b00;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+    outline: none;
+}
+
+.login-form .google-btn {
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-form .google-btn:hover {
+    background: #f8f8f8;
+    border-color: #ddd;
+}
+
+.login-form .divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.login-form .divider::before,
+.login-form .divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #eee;
+}
+
+.login-form .divider::before {
+    left: 0;
+}
+
+.login-form .divider::after {
+    right: 0;
+}
+
+.login-form .divider span {
+    background: #fff;
+    padding: 0 10px;
+    color: #777;
+    font-size: 14px;
+}
+
+.login-form .sign-in-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff6b00;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-form .sign-in-btn:hover {
+    background: #ff8533;
+    transform: translateY(-2px);
+}
+
+.login-form .forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-form .forgot-password a {
+    color: #ff6b00;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.login-form .forgot-password a:hover {
+    color: #ff8533;
+    text-decoration: underline;
+}
+
+.login-form .sign-up-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.login-form .sign-up-link a {
+    color: #ff6b00;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.login-form .sign-up-link a:hover {
+    color: #ff8533;
+    text-decoration: underline;
+}

@@ -7,7 +7,232 @@
     <meta charset="UTF-8">
     <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/checkout.css">
+<style>
+        body {
+            background-color: #f8f8f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: #F4833B;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #F4833B;
+            margin: 15px auto;
+        }
+
+        .address-details {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid #FFE4D6;
+            background-color: #FFF9F5;
+            border-radius: 8px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        /* CSS cho phần Shipping Information */
+        .shipping-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(244, 131, 59, 0.1);
+            margin: 20px 0;
+            border: 1px solid #FFE4D6;
+        }
+
+        .shipping-section h3 {
+            color: #F4833B;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #FFE4D6;
+            font-size: 24px;
+        }
+
+        .shipping-section select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #FFE4D6;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .shipping-section select:focus {
+            border-color: #F4833B;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 131, 59, 0.1);
+        }
+
+        .shipping-section label {
+            display: block;
+            margin: 12px 0 8px;
+            color: #444;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .shipping-section input[type="text"],
+        .shipping-section input[type="email"],
+        .shipping-section textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 20px;
+            border: 2px solid #FFE4D6;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .shipping-section input[type="text"]:focus,
+        .shipping-section input[type="email"]:focus,
+        .shipping-section textarea:focus {
+            border-color: #F4833B;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 131, 59, 0.1);
+        }
+
+        .shipping-section textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* CSS cho phần Payment Method */
+        .payment-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+box-shadow: 0 4px 6px rgba(244, 131, 59, 0.1);
+            margin: 25px 0;
+            border: 1px solid #FFE4D6;
+        }
+
+        .payment-section h3 {
+            color: #F4833B;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #FFE4D6;
+            font-size: 24px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #FFE4D6;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-option:hover {
+            background-color: #FFF9F5;
+            border-color: #F4833B;
+            transform: translateY(-2px);
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            accent-color: #F4833B;
+        }
+
+        .payment-option label {
+            color: #444;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* CSS cho nút bấm */
+        .shipping-section button,
+        .payment-section button {
+            background-color: #F4833B;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 10px 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .shipping-section button:hover,
+        .payment-section button:hover {
+            background-color: #E67732;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 131, 59, 0.2);
+        }
+
+        /* CSS cho form mới */
+        #newAddressForm {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(244, 131, 59, 0.1);
+            margin-top: 25px;
+            border: 1px solid #FFE4D6;
+        }
+
+        /* CSS cho bảng Order Summary */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(244, 131, 59, 0.1);
+        }
+
+        th {
+            background-color: #F4833B;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #FFE4D6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #FFF9F5;
+        }
+
+        .cart-total {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            }
+       </style>     
     <script>
         function showAddressDetails() {
             const selectedAddressId = document.getElementById("shippingAddressSelect").value;
