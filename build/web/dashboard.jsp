@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="model.Customer" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,6 +78,21 @@
             padding: 10px 20px;
             border-radius: 30px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .user-profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            margin-right: 10px;
+        }
+        .user-name {
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-right: 15px;
         }
         .badge-success {
             background-color: #28a745;
@@ -118,11 +134,6 @@
                             <i class="fas fa-users me-2"></i> Quản lý Khách hàng
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
-                            <i class="fas fa-chart-bar me-2"></i> Báo cáo & Thống kê
-                        </a>
-                    </li>
                 </ul>
             </div>
 
@@ -132,7 +143,19 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Dashboard</h2>
                     <div class="user-info">
-                        <span class="me-3">Xin chào, ${sessionScope.username}</span>
+                        <%
+                            Customer customer = (Customer) session.getAttribute("customer");
+                            String profilePicture = customer != null && customer.getProfilePicture() != null ? 
+                                                  customer.getProfilePicture() : "img/team/team-1.jpg";
+                            String fullName = customer != null ? customer.getFullName() : "";
+                        %>
+                        <img src="<%= profilePicture %>" 
+                             alt="Profile" 
+                             class="user-profile-img">
+                        <div class="d-flex flex-column me-3">
+                            <small class="text-muted">Xin chào,</small>
+                            <span class="user-name"><%= fullName %></span>
+                        </div>
                         <a href="${pageContext.request.contextPath}/LogoutServlet" class="btn btn-outline-danger btn-sm">
                             <i class="fas fa-sign-out-alt"></i> Đăng xuất
                         </a>

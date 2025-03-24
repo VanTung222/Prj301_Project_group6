@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "CustomerManagerAd", urlPatterns = {"/CustomerManagerAd"})
 public class CustomerManagerAd extends HttpServlet {
 
-    private static final int PAGE_SIZE = 9; // Số khách hàng trên mỗi trang
+    private static final int PAGE_SIZE = 8; // Số khách hàng trên mỗi trang
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

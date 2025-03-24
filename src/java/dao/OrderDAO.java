@@ -18,7 +18,7 @@ public class OrderDAO {
         String sql = "SELECT o.*, c.FirstName + ' ' + c.LastName AS CustomerName " +
                      "FROM Orders o " +
                      "JOIN Customers c ON o.Customer_ID = c.Customer_ID " +
-                     "ORDER BY o.Order_Date DESC"; // Sắp xếp theo ngày giảm dần để lấy đơn hàng gần đây
+                     "ORDER BY o.Order_Date DESC";
 
         try (Connection conn = DBUtils.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -48,7 +48,8 @@ public class OrderDAO {
                 order.setStatus(rs.getString("Status"));
 
                 // Lấy chi tiết đơn hàng
-                order.setOrderDetails(getOrderDetails(order.getOrderId()));
+                List<OrderDetail> orderDetails = getOrderDetails(order.getOrderId());
+                order.setOrderDetails(orderDetails != null ? orderDetails : new ArrayList<>()); // Đảm bảo không trả về null
 
                 orders.add(order);
             }
@@ -94,7 +95,7 @@ public class OrderDAO {
 
     // Lấy số lượng đơn hàng theo ngày
     public Map<String, Integer> getOrdersByDate() throws SQLException, ClassNotFoundException {
-        Map<String, Integer> ordersByDate = new TreeMap<>(); // Sử dụng TreeMap để sắp xếp theo ngày
+        Map<String, Integer> ordersByDate = new TreeMap<>();
         String sql = "SELECT CAST(Order_Date AS DATE) AS OrderDay, COUNT(*) AS OrderCount " +
                      "FROM Orders " +
                      "GROUP BY CAST(Order_Date AS DATE) " +
@@ -105,7 +106,7 @@ public class OrderDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                String orderDay = rs.getString("OrderDay"); // Ngày dạng yyyy-MM-dd
+                String orderDay = rs.getString("OrderDay");
                 int orderCount = rs.getInt("OrderCount");
                 ordersByDate.put(orderDay, orderCount);
             }
@@ -115,7 +116,7 @@ public class OrderDAO {
 
     // Lấy doanh thu theo tháng
     public Map<String, Double> getRevenueByMonth() throws SQLException, ClassNotFoundException {
-        Map<String, Double> revenueByMonth = new TreeMap<>(); // Sử dụng TreeMap để sắp xếp theo tháng
+        Map<String, Double> revenueByMonth = new TreeMap<>();
         String sql = "SELECT MONTH(Order_Date) AS Month, YEAR(Order_Date) AS Year, SUM(Total_Amount) AS TotalRevenue " +
                      "FROM Orders " +
                      "GROUP BY MONTH(Order_Date), YEAR(Order_Date) " +
@@ -129,7 +130,7 @@ public class OrderDAO {
                 int month = rs.getInt("Month");
                 int year = rs.getInt("Year");
                 double totalRevenue = rs.getDouble("TotalRevenue");
-                String key = year + "-" + String.format("%02d", month); // Định dạng: yyyy-MM
+                String key = year + "-" + String.format("%02d", month);
                 revenueByMonth.put(key, totalRevenue);
             }
         }
@@ -138,7 +139,7 @@ public class OrderDAO {
 
     // Lấy doanh thu theo tuần trong tháng
     public Map<String, Double> getRevenueByWeekInMonth() throws SQLException, ClassNotFoundException {
-        Map<String, Double> revenueByWeek = new TreeMap<>(); // Sử dụng TreeMap để tự động sắp xếp theo key
+        Map<String, Double> revenueByWeek = new TreeMap<>();
         String sql = "SELECT Order_Date, Total_Amount FROM Orders";
 
         try (Connection conn = DBUtils.getConnection();
@@ -149,29 +150,24 @@ public class OrderDAO {
                 java.sql.Timestamp orderDate = rs.getTimestamp("Order_Date");
                 double totalAmount = rs.getDouble("Total_Amount");
 
-                // Lấy năm và tháng từ Order_Date
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.setTime(orderDate);
                 int year = cal.get(java.util.Calendar.YEAR);
-                int month = cal.get(java.util.Calendar.MONTH) + 1; // Tháng bắt đầu từ 0, nên +1
+                int month = cal.get(java.util.Calendar.MONTH) + 1;
                 int day = cal.get(java.util.Calendar.DAY_OF_MONTH);
 
-                // Xác định tuần trong tháng
                 int week;
                 if (day <= 7) {
-                    week = 1; // Tuần 1: ngày 1-7
+                    week = 1;
                 } else if (day <= 14) {
-                    week = 2; // Tuần 2: ngày 8-14
+                    week = 2;
                 } else if (day <= 21) {
-                    week = 3; // Tuần 3: ngày 15-21
+                    week = 3;
                 } else {
-                    week = 4; // Tuần 4: ngày 22 đến cuối tháng
+                    week = 4;
                 }
 
-                // Tạo key dạng YYYY-MM-W (ví dụ: 2025-03-1 cho Tuần 1 của tháng 3 năm 2025)
                 String key = String.format("%d-%02d-%d", year, month, week);
-
-                // Cộng dồn doanh thu cho tuần đó
                 revenueByWeek.put(key, revenueByWeek.getOrDefault(key, 0.0) + totalAmount);
             }
         }

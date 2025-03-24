@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List" %>
-<%@ page import="model.Order" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +19,7 @@
             --dark-color: #343a40;
             --border-color: #e5e7eb;
             --background-color: #f9fafb;
+            --header-height: 70px;
         }
 
         body {
@@ -91,45 +91,93 @@
             overflow-y: auto;
         }
 
-        /* Update header styles */
+        /* Updated Header Styles */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
-            background: white;
-            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .header:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
         }
 
         .header-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #333;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark-color);
             margin: 0;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .header-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
+        /* Updated User Profile Styles */
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-left: 1.5rem;
-            padding-left: 1.5rem;
-            border-left: 1px solid #eee;
+            gap: 1.25rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 30px;
+            box-shadow: 
+                5px 5px 10px rgba(0, 0, 0, 0.05),
+                -5px -5px 10px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(240, 134, 50, 0.1);
+        }
+
+        .user-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                8px 8px 15px rgba(0, 0, 0, 0.08),
+                -8px -8px 15px rgba(255, 255, 255, 0.9);
+            border-color: rgba(240, 134, 50, 0.2);
         }
 
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid var(--primary-color);
+            padding: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 2px white,
+                       0 0 0 4px rgba(240, 134, 50, 0.3);
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px white,
+                       0 0 0 6px rgba(240, 134, 50, 0.2);
         }
 
         .user-info {
@@ -139,9 +187,15 @@
         }
 
         .user-name {
-            font-size: 0.9rem;
-            color: #333;
-            font-weight: 500;
+            font-size: 1rem;
+            color: var(--dark-color);
+            font-weight: 600;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .user-name:hover {
+            color: var(--primary-color);
         }
 
         .logout-btn {
@@ -149,17 +203,29 @@
             align-items: center;
             gap: 0.5rem;
             color: #666;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-decoration: none;
-            transition: color 0.2s;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            background: transparent;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
         .logout-btn:hover {
             color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
+            border-color: rgba(255, 71, 87, 0.2);
+            transform: translateX(2px);
         }
 
         .logout-btn i {
-            font-size: 0.9rem;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logout-btn:hover i {
+            transform: translateX(2px);
         }
 
         .date-filter select {
@@ -197,6 +263,7 @@
             border-radius: 12px;
             overflow: hidden;
         }
+
         .table th, .table td {
             vertical-align: middle;
         }
@@ -373,13 +440,9 @@
                     <i class="fas fa-shopping-cart"></i>
                     <span>Quản lý Đơn hàng</span>
                 </a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/customers.jsp">
+                <a class="nav-link" href="${pageContext.request.contextPath}/CustomerManagerAd">
                     <i class="fas fa-users"></i>
                     <span>Quản lý Khách hàng</span>
-                </a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/admin-reports">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Báo cáo & Thống kê</span>
                 </a>
             </nav>
         </div>
@@ -391,23 +454,17 @@
                 <div class="header">
                     <h2 class="header-title">Orders</h2>
                     <div class="header-actions">
-                        <div class="date-filter">
-                            <select>
-                                <option>June</option>
-                            </select>
-                        </div>
-                        <button class="export-btn">
-                            <i class="fas fa-download"></i>
-                            Export
-                        </button>
-                        <button class="connect-wallet">
-                            <i class="fas fa-wallet"></i>
-                            Connect wallet
-                        </button>
                         <div class="user-profile">
-                            <img src="img/default-avatar.jpg" alt="Admin Avatar" class="avatar">
+                            <c:choose>
+                                <c:when test="${not empty admin and not empty admin.profilePicture}">
+                                    <img src="${admin.profilePicture}" alt="Admin Avatar" class="avatar">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/img/team/team-1.jpg" alt="Admin Avatar" class="avatar">
+                                </c:otherwise>
+                            </c:choose>
                             <div class="user-info">
-                                <span class="user-name">Xin chào, admin</span>
+                                <span class="user-name">Xin chào, ${sessionScope.username}</span>
                                 <a href="${pageContext.request.contextPath}/LogoutServlet" class="logout-btn">
                                     <i class="fas fa-sign-out-alt"></i>
                                     Đăng xuất
@@ -420,8 +477,10 @@
                 <!-- Stats Section -->
                 <div class="stats-container">
                     <div class="stat-card">
-                        <p>Total Revenue</p>
-                        <h3>$712,241</h3>
+                        <p>Doanh thu</p>
+                        <h5 class="card-title mb-0">
+                            <fmt:formatNumber value="${totalRevenue}" type="number" pattern="#,##0.00"/>đ
+                        </h5>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
                             <span>4.3% from last week</span>
@@ -429,7 +488,7 @@
                     </div>
                     <div class="stat-card">
                         <p>Total customers</p>
-                        <h3>4,213</h3>
+                        <h3>${totalCustomers}</h3>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
                             <span>3.2% from last week</span>
@@ -437,7 +496,7 @@
                     </div>
                     <div class="stat-card">
                         <p>Total transactions</p>
-                        <h3>563</h3>
+                        <h3>${totalOrders}</h3>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
                             <span>2.1% from last week</span>
@@ -445,7 +504,7 @@
                     </div>
                     <div class="stat-card">
                         <p>Total products</p>
-                        <h3>882</h3>
+                        <h3>${totalProducts}</h3>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
                             <span>1.2% from last week</span>
@@ -453,51 +512,60 @@
                     </div>
                 </div>
 
-                <!-- Filter Tabs -->
-                <div class="filter-tabs">
-                    <button class="tab active">All</button>
-                    <button class="tab">Drafts</button>
-                    <button class="tab">To process</button>
-                    <button class="tab">Completed</button>
-                    <button class="tab">Cancelled</button>
-                    <button class="tab">On delivery</button>
-                </div>
-
                 <!-- Orders Table -->
                 <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Order</th>
-                                <th>Date</th>
-                                <th>Categories</th>
-                                <th>Cust ID</th>
-                                <th>Payment</th>
-                                <th>Status</th>
-                                <th>City</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${orders}" var="order">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">Danh sách đơn hàng</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <td>${order.orderId}</td>
-                                    <td>${order.orderDate}</td>
-                                    <td>Kitchen, Electronics</td>
-                                    <td>#${order.customerId}</td>
-                                    <td>Completed</td>
-                                    <td>
-                                        <span class="status-badge ${order.status == 'Completed' ? 'completed' : 
-                                            order.status == 'Processing' ? 'processing' : 'delivery'}">
-                                            ${order.status}
-                                        </span>
-                                    </td>
-                                    <td>Jakarta</td>
-                                    <td>$${order.totalAmount}</td>
+                                    <th>Mã đơn</th>
+                                    <th>Khách hàng</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Payment</th>
+                                    <th>Discount Amount</th>
+                                    <th>Trạng thái</th>
+                                    <th>City</th>
+                                    <th>Tổng tiền</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${not empty orders}">
+                                        <c:forEach items="${orders}" var="order">
+                                            <tr>
+                                                <td>#${order.orderId}</td>
+                                                <td>${order.shippingFirstName} ${order.shippingLastName}</td>
+                                                <td>
+                                                    <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy"/>
+                                                </td>
+                                                <td>${order.paymentMethod}</td>
+                                                <td>
+                                                    <fmt:formatNumber value="${order.discountAmount}" type="number" pattern="#,##0.00"/>đ
+                                                </td>
+                                                <td>
+                                                    <span class="status-badge ${order.status == 'Delivered' ? 'completed' : order.status == 'Processing' ? 'processing' : 'delivery'}">
+                                                        ${order.status}
+                                                    </span>
+                                                </td>
+                                                <td>${order.city}</td>
+                                                <td>
+                                                    <strong><fmt:formatNumber value="${order.totalAmount}" type="number" pattern="#,##0.00"/>đ</strong>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="8" class="text-center">Không có đơn hàng nào.</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
