@@ -1,3 +1,8 @@
+
+
+
+
+
 //package controller;
 //
 //import dao.CartDAO;
@@ -742,6 +747,8 @@
 
 
 
+
+
 package controller;
 
 import dao.*;
@@ -812,7 +819,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         System.out.println("Cart items size for customer " + customerId + ": " + (cartItems != null ? cartItems.size() : "null"));
         if (cartItems == null || cartItems.isEmpty()) {
             request.setAttribute("error", "Your cart is empty. Please add items to your cart before checking out.");
-            request.getRequestDispatcher("cart.jsp").forward(request, response);
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
             return;
         }
 
@@ -839,7 +846,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         } else {
             System.err.println("ShippingAddressDAO is null, cannot retrieve shipping addresses");
             request.setAttribute("error", "Error retrieving shipping addresses: DAO not initialized");
-            request.getRequestDispatcher("cart.jsp").forward(request, response);
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
             return;
         }
         boolean hasShippingInfo = shippingAddresses != null && !shippingAddresses.isEmpty();
@@ -854,11 +861,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     } catch (ClassNotFoundException e) {
         e.printStackTrace();
         request.setAttribute("error", "Error retrieving cart: " + e.getMessage());
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     } catch (SQLException e) {
         e.printStackTrace();
         request.setAttribute("error", "Error retrieving shipping info: " + e.getMessage());
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
 }
 
@@ -876,7 +883,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             List<CartItem> cartItems = cartDAO.getCartItems(customerId);
             if (cartItems.isEmpty()) {
                 request.setAttribute("error", "Your cart is empty");
-                request.getRequestDispatcher("cart.jsp").forward(request, response);
+                request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
                 return;
             }
 
@@ -976,7 +983,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
             // Kiểm tra tổng tiền chi tiêu và tạo mã giảm giá nếu đủ điều kiện
             double totalSpent = paymentDAO.getTotalSpentByCustomer(customerId);
-            double threshold = 10000.0; // Ngưỡng $10,000
+            double threshold = 1000.0; // Ngưỡng $10,000
             if (totalSpent >= threshold) {
                 // Tạo mã giảm giá mới
                 String newDiscountCode = "DISCOUNT" + System.currentTimeMillis();

@@ -7,15 +7,7 @@
     <meta charset="UTF-8">
     <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/checkout.css">
-    <style>
-        .address-details {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            display: none;
-        }
-    </style>
+
     <script>
         function showAddressDetails() {
             const selectedAddressId = document.getElementById("shippingAddressSelect").value;
@@ -84,7 +76,7 @@
         <c:choose>
             <c:when test="${hasShippingInfo}">
                 <!-- Hiển thị danh sách địa chỉ giao hàng -->
-                <div id="shippingInfoDisplay">
+                <div id="shippingInfoDisplay" class="shipping-section">
                     <form action="CheckoutServlet" method="post">
                         <label>Select Shipping Address:</label>
                         <select id="shippingAddressSelect" name="selectedAddressId" required onchange="showAddressDetails()">
@@ -117,8 +109,16 @@
                         <input type="hidden" name="orderNotes" value="">
 
                         <h3>Payment Method</h3>
-                        <input type="radio" name="paymentMethod" value="COD" required> Cash on Delivery (COD)<br>
-                        <input type="radio" name="paymentMethod" value="Bank Transfer"> Bank Transfer<br>
+                        <div class="payment-section">
+                            <div class="payment-option">
+                                <input type="radio" name="paymentMethod" value="COD" required>
+                                <label>Cash on Delivery (COD)</label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" name="paymentMethod" value="Bank Transfer">
+                                <label>Bank Transfer</label>
+                            </div>
+                        </div>
 
                         <button type="button" onclick="toggleNewAddress()">Use New Address</button>
                         <button type="submit">Place Order</button>
@@ -126,7 +126,7 @@
                 </div>
 
                 <!-- Form nhập địa chỉ mới (ẩn ban đầu) -->
-                <div id="newAddressForm" style="display: none;">
+                <div id="newAddressForm" style="display: none;" class="shipping-section">
                     <form action="CheckoutServlet" method="post">
                         <label>First Name:</label>
                         <input type="text" name="firstName" required><br>
@@ -148,8 +148,16 @@
                         <textarea name="orderNotes"></textarea><br>
 
                         <h3>Payment Method</h3>
-                        <input type="radio" name="paymentMethod" value="COD" required> Cash on Delivery (COD)<br>
-                        <input type="radio" name="paymentMethod" value="Bank Transfer"> Bank Transfer<br>
+                        <div class="payment-section">
+                            <div class="payment-option">
+                                <input type="radio" name="paymentMethod" value="COD" required>
+                                <label>Cash on Delivery (COD)</label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" name="paymentMethod" value="Bank Transfer">
+                                <label>Bank Transfer</label>
+                            </div>
+                        </div>
 
                         <button type="submit">Place Order</button>
                     </form>
