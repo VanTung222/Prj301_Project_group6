@@ -231,9 +231,22 @@
             margin-bottom: 8px;
         }
 
-        .form-control {
+        .form-control, .form-select {
             padding: 10px;
             border-radius: var(--border-radius);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(240, 134, 50, 0.25);
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
 
         .alert {
@@ -317,7 +330,7 @@
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0">Quản lý Khách hàng</h2>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal" onclick="resetForm()">
                     <i class="fas fa-user-plus me-2"></i>Thêm Khách hàng
                 </button>
             </div>
@@ -428,11 +441,11 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Thông tin Khách hàng</h5>
+                    <h5 class="modal-title" id="modalTitle">Thông tin Khách hàng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="customerForm" action="${pageContext.request.contextPath}/EditCustomerServlet" method="post" enctype="multipart/form-data">
+                    <form id="customerForm" action="${pageContext.request.contextPath}/EditCustomerServlet" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         <input type="hidden" name="customerId" id="customerId">
 
                         <!-- Profile Picture Section -->
@@ -456,32 +469,45 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="username" required>
+                                <input type="text" class="form-control" name="username" id="usernameInput" required 
+                                       pattern="^[A-Za-z0-9_]{3,}$" />
+                                <div class="invalid-feedback">Tên đăng nhập phải có ít nhất 3 ký tự và không chứa ký tự đặc biệt</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" name="email" required>
+                                <input type="email" class="form-control" name="email" required 
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+                                <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Họ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="firstName" required>
+                                <input type="text" class="form-control" name="firstName" required 
+                                       pattern="^[A-Za-zÀ-ỹ\s]{2,}$" />
+                                <div class="invalid-feedback">Họ phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Tên <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="lastName" required>
+                                <input type="text" class="form-control" name="lastName" required 
+                                       pattern="^[A-Za-zÀ-ỹ\s]{2,}$" />
+                                <div class="invalid-feedback">Tên phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Mật khẩu</label>
-                                <input type="password" class="form-control" name="password">
-                                <small class="text-muted">Để trống nếu không muốn thay đổi mật khẩu</small>
+                                <input type="password" class="form-control" name="password" id="passwordInput" 
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" />
+                                <small class="text-muted">Để trống nếu không muốn thay đổi mật khẩu (ít nhất 6 ký tự, bao gồm chữ và số)</small>
+                                <div class="invalid-feedback">Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ và số</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Xác nhận mật khẩu</label>
-                                <input type="password" class="form-control" name="confirmPassword">
+                                <input type="password" class="form-control" name="confirmPassword" id="confirmPasswordInput" />
+                                <div class="invalid-feedback">Mật khẩu xác nhận không khớp</div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Số điện thoại</label>
-                                <input type="tel" class="form-control" name="phone">
+                                <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" name="phone" required 
+                                       pattern="(84|0[3|5|7|8|9])+([0-9]{8})" />
+                                <div class="invalid-feedback">Số điện thoại phải có 10 số, bắt đầu bằng 84 hoặc 03, 05, 07, 08, 09</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Vai trò <span class="text-danger">*</span></label>
@@ -490,10 +516,12 @@
                                     <option value="1">Khách hàng</option>
                                     <option value="0">Admin</option>
                                 </select>
+                                <div class="invalid-feedback">Vui lòng chọn vai trò</div>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Địa chỉ</label>
-                                <textarea class="form-control" name="address" rows="3"></textarea>
+                                <label class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                                <textarea class="form-control" name="address" rows="3" required minlength="10"></textarea>
+                                <div class="invalid-feedback">Địa chỉ phải có ít nhất 10 ký tự</div>
                             </div>
                         </div>
                     </form>
@@ -523,33 +551,89 @@
         }
 
         function viewCustomer(id) {
-            if (!id) {
-                alert("ID khách hàng không hợp lệ!");
-                return;
-            }
-            fetch(`${contextPath}/EditCustomerServlet/get/${id}`)
-                .then(response => response.json())
-                .then(customer => {
-                    document.getElementById('customerId').value = customer.customerId;
-                    document.querySelector('[name="username"]').value = customer.username;
-                    document.querySelector('[name="email"]').value = customer.email;
-                    document.querySelector('[name="firstName"]').value = customer.firstName;
-                    document.querySelector('[name="lastName"]').value = customer.lastName;
-                    document.querySelector('[name="phone"]').value = customer.phone;
-                    document.querySelector('[name="role"]').value = customer.role;
-                    document.querySelector('[name="address"]').value = customer.address;
-
-                    const modal = new bootstrap.Modal(document.getElementById('customerModal'));
-                    modal.show();
-                })
-                .catch(error => {
-                    alert("Lỗi khi lấy thông tin khách hàng: " + error.message);
+    if (!id || id <= 0) {
+        alert("ID khách hàng không hợp lệ!");
+        return;
+    }
+    fetch(`${contextPath}/EditCustomerServlet/get/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || `Lỗi ${response.status}: Không thể lấy thông tin khách hàng`);
                 });
-        }
+            }
+            return response.json();
+        })
+        .then(customer => {
+            // Populate modal with customer data
+            document.getElementById('customerId').value = customer.customerId;
+            document.querySelector('[name="username"]').value = customer.username || '';
+            document.querySelector('[name="email"]').value = customer.email || '';
+            document.querySelector('[name="firstName"]').value = customer.firstName || '';
+            document.querySelector('[name="lastName"]').value = customer.lastName || '';
+            document.querySelector('[name="phone"]').value = customer.phone || '';
+            document.querySelector('[name="role"]').value = customer.role !== undefined ? customer.role : '';
+            document.querySelector('[name="address"]').value = customer.address || '';
+            if (customer.profilePicture) {
+                document.getElementById('profilePreview').src = customer.profilePicture;
+            } else {
+                document.getElementById('profilePreview').src = `${contextPath}/img/default-avatar.jpg`;
+            }
+
+            // Update modal title
+            document.getElementById('modalTitle').textContent = 'Chỉnh sửa Khách hàng';
+            const modal = new bootstrap.Modal(document.getElementById('customerModal'));
+            modal.show();
+        })
+        .catch(error => {
+            alert("Lỗi khi lấy thông tin khách hàng: " + error.message);
+        });
+}
 
         function editCustomer(id) {
             viewCustomer(id);
         }
+
+        function resetForm() {
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerId').value = '';
+            document.getElementById('profilePreview').src = `${contextPath}/img/default-avatar.jpg`;
+            document.getElementById('modalTitle').textContent = 'Thêm Khách hàng';
+            document.getElementById('usernameInput').removeAttribute('readonly');
+            document.getElementById('passwordInput').setAttribute('required', 'required');
+            document.getElementById('confirmPasswordInput').setAttribute('required', 'required');
+        }
+
+        // Form validation
+        (function () {
+            "use strict";
+            const forms = document.querySelectorAll(".needs-validation");
+            Array.from(forms).forEach((form) => {
+                form.addEventListener("submit", (event) => {
+                    const password = form.querySelector('[name="password"]').value;
+                    const confirmPassword = form.querySelector('[name="confirmPassword"]').value;
+                    const confirmPasswordInput = form.querySelector('[name="confirmPassword"]');
+
+                    // Validate password match
+                    if (password !== confirmPassword) {
+                        confirmPasswordInput.setCustomValidity("Mật khẩu xác nhận không khớp");
+                    } else {
+                        confirmPasswordInput.setCustomValidity("");
+                    }
+
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                }, false);
+
+                // Reset custom validity on input change
+                form.querySelector('[name="confirmPassword"]').addEventListener("input", function () {
+                    this.setCustomValidity("");
+                });
+            });
+        })();
     </script>
 
     <script>

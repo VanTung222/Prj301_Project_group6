@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "EditCustomerServlet", urlPatterns = {"/EditCustomerServlet/*"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -27,55 +28,69 @@ import java.util.logging.Logger;
 public class EditCustomerServlet extends HttpServlet {
 
     private static final String UPLOAD_DIRECTORY = "uploads"; // Thư mục lưu ảnh
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-zÀ-ỹ\\s]{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
 
-        if (pathInfo != null && pathInfo.startsWith("/get/")) {
-            // Xử lý yêu cầu lấy thông tin khách hàng (dành cho JavaScript)
+    if (pathInfo != null && pathInfo.startsWith("/get/")) {
+        // Xử lý yêu cầu lấy thông tin khách hàng (dành cho JavaScript)
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        Gson gson = new Gson();
+
+        try {
             String idStr = pathInfo.substring(5); // Lấy ID từ URL
-            try {
-                int customerId = Integer.parseInt(idStr);
-                CustomerDAO dao = new CustomerDAO();
-                Customer customer = dao.getCustomerById(customerId);
+            int customerId = Integer.parseInt(idStr);
+            if (customerId <= 0) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                out.print(gson.toJson(new ErrorResponse("ID khách hàng không hợp lệ")));
+                out.flush();
+                return;
+            }
 
-                if (customer != null) {
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    PrintWriter out = response.getWriter();
-                    Gson gson = new Gson();
-                    out.print(gson.toJson(customer));
-                    out.flush();
-                } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Không tìm thấy khách hàng");
-                }
-            } catch (SQLException e) {
-                Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi lấy thông tin khách hàng");
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID không hợp lệ");
-            }
-        } else {
-            // Xử lý yêu cầu tìm kiếm
-            String search = request.getParameter("search");
             CustomerDAO dao = new CustomerDAO();
-            try {
-                List<Customer> customers = dao.getAllCustomers();
-                if (search != null && !search.trim().isEmpty()) {
-                    customers.removeIf(customer -> !customer.getUsername().toLowerCase().contains(search.toLowerCase()) &&
-                                                  !customer.getEmail().toLowerCase().contains(search.toLowerCase()));
-                }
-                request.setAttribute("customers", customers);
-                RequestDispatcher rd = request.getRequestDispatcher("/customers.jsp");
-                rd.forward(request, response);
-            } catch (SQLException e) {
-                Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tìm kiếm khách hàng");
+            Customer customer = dao.getCustomerById(customerId);
+
+            if (customer != null) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.print(gson.toJson(customer));
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                out.print(gson.toJson(new ErrorResponse("Không tìm thấy khách hàng")));
             }
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(gson.toJson(new ErrorResponse("ID không hợp lệ: " + e.getMessage())));
+        } catch (SQLException e) {
+            Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.print(gson.toJson(new ErrorResponse("Lỗi khi lấy thông tin khách hàng: " + e.getMessage())));
+        } finally {
+            out.flush();
+        }
+    } else {
+        // Xử lý yêu cầu tìm kiếm
+        String search = request.getParameter("search");
+        CustomerDAO dao = new CustomerDAO();
+        try {
+            List<Customer> customers = dao.getAllCustomers();
+            if (search != null && !search.trim().isEmpty()) {
+                customers.removeIf(customer -> !customer.getUsername().toLowerCase().contains(search.toLowerCase()) &&
+                                              !customer.getEmail().toLowerCase().contains(search.toLowerCase()));
+            }
+            request.setAttribute("customers", customers);
+            RequestDispatcher rd = request.getRequestDispatcher("/customers.jsp");
+            rd.forward(request, response);
+        } catch (SQLException e) {
+            Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tìm kiếm khách hàng");
         }
     }
+}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -108,6 +123,8 @@ public class EditCustomerServlet extends HttpServlet {
             }
         } else {
             // Xử lý yêu cầu thêm/sửa khách hàng từ form
+            request.setCharacterEncoding("UTF-8");
+
             int customerId = request.getParameter("customerId") != null && !request.getParameter("customerId").isEmpty() ?
                              Integer.parseInt(request.getParameter("customerId")) : 0;
             String username = request.getParameter("username");
@@ -122,7 +139,9 @@ public class EditCustomerServlet extends HttpServlet {
 
             // Kiểm tra mật khẩu và xác nhận mật khẩu
             if (password != null && !password.equals(confirmPassword)) {
-                response.getWriter().println("Mật khẩu và xác nhận mật khẩu không khớp!");
+                request.getSession().setAttribute("message", "Mật khẩu và xác nhận mật khẩu không khớp!");
+                request.getSession().setAttribute("messageType", "error");
+                response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
                 return;
             }
 
@@ -142,33 +161,179 @@ public class EditCustomerServlet extends HttpServlet {
             try {
                 if (customerId > 0) {
                     // Cập nhật khách hàng
-                    boolean updated = dao.updateCustomerProfile(customerId, username, email, firstName, lastName, phone, address, password);
-                    if (profilePicturePath != null) {
-                        dao.updateProfilePicture(customerId, profilePicturePath);
-                    }
-                    if (updated) {
+                    // Validate input
+                    if (username == null || username.trim().isEmpty() ||
+                        email == null || email.trim().isEmpty() ||
+                        firstName == null || firstName.trim().isEmpty() ||
+                        lastName == null || lastName.trim().isEmpty() ||
+                        phone == null || phone.trim().isEmpty() ||
+                        address == null || address.trim().isEmpty()) {
+                        request.getSession().setAttribute("message", "Vui lòng điền đầy đủ thông tin bắt buộc (Tên đăng nhập, Email, Họ, Tên, Số điện thoại, Địa chỉ)!");
+                        request.getSession().setAttribute("messageType", "error");
                         response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-                    } else {
-                        response.getWriter().println("Cập nhật thất bại!");
-                    }
-                } else {
-                    // Thêm khách hàng mới
-                    if (password == null || password.trim().isEmpty()) {
-                        response.getWriter().println("Mật khẩu là bắt buộc khi thêm khách hàng mới!");
                         return;
                     }
+
+                    // Validate username format
+                    if (!username.matches("^[A-Za-z0-9_]{3,}$")) {
+                        request.getSession().setAttribute("message", "Tên đăng nhập phải có ít nhất 3 ký tự và không chứa ký tự đặc biệt!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate email format
+                    if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                        request.getSession().setAttribute("message", "Email không hợp lệ!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate firstName and lastName format
+                    if (!NAME_PATTERN.matcher(firstName).matches() || !NAME_PATTERN.matcher(lastName).matches()) {
+                        request.getSession().setAttribute("message", "Họ và Tên phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate phone number format
+                    if (!phone.matches("(84|0[3|5|7|8|9])+([0-9]{8})")) {
+                        request.getSession().setAttribute("message", "Số điện thoại không hợp lệ!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate address length
+                    if (address.length() < 10) {
+                        request.getSession().setAttribute("message", "Địa chỉ phải có ít nhất 10 ký tự!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate password format (if provided)
+                    if (password != null && !password.trim().isEmpty() && !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")) {
+                        request.getSession().setAttribute("message", "Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ và số!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Lấy thông tin khách hàng hiện tại
+                    Customer existingCustomer = dao.getCustomerById(customerId);
+                    if (existingCustomer == null) {
+                        request.getSession().setAttribute("message", "Không tìm thấy thông tin khách hàng!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Cập nhật thông tin mới vào đối tượng Customer
+                    existingCustomer.setUsername(username);
+                    existingCustomer.setEmail(email);
+                    existingCustomer.setFirstName(firstName);
+                    existingCustomer.setLastName(lastName);
+                    existingCustomer.setAddress(address);
+                    existingCustomer.setPhone(phone);
+                    existingCustomer.setRole(role);
+                    if (password != null && !password.trim().isEmpty()) {
+                        existingCustomer.setPassword(password); // Cập nhật mật khẩu nếu có
+                    }
+                    if (profilePicturePath != null) {
+                        existingCustomer.setProfilePicture(profilePicturePath); // Cập nhật ảnh đại diện nếu có
+                    }
+
+                    // Cập nhật thông tin vào database
+                    if (dao.updateCustomer(existingCustomer)) {
+                        request.getSession().setAttribute("message", "Cập nhật thông tin khách hàng thành công!");
+                        request.getSession().setAttribute("messageType", "success");
+                    } else {
+                        request.getSession().setAttribute("message", "Không thể cập nhật thông tin khách hàng!");
+                        request.getSession().setAttribute("messageType", "error");
+                    }
+                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                } else {
+                    // Thêm khách hàng mới
+                    if (username == null || username.trim().isEmpty() ||
+                        email == null || email.trim().isEmpty() ||
+                        firstName == null || firstName.trim().isEmpty() ||
+                        lastName == null || lastName.trim().isEmpty() ||
+                        phone == null || phone.trim().isEmpty() ||
+                        address == null || address.trim().isEmpty() ||
+                        password == null || password.trim().isEmpty()) {
+                        request.getSession().setAttribute("message", "Vui lòng điền đầy đủ thông tin bắt buộc (bao gồm mật khẩu khi thêm mới)!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate username format
+                    if (!username.matches("^[A-Za-z0-9_]{3,}$")) {
+                        request.getSession().setAttribute("message", "Tên đăng nhập phải có ít nhất 3 ký tự và không chứa ký tự đặc biệt!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate email format
+                    if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                        request.getSession().setAttribute("message", "Email không hợp lệ!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate firstName and lastName format
+                    if (!NAME_PATTERN.matcher(firstName).matches() || !NAME_PATTERN.matcher(lastName).matches()) {
+                        request.getSession().setAttribute("message", "Họ và Tên phải có ít nhất 2 ký tự và không chứa số hoặc ký tự đặc biệt!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate phone number format
+                    if (!phone.matches("(84|0[3|5|7|8|9])+([0-9]{8})")) {
+                        request.getSession().setAttribute("message", "Số điện thoại không hợp lệ!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate address length
+                    if (address.length() < 10) {
+                        request.getSession().setAttribute("message", "Địa chỉ phải có ít nhất 10 ký tự!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
+                    // Validate password format
+                    if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")) {
+                        request.getSession().setAttribute("message", "Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ và số!");
+                        request.getSession().setAttribute("messageType", "error");
+                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        return;
+                    }
+
                     // Gọi insertCustomerAll với đúng thứ tự tham số
                     boolean inserted = dao.insertCustomerAll(username, email, firstName, lastName, password, profilePicturePath, address, phone, role);
                     if (inserted) {
-                        // Không cần gọi updateProfilePicture vì profilePicturePath đã được thêm trong insertCustomerAll
-                        response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                        request.getSession().setAttribute("message", "Thêm khách hàng mới thành công!");
+                        request.getSession().setAttribute("messageType", "success");
                     } else {
-                        response.getWriter().println("Thêm khách hàng thất bại!");
+                        request.getSession().setAttribute("message", "Thêm khách hàng mới thất bại!");
+                        request.getSession().setAttribute("messageType", "error");
                     }
+                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
-                response.getWriter().println("Đã xảy ra lỗi khi cập nhật/thêm khách hàng!");
+                request.getSession().setAttribute("message", "Đã xảy ra lỗi khi cập nhật/thêm khách hàng!");
+                request.getSession().setAttribute("messageType", "error");
+                response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
             }
         }
     }
@@ -182,5 +347,22 @@ public class EditCustomerServlet extends HttpServlet {
             }
         }
         return "";
+    }
+
+    // Lớp hỗ trợ để trả về thông báo lỗi dưới dạng JSON
+    private static class ErrorResponse {
+        private String error;
+
+        public ErrorResponse(String error) {
+            this.error = error;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
     }
 }
