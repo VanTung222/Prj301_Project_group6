@@ -18,12 +18,13 @@ public class CustomerDAO {
     // Các truy vấn SQL
     private static final String LOGIN = "SELECT Customer_ID, Username, Email FROM Customers WHERE Username=? AND Password=?";
     private static final String INSERT_CUSTOMER = "INSERT INTO Customers (Username, Email, Password, Registration_Date, Role) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_CUSTOMERAll = "INSERT INTO Customers (Username, Email, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String INSERT_GOOGLE_CUSTOMER = "INSERT INTO Customers (GoogleID, Email, Username, FirstName, LastName, ProfilePicture, Registration_Date, Role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String CHECK_EMAIL = "SELECT Customer_ID FROM Customers WHERE Email=?";
     private static final String GET_CUSTOMER_BY_ID = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers WHERE Customer_ID=?";
     private static final String GET_ALL_CUSTOMERS = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers";
     private static final String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
-    private static final String DELETE_ACCOUNT = "UPDATE Customers SET Role=0 WHERE Customer_ID=?";
+    private static final String DELETE_ACCOUNT = "DELETE FROM Customers WHERE Customer_ID=?"; 
     private static final String EDIT_PASSWORD = "UPDATE Customers SET Password=? WHERE Customer_ID=?";
 
     // Kiểm tra đăng nhập bằng username và password
@@ -104,6 +105,33 @@ public class CustomerDAO {
         }
         return inserted;
     }
+    
+
+public boolean insertCustomerAll(String username, String email, String firstName, String lastName, 
+                             String password, String profilePicture, String address, String phone, 
+                             int role) throws SQLException, ClassNotFoundException {
+    boolean inserted = false;
+    try {
+        conn = DBUtils.getConnection();
+        if (conn != null) {
+            ps = conn.prepareStatement(INSERT_CUSTOMERAll);
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, firstName);
+            ps.setString(4, lastName);
+            ps.setString(5, password);
+            ps.setString(6, profilePicture);
+            ps.setString(7, address);
+            ps.setString(8, phone);
+            ps.setDate(9,  new java.sql.Date(new Date().getTime()));
+            ps.setInt(10, role);
+            inserted = ps.executeUpdate() > 0;
+        }
+    } finally {
+        closeResources();
+    }
+    return inserted;
+}
 
     // Kiểm tra email đã tồn tại chưa
     public boolean isEmailExists(String email) throws SQLException {
@@ -198,8 +226,8 @@ public class CustomerDAO {
     }
 
    
-    // Xóa tài khoản (chuyển Role thành 0)
-    public boolean deleteAccount(int customerId) throws SQLException {
+    // Xóa tài khoản (xóa hoàn toàn bản ghi khách hàng)
+    public boolean deleteAccount(int customerId) throws SQLException, ClassNotFoundException {
         boolean deleted = false;
         try {
             conn = DBUtils.getConnection();
@@ -208,11 +236,8 @@ public class CustomerDAO {
                 ps.setInt(1, customerId);
                 deleted = ps.executeUpdate() > 0;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            closeResources();
         }
         return deleted;
     }
@@ -464,7 +489,8 @@ public class CustomerDAO {
         }
     }
     
-     public int getTotalCustomers() throws SQLException, ClassNotFoundException {
+    // Lấy tổng số khách hàng
+    public int getTotalCustomers() throws SQLException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
         String sql = "SELECT COUNT(*) as count FROM Customers";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -474,5 +500,39 @@ public class CustomerDAO {
         }
         return 0;
     }
-    
+
+    public boolean updateCustomerWithImage(Customer customer) throws SQLException, ClassNotFoundException {
+        boolean success = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=?, Role=?, ProfilePicture=? WHERE Customer_ID=?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getEmail());
+            ps.setString(2, customer.getFirstName());
+            ps.setString(3, customer.getLastName());
+            ps.setString(4, customer.getAddress());
+            ps.setString(5, customer.getPhone());
+            ps.setInt(6, customer.getRole());
+            ps.setString(7, customer.getProfilePicture());
+            ps.setInt(8, customer.getCustomerId());
+            
+            int rowsAffected = ps.executeUpdate();
+            success = rowsAffected > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return success;
+    }
 }

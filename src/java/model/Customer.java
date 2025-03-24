@@ -144,4 +144,10 @@ public class Customer {
         return "Customer{" + "customerId=" + customerId + ", googleId=" + googleId + ", username=" + username + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", profilePicture=" + profilePicture + ", address=" + address + ", phone=" + phone + ", registrationDate=" + registrationDate + ", role=" + role + '}';
     }
 
+// Thêm phương thức getFullName() vào đây
+public String getFullName() {
+    return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");
+}
+
+
 }
