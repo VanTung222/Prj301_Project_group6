@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Confirmation</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/order-confirmation.css">
+    
+    
 </head>
 <body>
     <div class="container">
@@ -22,16 +24,15 @@
         <c:choose>
             <c:when test="${paymentMethod == 'Bank Transfer'}">
                 <h3>Please transfer the amount to the following account:</h3>
-                <p>Total: <fmt:formatNumber value="${total}" type="currency" currencySymbol="$"/></p>
+                <p>Total: <fmt:formatNumber value="${total}" type="number" minFractionDigits="2" maxFractionDigits="2" />$</p>
                 <p>Bank: Example Bank</p>
                 <p>Account Number: 1234-5678-9012</p>
                 <p>Scan the QR code below to pay:</p>
-                <img src="images/qr-codes/payment_${orderId}.png" alt="QR Code for Payment" style="width: 200px; height: 200px;">
                 <p>After payment, please wait for admin approval.</p>
             </c:when>
             <c:when test="${paymentMethod == 'COD'}">
                 <h3>Cash on Delivery (COD)</h3>
-                <p>Total: <fmt:formatNumber value="${total}" type="currency" currencySymbol="$"/></p>
+                <p>Total: <fmt:formatNumber value="${total}" type="number" minFractionDigits="2" maxFractionDigits="2" />$</p>
                 <p>Your order is pending admin approval. You will pay upon delivery.</p>
             </c:when>
         </c:choose>

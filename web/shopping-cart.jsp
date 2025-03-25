@@ -363,15 +363,28 @@
                                         </form>
                                         <div id="discountMessage" style="color: green;"></div>
                                     </div>
+                                    <!--                                    <div class="cart__total">
+                                                                            <h6>Cart total</h6>
+                                                                            <ul>
+                                                                                <li>Subtotal: <div id="cart-subtotal" class="cart__price" style="display: flex"><span>$0.00</span></div></li>
+                                                                                <li>Discount: <span id="discountAmount">$0.00</span></li>
+                                                                                <li>Total: <div id="cart-total" class="cart__price" style="display: flex"><span>$0.00</span></div></li>
+                                                                            </ul>
+                                                                            <a href="CheckoutServlet" class="primary-btn">Proceed to checkout</a>
+                                                                        </div>-->
+
+
                                     <div class="cart__total">
                                         <h6>Cart total</h6>
                                         <ul>
-                                            <li>Subtotal: <div id="cart-subtotal" class="cart__price" style="display: flex"><span>$0.00</span></div></li>
+                                            <li>Subtotal: <span id="cart-subtotal">$0.00</span></li>
                                             <li>Discount: <span id="discountAmount">$0.00</span></li>
-                                            <li>Total: <div id="cart-total" class="cart__price" style="display: flex"><span>$0.00</span></div></li>
+                                            <li>Total: <span id="cart-total">$0.00</span></li>
                                         </ul>
                                         <a href="CheckoutServlet" class="primary-btn">Proceed to checkout</a>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
