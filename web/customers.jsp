@@ -397,11 +397,9 @@
                                         </span>
                                     </td>
                                     <td class="action-buttons">
-                                        <form action="${pageContext.request.contextPath}/EditCustomerServlet/get/${customer.customerId}" method="get" style="display:inline;">
-                                            <button type="submit" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="editCustomer(${customer.customerId})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
                                         <form action="${pageContext.request.contextPath}/EditCustomerServlet/delete/${customer.customerId}" method="post" style="display:inline;">
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa khách hàng này?')">
                                                 <i class="fas fa-trash"></i>
@@ -541,56 +539,6 @@
 
     <script>
         const contextPath = "${pageContext.request.contextPath}";
-        
-        // Kiểm tra nếu có dữ liệu khách hàng trong session thì hiển thị modal
-        <c:if test="${not empty sessionScope.editCustomer}">
-            window.addEventListener('DOMContentLoaded', (event) => {
-                const customer = {
-                    customerId: "${sessionScope.editCustomer.customerId}",
-                    username: "${sessionScope.editCustomer.username}",
-                    email: "${sessionScope.editCustomer.email}",
-                    firstName: "${sessionScope.editCustomer.firstName}",
-                    lastName: "${sessionScope.editCustomer.lastName}",
-                    phone: "${sessionScope.editCustomer.phone}",
-                    role: "${sessionScope.editCustomer.role}",
-                    address: "${sessionScope.editCustomer.address}",
-                    profilePicture: "${sessionScope.editCustomer.profilePicture}"
-                };
-
-                // Populate modal with customer data
-                document.getElementById('customerId').value = customer.customerId;
-                document.querySelector('[name="username"]').value = customer.username;
-                document.querySelector('[name="email"]').value = customer.email;
-                document.querySelector('[name="firstName"]').value = customer.firstName;
-                document.querySelector('[name="lastName"]').value = customer.lastName;
-                document.querySelector('[name="phone"]').value = customer.phone;
-                document.querySelector('[name="role"]').value = customer.role;
-                document.querySelector('[name="address"]').value = customer.address;
-                
-                // Handle password fields
-                document.getElementById('passwordInput').removeAttribute('required');
-                document.getElementById('confirmPasswordInput').removeAttribute('required');
-                
-                // Handle profile picture
-                if (customer.profilePicture) {
-                    document.getElementById('profilePreview').src = customer.profilePicture;
-                } else {
-                    document.getElementById('profilePreview').src = `${contextPath}/img/default-avatar.jpg`;
-                }
-
-                // Update modal title and make username readonly
-                document.getElementById('modalTitle').textContent = 'Chỉnh sửa Khách hàng';
-                document.getElementById('usernameInput').setAttribute('readonly', 'readonly');
-                
-                // Show modal
-                const modal = new bootstrap.Modal(document.getElementById('customerModal'));
-                modal.show();
-            });
-            <%
-                // Xóa dữ liệu khách hàng khỏi session sau khi đã sử dụng
-                session.removeAttribute("editCustomer");
-            %>
-        </c:if>
 
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -600,6 +548,50 @@
                 };
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        function viewCustomer(id) {
+    if (!id || id <= 0) {
+        alert("ID khách hàng không hợp lệ!");
+        return;
+    }
+    fetch(`${contextPath}/EditCustomerServlet/get/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || `Lỗi ${response.status}: Không thể lấy thông tin khách hàng`);
+                });
+            }
+            return response.json();
+        })
+        .then(customer => {
+            // Populate modal with customer data
+            document.getElementById('customerId').value = customer.customerId;
+            document.querySelector('[name="username"]').value = customer.username || '';
+            document.querySelector('[name="email"]').value = customer.email || '';
+            document.querySelector('[name="firstName"]').value = customer.firstName || '';
+            document.querySelector('[name="lastName"]').value = customer.lastName || '';
+            document.querySelector('[name="phone"]').value = customer.phone || '';
+            document.querySelector('[name="role"]').value = customer.role !== undefined ? customer.role : '';
+            document.querySelector('[name="address"]').value = customer.address || '';
+            if (customer.profilePicture) {
+                document.getElementById('profilePreview').src = customer.profilePicture;
+            } else {
+                document.getElementById('profilePreview').src = `${contextPath}/img/default-avatar.jpg`;
+            }
+
+            // Update modal title
+            document.getElementById('modalTitle').textContent = 'Chỉnh sửa Khách hàng';
+            const modal = new bootstrap.Modal(document.getElementById('customerModal'));
+            modal.show();
+        })
+        .catch(error => {
+            alert("Lỗi khi lấy thông tin khách hàng: " + error.message);
+        });
+}
+
+        function editCustomer(id) {
+            viewCustomer(id);
         }
 
         function resetForm() {

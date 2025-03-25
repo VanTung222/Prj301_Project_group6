@@ -31,54 +31,52 @@ public class EditCustomerServlet extends HttpServlet {
     private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-zÀ-ỹ\\s]{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
 
-        if (pathInfo != null && pathInfo.startsWith("/get/")) {
-            try {
-                String idStr = pathInfo.substring(5); // Lấy ID từ URL
-                int customerId;
-                try {
-                    customerId = Integer.parseInt(idStr);
-                } catch (NumberFormatException e) {
-                    request.getSession().setAttribute("message", "ID không hợp lệ: " + e.getMessage());
-                    request.getSession().setAttribute("messageType", "error");
-                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-                    return;
-                }
+    if (pathInfo != null && pathInfo.startsWith("/get/")) {
+        // Xử lý yêu cầu lấy thông tin khách hàng (dành cho JavaScript)
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        Gson gson = new Gson();
 
-                if (customerId <= 0) {
-                    request.getSession().setAttribute("message", "ID khách hàng không hợp lệ");
-                    request.getSession().setAttribute("messageType", "error");
-                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-                    return;
-                }
-
-                CustomerDAO dao = new CustomerDAO();
-                Customer customer = dao.getCustomerById(customerId);
-
-                if (customer != null) {
-                    // Lưu thông tin khách hàng vào session để hiển thị trong modal
-                    request.getSession().setAttribute("editCustomer", customer);
-                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-                } else {
-                    request.getSession().setAttribute("message", "Không tìm thấy khách hàng");
-                    request.getSession().setAttribute("messageType", "error");
-                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-                }
-            } catch (SQLException e) {
-                request.getSession().setAttribute("message", "Lỗi khi lấy thông tin khách hàng: " + e.getMessage());
-                request.getSession().setAttribute("messageType", "error");
-                response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
-            }
-            return;
-        }
-
-        // Xử lý yêu cầu tìm kiếm
         try {
-            String search = request.getParameter("search");
+            String idStr = pathInfo.substring(5); // Lấy ID từ URL
+            int customerId = Integer.parseInt(idStr);
+            if (customerId <= 0) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                out.print(gson.toJson(new ErrorResponse("ID khách hàng không hợp lệ")));
+                out.flush();
+                return;
+            }
+
             CustomerDAO dao = new CustomerDAO();
+            Customer customer = dao.getCustomerById(customerId);
+
+            if (customer != null) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.print(gson.toJson(customer));
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                out.print(gson.toJson(new ErrorResponse("Không tìm thấy khách hàng")));
+            }
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(gson.toJson(new ErrorResponse("ID không hợp lệ: " + e.getMessage())));
+        } catch (SQLException e) {
+            Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.print(gson.toJson(new ErrorResponse("Lỗi khi lấy thông tin khách hàng: " + e.getMessage())));
+        } finally {
+            out.flush();
+        }
+    } else {
+        // Xử lý yêu cầu tìm kiếm
+        String search = request.getParameter("search");
+        CustomerDAO dao = new CustomerDAO();
+        try {
             List<Customer> customers = dao.getAllCustomers();
             if (search != null && !search.trim().isEmpty()) {
                 customers.removeIf(customer -> !customer.getUsername().toLowerCase().contains(search.toLowerCase()) &&
@@ -92,6 +90,7 @@ public class EditCustomerServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tìm kiếm khách hàng");
         }
     }
+}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -150,7 +149,7 @@ public class EditCustomerServlet extends HttpServlet {
             String profilePicturePath = null;
             Part filePart = request.getPart("profilePicture");
             if (filePart != null && filePart.getSize() > 0) {
-                String fileName = System.currentTimeMillis() + "_" + extractFileName(filePart);
+                String fileName = extractFileName(filePart);
                 String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) uploadDir.mkdir();
@@ -243,25 +242,17 @@ public class EditCustomerServlet extends HttpServlet {
                     if (password != null && !password.trim().isEmpty()) {
                         existingCustomer.setPassword(password); // Cập nhật mật khẩu nếu có
                     }
-
-                    // Xử lý upload ảnh
-                    if (filePart != null && filePart.getSize() > 0) {
-                        existingCustomer.setProfilePicture(profilePicturePath); // Cập nhật đường dẫn ảnh mới
+                    if (profilePicturePath != null) {
+                        existingCustomer.setProfilePicture(profilePicturePath); // Cập nhật ảnh đại diện nếu có
                     }
 
                     // Cập nhật thông tin vào database
-                    try {
-                        if (dao.updateCustomerWithImage(existingCustomer)) {
-                            request.getSession().setAttribute("message", "Cập nhật thông tin khách hàng thành công!");
-                            request.getSession().setAttribute("messageType", "success");
-                        } else {
-                            request.getSession().setAttribute("message", "Không thể cập nhật thông tin khách hàng!");
-                            request.getSession().setAttribute("messageType", "error");
-                        }
-                    } catch (ClassNotFoundException e) {
-                        request.getSession().setAttribute("message", "Lỗi kết nối database: " + e.getMessage());
+                    if (dao.updateCustomer(existingCustomer)) {
+                        request.getSession().setAttribute("message", "Cập nhật thông tin khách hàng thành công!");
+                        request.getSession().setAttribute("messageType", "success");
+                    } else {
+                        request.getSession().setAttribute("message", "Không thể cập nhật thông tin khách hàng!");
                         request.getSession().setAttribute("messageType", "error");
-                        Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
                     }
                     response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
                 } else {

@@ -535,17 +535,12 @@
                             <div class="col-lg-7 col-md-7 col-sm-7">
                                 <div class="section-title">
                                     <span>Our team</span>
-                                    <h2>Sweet Coder</h2>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="team__btn">
-                                    <a href="#" class="primary-btn">Join Us</a>
+                                    <h2>Sweet Baker </h2>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col-lg-3  col-md-6 col-sm-6">
                                 <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                                     <div class="team__item__text">
                                         <h6>Trần Văn Tùng</h6>
@@ -566,7 +561,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col-lg-3  col-md-6 col-sm-6">
                                 <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                                     <div class="team__item__text">
                                         <h6>Phạm Hồng Quân</h6>
@@ -587,7 +582,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col-lg-3  col-md-6 col-sm-6">
                                 <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                                     <div class="team__item__text">
                                         <h6>Ngô Sỹ Giá</h6>
@@ -608,7 +603,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col-lg-3  col-md-6 col-sm-6">
                                 <div class="team__item set-bg" data-setbg="img/team/team-4.jpg">
                                     <div class="team__item__text">
                                         <h6>Nguyễn Tiến Đạt</h6>
@@ -630,10 +625,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col-lg-3  col-md-6 col-sm-6">
                                 <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                                     <div class="team__item__text">
-                                        <h6>Lê Quốc Hùng</h6>
+                                        <h6>Le Quoc Hung</h6>
                                         <span>Member</span>
                                         <div class="team__item__social">
                                             <a href="https://www.facebook.com/LHQ.17G"
@@ -654,7 +649,6 @@
                         </div>
                     </div>
                 </section>
-
                 <!-- Team Section End -->
 
                 <!-- Testimonial Section Begin -->

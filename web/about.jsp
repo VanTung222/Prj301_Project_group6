@@ -169,7 +169,7 @@
                                         <li><a href="./checkout.jsp">Check Out</a></li>
                                         <li><a href="./wisslist.jsp">Wisslist</a></li>
                                         <li><a href="./class.jsp">Class</a></li>
-                                        
+
                                     </ul>
                                 </li>
                                 <li><a href="./contact.jsp">Contact</a></li>
@@ -417,7 +417,7 @@
             </div>
         </section>
         <!-- Testimonial Section End -->
-        
+
         <!-- Team Section Begin -->
         <section class="team spad">
             <div class="container">
@@ -426,11 +426,6 @@
                         <div class="section-title">
                             <span>Our team</span>
                             <h2>Sweet Baker </h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5">
-                        <div class="team__btn">
-                            <a href="#" class="primary-btn">Join Us</a>
                         </div>
                     </div>
                 </div>
@@ -523,7 +518,7 @@
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
-                                <h6>Le Quoc Hung</h6>
+                                <h6>Lê Quốc Hùng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
                                     <a href="https://www.facebook.com/LHQ.17G"

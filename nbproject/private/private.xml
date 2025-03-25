@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/GIT_Bakery/Project_QHung/web/img/team/team-1.jpg</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/model/Product.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/web/products.jsp</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/nbproject/build-impl.xml</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/web/customers.jsp</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/AdminServlet.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/CustomerManagerAd.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/AdminOrderServlet.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/ProductServlet22.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/web/orders.jsp</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/dao/ProductDAO.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/AdminProductServlet.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/src/java/controller/EditCustomerServlet.java</file>
-            <file>file:/D:/GIT_Bakery/Project_QHung/web/dashboard.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
