@@ -20,7 +20,9 @@ CREATE TABLE Customers (
     Registration_Date DATE,
     Role BIT DEFAULT 1 -- 0: Admin, 1: Customer
 );
-
+INSERT INTO Customers (GoogleID, Username, Email, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role)
+VALUES 
+(NULL, 'admin123', 'TungTVDE180109@fpt.edu.vn', 'Tran Van', 'Tung', '123', 'img/team/team-1.jpg', 'Eale Easup, Dak Lak', '0326651443', '2025-03-08', 0);
 -- Chèn dữ liệu vào bảng Customers
 INSERT INTO Customers (GoogleID, Username, Email, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role)
 VALUES 
@@ -109,6 +111,18 @@ VALUES
 
 -- Kiểm tra dữ liệu bảng Product
 SELECT * FROM Product;
+
+UPDATE Product
+SET Price = FLOOR(Price / 100);
+
+ALTER TABLE Product
+ALTER COLUMN Price DECIMAL(10, 3);
+
+UPDATE Product
+SET Price = ROUND(Price, 3);
+
+UPDATE Product
+SET Price = CAST(Price AS DECIMAL(10, 3));
 
 -- Tạo bảng Employee
 IF OBJECT_ID('Employee', 'U') IS NOT NULL DROP TABLE Employee;

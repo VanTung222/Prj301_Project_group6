@@ -77,7 +77,7 @@
 							<div class="pt-2">
 								<div class="row justify-content-center">
 									<h5>
-										Don't have an Account?<span><a href="login.jsp"
+										Don't have an Account?<span><a href="login"
 											class="text-danger"> Register Now!</a></span>
 									</h5>
 								</div>

@@ -23,7 +23,7 @@
         </div>
     <% } else { %>
         <div style="text-align: right; padding: 10px;">
-            <a href="login.jsp" class="btn">Sign In</a>
+            <a href="login" class="btn">Sign In</a>
         </div>
     <% } %>
 

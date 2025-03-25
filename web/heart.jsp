@@ -64,9 +64,9 @@
                                     <% HttpSession sessionObj = request.getSession(false);
                                         String username
                                                 = null;
-                                        String heartLink = "login.jsp";
-                                        String cartLink = "login.jsp";
-                                        String profileLink = "login.jsp";
+                                        String heartLink = "login";
+                                        String cartLink = "login";
+                                        String profileLink = "login";
                                         if (sessionObj != null) {
                                             username
                                                     = (String) sessionObj.getAttribute("username");
@@ -130,7 +130,7 @@
                                     </form>
                                 </li>
                                 <% } else { %>
-                                <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+                                <li><a href="login" style="padding: 8px 15px">Sign In</a></li>
                                     <% }%>
                             </ul>
                         </div>
@@ -200,7 +200,7 @@
                                                         </form>
                                                     </div>
                                                     <% } else { %>
-                                                    <a href="login.jsp" class="btn btn-outline-primary">
+                                                    <a href="login" class="btn btn-outline-primary">
                                                         <i class="fa fa-sign-in"></i> Sign In
                                                     </a>
                                                     <% }%>
@@ -222,21 +222,18 @@
                                     <nav class="header__menu mobile-menu">
                                         <ul>
                                             <li><a href="home">Home</a></li>
-                                            <li><a href="./about.html">About</a></li>
+                                            <li><a href="./about.jsp">About</a></li>
                                             <li><a href="./shop.jsp">Shop</a></li>
                                             <li>
                                                 <a href="#">Pages</a>
                                                 <ul class="dropdown">
                                                     <li><a href="./shop-details.jsp">Shop Details</a></li>
                                                     <li><a href="./shoping-cart.jsp">Shopping Cart</a></li>
-                                                    <li><a href="./checkout.html">Check Out</a></li>
-                                                    <li><a href="./wishlist.html">Wishlist</a></li>
-                                                    <li><a href="./class.html">Class</a></li>
-                                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                                    <li><a href="./checkout.jsp">Check Out</a></li>
+                                                    <li><a href="wishlist">Wishlist</a></li></a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="./blog.html">Blog</a></li>
-                                            <li><a href="./contact.html">Contact</a></li>
+                                            <li><a href="./contact.jsp">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>

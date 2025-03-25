@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="model.Customer" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,6 +78,21 @@
             padding: 10px 20px;
             border-radius: 30px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .user-profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            margin-right: 10px;
+        }
+        .user-name {
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-right: 15px;
         }
         .badge-success {
             background-color: #28a745;
@@ -126,12 +142,23 @@
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Dashboard</h2>
-                    <div class="user-info">
-                        <span class="me-3">Xin chào, ${sessionScope.username}</span>
-                        <a href="${pageContext.request.contextPath}/LogoutServlet" class="btn btn-outline-danger btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                        </a>
-                    </div>
+                    <div class="user-profile">
+                            <c:choose>
+                                <c:when test="${not empty admin and not empty admin.profilePicture}">
+                                    <img src="${admin.profilePicture}" alt="Admin Avatar" class="avatar">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" alt="Admin Avatar" class="avatar">
+                                </c:otherwise>
+                            </c:choose>
+                            <div class="user-info">
+                                <span class="user-name">Xin chào, ${sessionScope.username}</span>
+                                <a href="${pageContext.request.contextPath}/LogoutServlet" class="logout-btn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </div>
                 </div>
 
                 <!-- Statistics Cards -->

@@ -47,9 +47,9 @@
                         <% HttpSession sessionObj = request.getSession(false);
                             String username
                                     = null;
-                            String heartLink = "login.jsp";
-                            String cartLink = "login.jsp";
-                            String profileLink = "login.jsp";
+                            String heartLink = "login";
+                            String cartLink = "login";
+                            String profileLink = "login";
                             if (sessionObj != null) {
                                 username
                                         = (String) sessionObj.getAttribute("username");
@@ -113,7 +113,7 @@
                         </form>
                     </li>
                     <% } else { %>
-                    <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+                    <li><a href="login" style="padding: 8px 15px">Sign In</a></li>
                         <% }%>
                 </ul>
             </div>
@@ -183,7 +183,7 @@
                                             </form>
                                         </div>
                                         <% } else { %>
-                                        <a href="login.jsp" class="btn btn-outline-primary">
+                                        <a href="login" class="btn btn-outline-primary">
                                             <i class="fa fa-sign-in"></i> Sign In
                                         </a>
                                         <% }%>
@@ -205,21 +205,18 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="home">Home</a></li>
-                                <li><a href="./about.html">About</a></li>
+                                <li><a href="./about.jsp">About</a></li>
                                 <li><a href="./shop.jsp">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./shop-details.jsp">Shop Details</a></li>
                                         <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wishlist.html">Wishlist</a></li>
-                                        <li><a href="./class.html">Class</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><a href="./checkout.jsp">Check Out</a></li>
+                                        <li><a href="wishlist">Wishlist</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -279,7 +276,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-<%= product.getProductId()%>.jpg">
+                            <div class="product__item__pic set-bg" data-setbg="<%= product.getProductImg()%>">
                                 <div class="product__label">
                                     <span>Cupcake</span>
                                 </div>
@@ -288,12 +285,12 @@
                                 <h6><a href="shop-details.jsp?product_id=<%= product.getProductId()%>">
                                         <%= product.getName()%>
                                     </a></h6>
-                                <div class="product__item__price">$<%= product.getPrice()%></div>
+                                <div class="product__item__price"><%= String.format("%.3f", product.getPrice()) %>VND</div>
                                 <div class="cart_add">
                                     <% if (sessionObj != null && sessionObj.getAttribute("username") != null) { %>
                                         <a href="#" onclick="addToCart(<%= product.getProductId()%>); return false;">Add to cart</a>
                                     <% } else { %>
-                                        <a href="login.jsp">Add to cart</a>
+                                        <a href="login">Add to cart</a>
                                     <% } %>
                                 </div>
                             </div>
