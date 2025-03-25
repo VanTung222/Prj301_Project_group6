@@ -7,19 +7,23 @@ public class OrderDetail {
     private int quantity;
     private double unitPrice;
     private double subtotal;
+    private String productName; // Thêm thuộc tính productName
 
     // Constructor
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderDetailId, int orderId, int productId, int quantity, double unitPrice, double subtotal) {
+    public OrderDetail(int orderDetailId, int orderId, int productId, int quantity, double unitPrice) {
         this.orderDetailId = orderDetailId;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
-        this.subtotal = subtotal;
+//        this.subtotal = subtotal;
     }
+    
+    
+    
 
     // Getters và Setters
     public int getOrderDetailId() {
@@ -68,5 +72,13 @@ public class OrderDetail {
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

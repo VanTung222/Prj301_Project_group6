@@ -11,6 +11,7 @@ import model.Customer;
 import utils.DBUtils;
 
 public class CustomerDAO {
+
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
@@ -24,7 +25,7 @@ public class CustomerDAO {
     private static final String GET_CUSTOMER_BY_ID = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers WHERE Customer_ID=?";
     private static final String GET_ALL_CUSTOMERS = "SELECT Customer_ID, GoogleID, Email, Username, FirstName, LastName, Password, ProfilePicture, Address, Phone, Registration_Date, Role FROM Customers";
     private static final String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
-    private static final String DELETE_ACCOUNT = "DELETE FROM Customers WHERE Customer_ID=?"; 
+    private static final String DELETE_ACCOUNT = "DELETE FROM Customers WHERE Customer_ID=?";
     private static final String EDIT_PASSWORD = "UPDATE Customers SET Password=? WHERE Customer_ID=?";
 
     // Kiểm tra đăng nhập bằng username và password
@@ -39,19 +40,25 @@ public class CustomerDAO {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     customer = new Customer(
-                        rs.getInt("Customer_ID"),
-                        rs.getString("Username"),
-                        rs.getString("Email"),
-                        password
+                            rs.getInt("Customer_ID"),
+                            rs.getString("Username"),
+                            rs.getString("Email"),
+                            password
                     );
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customer;
     }
@@ -73,15 +80,19 @@ public class CustomerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return inserted;
     }
 
     // Thêm khách hàng đăng nhập bằng Google
-    public boolean insertGoogleCustomer(String googleId, String email, String username, String firstName, 
-                                       String lastName, String profilePicture) throws SQLException {
+    public boolean insertGoogleCustomer(String googleId, String email, String username, String firstName,
+            String lastName, String profilePicture) throws SQLException {
         boolean inserted = false;
         try {
             conn = DBUtils.getConnection();
@@ -100,38 +111,41 @@ public class CustomerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return inserted;
     }
-    
 
-public boolean insertCustomerAll(String username, String email, String firstName, String lastName, 
-                             String password, String profilePicture, String address, String phone, 
-                             int role) throws SQLException, ClassNotFoundException {
-    boolean inserted = false;
-    try {
-        conn = DBUtils.getConnection();
-        if (conn != null) {
-            ps = conn.prepareStatement(INSERT_CUSTOMERAll);
-            ps.setString(1, username);
-            ps.setString(2, email);
-            ps.setString(3, firstName);
-            ps.setString(4, lastName);
-            ps.setString(5, password);
-            ps.setString(6, profilePicture);
-            ps.setString(7, address);
-            ps.setString(8, phone);
-            ps.setDate(9,  new java.sql.Date(new Date().getTime()));
-            ps.setInt(10, role);
-            inserted = ps.executeUpdate() > 0;
+    public boolean insertCustomerAll(String username, String email, String firstName, String lastName,
+            String password, String profilePicture, String address, String phone,
+            int role) throws SQLException, ClassNotFoundException {
+        boolean inserted = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ps = conn.prepareStatement(INSERT_CUSTOMERAll);
+                ps.setString(1, username);
+                ps.setString(2, email);
+                ps.setString(3, firstName);
+                ps.setString(4, lastName);
+                ps.setString(5, password);
+                ps.setString(6, profilePicture);
+                ps.setString(7, address);
+                ps.setString(8, phone);
+                ps.setDate(9, new java.sql.Date(new Date().getTime()));
+                ps.setInt(10, role);
+                inserted = ps.executeUpdate() > 0;
+            }
+        } finally {
+            closeResources();
         }
-    } finally {
-        closeResources();
+        return inserted;
     }
-    return inserted;
-}
 
     // Kiểm tra email đã tồn tại chưa
     public boolean isEmailExists(String email) throws SQLException {
@@ -146,9 +160,15 @@ public boolean insertCustomerAll(String username, String email, String firstName
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return false;
     }
@@ -164,27 +184,33 @@ public boolean insertCustomerAll(String username, String email, String firstName
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     customer = new Customer(
-                        rs.getInt("Customer_ID"),
-                        rs.getString("GoogleID"),
-                        rs.getString("Username"),
-                        rs.getString("Email"),
-                        rs.getString("FirstName"),
-                        rs.getString("LastName"),
-                        rs.getString("Password"),
-                        rs.getString("ProfilePicture"),
-                        rs.getString("Address"),
-                        rs.getString("Phone"),
-                        rs.getDate("Registration_Date"),
-                        rs.getInt("Role")
+                            rs.getInt("Customer_ID"),
+                            rs.getString("GoogleID"),
+                            rs.getString("Username"),
+                            rs.getString("Email"),
+                            rs.getString("FirstName"),
+                            rs.getString("LastName"),
+                            rs.getString("Password"),
+                            rs.getString("ProfilePicture"),
+                            rs.getString("Address"),
+                            rs.getString("Phone"),
+                            rs.getDate("Registration_Date"),
+                            rs.getInt("Role")
                     );
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customer;
     }
@@ -199,18 +225,18 @@ public boolean insertCustomerAll(String username, String email, String firstName
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Customer customer = new Customer(
-                        rs.getInt("Customer_ID"),
-                        rs.getString("GoogleID"),
-                        rs.getString("Username"),
-                        rs.getString("Email"),
-                        rs.getString("FirstName"),
-                        rs.getString("LastName"),
-                        rs.getString("Password"),
-                        rs.getString("ProfilePicture"),
-                        rs.getString("Address"),
-                        rs.getString("Phone"),
-                        rs.getDate("Registration_Date"),
-                        rs.getInt("Role")
+                            rs.getInt("Customer_ID"),
+                            rs.getString("GoogleID"),
+                            rs.getString("Username"),
+                            rs.getString("Email"),
+                            rs.getString("FirstName"),
+                            rs.getString("LastName"),
+                            rs.getString("Password"),
+                            rs.getString("ProfilePicture"),
+                            rs.getString("Address"),
+                            rs.getString("Phone"),
+                            rs.getDate("Registration_Date"),
+                            rs.getInt("Role")
                     );
                     customerList.add(customer);
                 }
@@ -218,14 +244,19 @@ public boolean insertCustomerAll(String username, String email, String firstName
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customerList;
     }
 
-   
     // Xóa tài khoản (xóa hoàn toàn bản ghi khách hàng)
     public boolean deleteAccount(int customerId) throws SQLException, ClassNotFoundException {
         boolean deleted = false;
@@ -241,7 +272,7 @@ public boolean insertCustomerAll(String username, String email, String firstName
         }
         return deleted;
     }
-    
+
     // Sửa mật khẩu
     public boolean editPassword(int customerId, String newPassword) throws SQLException {
         boolean updated = false;
@@ -256,8 +287,12 @@ public boolean insertCustomerAll(String username, String email, String firstName
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return updated;
     }
@@ -276,9 +311,15 @@ public boolean insertCustomerAll(String username, String email, String firstName
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return false;
     }
@@ -295,18 +336,18 @@ public boolean insertCustomerAll(String username, String email, String firstName
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Customer customer = new Customer(
-                        rs.getInt("Customer_ID"),
-                        rs.getString("GoogleID"),
-                        rs.getString("Username"),
-                        rs.getString("Email"),
-                        rs.getString("FirstName"),
-                        rs.getString("LastName"),
-                        rs.getString("Password"),
-                        rs.getString("ProfilePicture"),
-                        rs.getString("Address"),
-                        rs.getString("Phone"),
-                        rs.getDate("Registration_Date"),
-                        rs.getInt("Role")
+                            rs.getInt("Customer_ID"),
+                            rs.getString("GoogleID"),
+                            rs.getString("Username"),
+                            rs.getString("Email"),
+                            rs.getString("FirstName"),
+                            rs.getString("LastName"),
+                            rs.getString("Password"),
+                            rs.getString("ProfilePicture"),
+                            rs.getString("Address"),
+                            rs.getString("Phone"),
+                            rs.getDate("Registration_Date"),
+                            rs.getInt("Role")
                     );
                     customerList.add(customer);
                 }
@@ -314,9 +355,15 @@ public boolean insertCustomerAll(String username, String email, String firstName
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customerList;
     }
@@ -328,21 +375,21 @@ public boolean insertCustomerAll(String username, String email, String firstName
             ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 return new Customer(
-                    rs.getInt("Customer_ID"),
-                    rs.getString("GoogleID"),
-                    rs.getString("Email"),
-                    rs.getString("Username"),
-                    rs.getString("FirstName"),
-                    rs.getString("LastName"),
-                    rs.getString("Password"),
-                    rs.getString("ProfilePicture"),
-                    rs.getString("Address"),
-                    rs.getString("Phone"),
-                    rs.getDate("Registration_Date"),
-                    rs.getInt("Role")
+                        rs.getInt("Customer_ID"),
+                        rs.getString("GoogleID"),
+                        rs.getString("Email"),
+                        rs.getString("Username"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Password"),
+                        rs.getString("ProfilePicture"),
+                        rs.getString("Address"),
+                        rs.getString("Phone"),
+                        rs.getDate("Registration_Date"),
+                        rs.getInt("Role")
                 );
             }
         } catch (Exception e) {
@@ -352,24 +399,26 @@ public boolean insertCustomerAll(String username, String email, String firstName
         }
         return null;
     }
+
     public int getRoleByCustomerId(int customerId) throws SQLException {
-    int role = 0; // Mặc định là 0 (khách hàng)
-    String sql = "SELECT Role FROM Customers WHERE Customer_ID = ?";
+        int role = 0; // Mặc định là 0 (khách hàng)
+        String sql = "SELECT Role FROM Customers WHERE Customer_ID = ?";
 
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, customerId);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                role = rs.getInt("Role");
+            ps.setInt(1, customerId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    role = rs.getInt("Role");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return role;
     }
-    return role;
-}
+
     public boolean updateProfilePicture(int customerId, String profilePicture) throws SQLException {
         boolean updated = false;
         try {
@@ -388,26 +437,62 @@ public boolean insertCustomerAll(String username, String email, String firstName
         }
         return updated;
     }
-    
+
+//    public boolean updateCustomer(Customer customer) throws ClassNotFoundException {
+//        boolean success = false;
+//        Connection conn = null;
+//        PreparedStatement ps = null;
+//        
+//        try {
+//            conn = DBUtils.getConnection();
+//            String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
+//            ps = conn.prepareStatement(sql);
+//            ps.setString(1, customer.getEmail());
+//            ps.setString(2, customer.getFirstName());
+//            ps.setString(3, customer.getLastName());
+//            ps.setString(4, customer.getAddress());
+//            ps.setString(5, customer.getPhone());
+//            ps.setInt(6, customer.getCustomerId());
+//            
+//            int rowsAffected = ps.executeUpdate();
+//            success = rowsAffected > 0;
+//            
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (ps != null) {
+//                    ps.close();
+//                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return success;
+//    }
     public boolean updateCustomer(Customer customer) throws ClassNotFoundException {
         boolean success = false;
         Connection conn = null;
         PreparedStatement ps = null;
-        
+
         try {
             conn = DBUtils.getConnection();
-            String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=? WHERE Customer_ID=?";
+            String sql = "UPDATE Customers SET Email=?, FirstName=?, LastName=?, Address=?, Phone=?, ProfilePicture=? WHERE Customer_ID=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, customer.getEmail());
             ps.setString(2, customer.getFirstName());
             ps.setString(3, customer.getLastName());
             ps.setString(4, customer.getAddress());
             ps.setString(5, customer.getPhone());
-            ps.setInt(6, customer.getCustomerId());
-            
+            ps.setString(6, customer.getProfilePicture()); // Thêm ProfilePicture
+            ps.setInt(7, customer.getCustomerId());
+
             int rowsAffected = ps.executeUpdate();
             success = rowsAffected > 0;
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -427,14 +512,14 @@ public boolean insertCustomerAll(String username, String email, String firstName
 
     // Giữ nguyên phương thức updateCustomerProfile của bạn
     public boolean updateCustomerProfile(
-        int customerId,
-        String username,
-        String email,
-        String firstName,
-        String lastName,
-        String phone,
-        String address,
-        String password
+            int customerId,
+            String username,
+            String email,
+            String firstName,
+            String lastName,
+            String phone,
+            String address,
+            String password
     ) throws SQLException {
         boolean updated = false;
         try {
@@ -488,7 +573,7 @@ public boolean insertCustomerAll(String username, String email, String firstName
             e.printStackTrace();
         }
     }
-    
+
     // Lấy tổng số khách hàng
     public int getTotalCustomers() throws SQLException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
@@ -500,4 +585,18 @@ public boolean insertCustomerAll(String username, String email, String firstName
         }
         return 0;
     }
+
+    public String getCustomerEmail(int customerId) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DBUtils.getConnection()) {
+            String query = "SELECT Email FROM Customers WHERE Customer_ID = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, customerId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Email");
+            }
+            return null;
+        }
+    }
+
 }

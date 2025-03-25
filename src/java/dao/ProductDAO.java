@@ -216,5 +216,54 @@ public class ProductDAO {
         return 0;
     }
     
+     // Lấy sản phẩm liên quan (sửa lại cho SQL Server)
+    public List<Product> getRelatedProducts(int productId, int categoryId, int limit) throws SQLException, ClassNotFoundException {
+        List<Product> relatedProducts = new ArrayList<>();
+        String query = "SELECT TOP (?) Product_ID, Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img " +
+                      "FROM Product " +
+                      "WHERE Product_Category_ID = ? AND Product_ID != ?";
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new SQLException("Failed to establish database connection");
+            }
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, limit);      // Giới hạn số lượng bản ghi (TOP)
+            ps.setInt(2, categoryId); // Đặt categoryId
+            ps.setInt(3, productId);  // Loại bỏ sản phẩm hiện tại
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getInt("Product_ID"),
+                        rs.getString("Name"),
+                        rs.getDouble("Price"),
+                        rs.getInt("Stock"),
+                        rs.getString("Product_Description"),
+                        rs.getInt("Product_Category_ID"),
+                        rs.getInt("Supplier_ID"),
+                        rs.getString("Product_img")
+                );
+                relatedProducts.add(product);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return relatedProducts;
+    }
+
      
 }
