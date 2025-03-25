@@ -425,113 +425,102 @@
                     <div class="col-lg-7 col-md-7 col-sm-7">
                         <div class="section-title">
                             <span>Our team</span>
-                            <h2>Sweet Baker </h2>
+                            <h2>Sweet Baker</h2>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3  col-md-6 col-sm-6">
+                <div class="row team-row">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-1.jpg">
                             <div class="team__item__text">
                                 <h6>Trần Văn Tùng</h6>
                                 <span>Leader</span>
                                 <div class="team__item__social">
-                                    <a href="https://www.facebook.com/tran.van.tung.232700"
-                                       ><i class="fa fa-facebook"></i
-                                        ></a>
-
-                                    <a href="https://www.instagram.com/tugg_tvt.22/"
-                                       ><i class="fa fa-instagram"></i
-                                        ></a>
-                                    <a
-                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
-                                        ><i class="fa fa-youtube-play"></i
-                                        ></a>
+                                    <a href="https://www.facebook.com/tran.van.tung.232700" class="social-link">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/tugg_tvt.22/" class="social-link">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA" class="social-link">
+                                        <i class="fa fa-youtube-play"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-2.jpg">
                             <div class="team__item__text">
                                 <h6>Phạm Hồng Quân</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="https://www.facebook.com/quan.edition.9"
-                                       ><i class="fa fa-facebook"></i
-                                        ></a>
-
-                                    <a href="https://www.instagram.com/quannrau2410/"
-                                       ><i class="fa fa-instagram"></i
-                                        ></a>
-                                    <a
-                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
-                                        ><i class="fa fa-youtube-play"></i
-                                        ></a>
+                                    <a href="https://www.facebook.com/quan.edition.9" class="social-link">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/quannrau2410/" class="social-link">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA" class="social-link">
+                                        <i class="fa fa-youtube-play"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-3.jpg">
                             <div class="team__item__text">
                                 <h6>Ngô Sỹ Giá</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="https://www.facebook.com/ngo.sy.gia.2024"
-                                       ><i class="fa fa-facebook"></i
-                                        ></a>
-
-                                    <a href="https://www.instagram.com/nsg0101/"
-                                       ><i class="fa fa-instagram"></i
-                                        ></a>
-                                    <a
-                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
-                                        ><i class="fa fa-youtube-play"></i
-                                        ></a>
+                                    <a href="https://www.facebook.com/ngo.sy.gia.2024" class="social-link">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/nsg0101/" class="social-link">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA" class="social-link">
+                                        <i class="fa fa-youtube-play"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-4.jpg">
                             <div class="team__item__text">
                                 <h6>Nguyễn Tiến Đạt</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
-                                    <a
-                                        href="https://www.facebook.com/profile.php?id=100051145252263"
-                                        ><i class="fa fa-facebook"></i
-                                        ></a>
-
-                                    <a href="https://www.instagram.com/dat.sieunhan.hihi/"
-                                       ><i class="fa fa-instagram"></i
-                                        ></a>
-                                    <a
-                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
-                                        ><i class="fa fa-youtube-play"></i
-                                        ></a>
+                                    <a href="https://www.facebook.com/profile.php?id=100051145252263" class="social-link">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/dat.sieunhan.hihi/" class="social-link">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA" class="social-link">
+                                        <i class="fa fa-youtube-play"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="team__item set-bg" data-setbg="img/team/team-5.jpg">
                             <div class="team__item__text">
                                 <h6>Lê Quốc Hùng</h6>
                                 <span>Member</span>
                                 <div class="team__item__social">
-                                    <a href="https://www.facebook.com/LHQ.17G"
-                                       ><i class="fa fa-facebook"></i
-                                        ></a>
-
-                                    <a href="https://www.instagram.com/lqh.17g/"
-                                       ><i class="fa fa-instagram"></i
-                                        ></a>
-                                    <a
-                                        href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA"
-                                        ><i class="fa fa-youtube-play"></i
-                                        ></a>
+                                    <a href="https://www.facebook.com/LHQ.17G" class="social-link">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/lqh.17g/" class="social-link">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/@Ti%E1%BB%87mb%C3%A1nhChan%C4%91%C3%AA" class="social-link">
+                                        <i class="fa fa-youtube-play"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -539,6 +528,134 @@
                 </div>
             </div>
         </section>
+
+        <style>
+            .team {
+                padding: 80px 0;
+                background: #f8f9fa;
+            }
+
+            .team-row {
+                display: flex;
+                justify-content: center;
+                flex-wrap: nowrap;
+                margin: 0 -15px;
+            }
+
+            .team-row > div {
+                padding: 0 15px;
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+
+            .team__item {
+                position: relative;
+                margin-bottom: 30px;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                aspect-ratio: 1;
+            }
+
+            .team__item:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            }
+
+            .team__item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+
+            .team__item:hover::before {
+                opacity: 1;
+            }
+
+            .team__item__text {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+                color: #fff;
+                transform: translateY(100%);
+                transition: all 0.3s ease;
+            }
+
+            .team__item:hover .team__item__text {
+                transform: translateY(0);
+            }
+
+            .team__item__text h6 {
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 5px;
+                color: #fff;
+            }
+
+            .team__item__text span {
+                font-size: 14px;
+                color: #f08632;
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            .team__item__social {
+                display: flex;
+                gap: 10px;
+            }
+
+            .social-link {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255,255,255,0.1);
+                border-radius: 50%;
+                color: #fff;
+                transition: all 0.3s ease;
+            }
+
+            .social-link:hover {
+                background: #f08632;
+                transform: translateY(-3px);
+            }
+
+            @media (max-width: 991px) {
+                .team-row {
+                    flex-wrap: wrap;
+                }
+
+                .team-row > div {
+                    flex: 0 0 33.333333%;
+                    max-width: 33.333333%;
+                }
+            }
+
+            @media (max-width: 767px) {
+                .team-row > div {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .team-row > div {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+            }
+        </style>
         <!-- Team Section End -->
 
         <!-- Footer Section Begin -->
