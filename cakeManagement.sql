@@ -30,6 +30,9 @@ VALUES
 (NULL, 'HuaMinhDat', 'HuaMinhDat@example.com', 'Hua', 'Minh Dat', '123', 'img/team/team-4.jpg', 'Da Nang', '0908765432', '2025-03-16', 1),
 (NULL, 'QuocHung', 'QuocHung@example.com', 'Do', 'Hung', '123', 'img/team/team-5.jpg', 'Can Tho', '0934567890', '2025-03-20', 1),
 (NULL, 'admin', 'admin@example.com', NULL, NULL, 'admin123', 'img/team/team-6.jpg', NULL, NULL, '2025-03-22', 0);
+UPDATE Customers
+SET Registration_Date = '2025-02-10'
+WHERE Customer_ID = 1;
 
 SELECT * FROM Customers;
 
