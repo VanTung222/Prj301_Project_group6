@@ -87,12 +87,12 @@
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/dashboard">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/dashboard">
                             <i class="fas fa-chart-line me-2"></i> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
+                    <li class="nav-item">
+                        <a class="nav-link  active" href="${pageContext.request.contextPath}/ProductServlet22">
                             <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
                         </a>
                     </li>

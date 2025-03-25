@@ -426,3 +426,50 @@ VALUES
 
 -- Kiểm tra dữ liệu bảng Favorite_Products
 SELECT * FROM Favorite_Products;
+CREATE TABLE Shipping_Addresses (
+    Address_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Customer_ID INT,
+    First_Name NVARCHAR(50),
+    Last_Name NVARCHAR(50),
+    Address NVARCHAR(255),
+    City NVARCHAR(50),
+    Country_State NVARCHAR(50),
+    Postcode NVARCHAR(20),
+    Phone NVARCHAR(20),
+    Email NVARCHAR(100),
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
+);
+
+ALTER TABLE Orders
+ADD Shipping_Address_ID INT,
+FOREIGN KEY (Shipping_Address_ID) REFERENCES Shipping_Addresses(Address_ID);
+INSERT INTO Shipping_Addresses (Customer_ID, First_Name, Last_Name, Address, City, Country_State, Postcode, Phone, Email)
+SELECT DISTINCT Customer_ID, Shipping_FirstName, Shipping_LastName, Shipping_Address, City, Country_State, Postcode, Phone, Email
+FROM Orders;
+UPDATE Orders
+SET Shipping_Address_ID = (
+    SELECT Address_ID
+    FROM Shipping_Addresses sa
+    WHERE sa.Customer_ID = Orders.Customer_ID
+    AND sa.First_Name = Orders.Shipping_FirstName
+    AND sa.Last_Name = Orders.Shipping_LastName
+    AND sa.Address = Orders.Shipping_Address
+    AND sa.City = Orders.City
+    AND sa.Country_State = Orders.Country_State
+    AND sa.Postcode = Orders.Postcode
+    AND sa.Phone = Orders.Phone
+    AND sa.Email = Orders.Email
+)
+WHERE EXISTS (
+    SELECT 1
+    FROM Shipping_Addresses sa
+    WHERE sa.Customer_ID = Orders.Customer_ID
+    AND sa.First_Name = Orders.Shipping_FirstName
+    AND sa.Last_Name = Orders.Shipping_LastName
+    AND sa.Address = Orders.Shipping_Address
+    AND sa.City = Orders.City
+    AND sa.Country_State = Orders.Country_State
+    AND sa.Postcode = Orders.Postcode
+    AND sa.Phone = Orders.Phone
+    AND sa.Email = Orders.Email
+)
