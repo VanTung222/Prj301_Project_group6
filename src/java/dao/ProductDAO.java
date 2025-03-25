@@ -141,4 +141,96 @@ public class ProductDAO {
         }
         return 0;
     }
+
+    // Thêm sản phẩm mới
+    public boolean addProduct(Product product) {
+        String sql = "INSERT INTO Product (Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, product.getName());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setString(4, product.getDescription());
+            ps.setInt(5, product.getProductCategoryId());
+            ps.setInt(6, product.getSupplierId());
+            ps.setString(7, product.getProductImg());
+            
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Cập nhật sản phẩm
+    public boolean updateProduct(Product product) {
+        String sql = "UPDATE Product SET Name=?, Price=?, Stock=?, Product_Description=?, Product_Category_ID=?, Supplier_ID=?, Product_img=? WHERE Product_ID=?";
+        
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, product.getName());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setString(4, product.getDescription());
+            ps.setInt(5, product.getProductCategoryId());
+            ps.setInt(6, product.getSupplierId());
+            ps.setString(7, product.getProductImg());
+            ps.setInt(8, product.getProductId());
+            
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Xóa sản phẩm
+    public boolean deleteProduct(int productId) {
+        String sql = "DELETE FROM Product WHERE Product_ID=?";
+        
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, productId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Tìm kiếm sản phẩm
+    public List<Product> searchProducts(String searchTerm) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT Product_ID, Name, Price, Stock, Product_Description, Product_Category_ID, Supplier_ID, Product_img FROM Product WHERE Name LIKE ? OR Product_Description LIKE ?";
+        
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, "%" + searchTerm + "%");
+            ps.setString(2, "%" + searchTerm + "%");
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product product = new Product(
+                        rs.getInt("Product_ID"),
+                        rs.getString("Name"),
+                        rs.getDouble("Price"),
+                        rs.getInt("Stock"),
+                        rs.getString("Product_Description"),
+                        rs.getInt("Product_Category_ID"),
+                        rs.getInt("Supplier_ID"),
+                        rs.getString("Product_img")
+                    );
+                    products.add(product);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
 }
