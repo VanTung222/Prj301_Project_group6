@@ -105,6 +105,15 @@ VALUES
 ('Lemon Raspberry', 27.00, 100, 'Tangy lemon cupcake with fresh raspberry topping', 3, 4, 'img/shop/product-11.jpg'),
 ('Triple Chocolate', 35.00, 100, 'Chocolate cupcake with dark, milk', 1, 1, 'img/shop/product-12.jpg');
 
+ALTER TABLE Product
+ALTER COLUMN Price DECIMAL(10, 3);
+
+UPDATE Product
+SET Price = ROUND(Price, 3);
+
+UPDATE Product
+SET Price = CAST(Price AS DECIMAL(10, 3));
+
 -- Kiểm tra dữ liệu bảng Product
 SELECT * FROM Product;
 
