@@ -55,4 +55,14 @@ public class DiscountDAO {
             stmt.executeUpdate();
         }
     }
+    
+    
+    public void deleteDiscountCode(String code) throws SQLException, ClassNotFoundException {
+    try (Connection conn = DBUtils.getConnection()) {
+        String query = "DELETE FROM Discount_Code WHERE Code = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, code);
+        stmt.executeUpdate();
+    }
+}
 }
