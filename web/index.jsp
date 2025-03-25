@@ -374,8 +374,8 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                 <!-- Categories Section End -->
 
                 <!-- Product Section Begin -->
-                <section class="product spad">
-                    <div class="container">
+              <section class="product spad">
+    <div class="container">
         <div class="row" id="product-list">
             <%
                 ProductDAO productDAO = new ProductDAO();
@@ -386,36 +386,51 @@ import="dao.ProductDAO" %> <%@ page contentType="text/html" pageEncoding="UTF-8"
                     out.println("<p style='color:red;'>⚠ No products available.</p>");
                 } else {
                     for (Product product : productList) {
+                        // Kiểm tra xem productImg có tồn tại không
+                        String imagePath = product.getProductImg() != null && !product.getProductImg().isEmpty() 
+                            ? product.getProductImg() 
+                            : "img/shop/default-product.jpg"; // Ảnh mặc định nếu không có ảnh
             %>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/shop/product-<%= product.getProductId()%>.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="<%= imagePath %>">
                         <div class="product__label">
                             <span>Cupcake</span>
-                                    </div>
-                                    </div>
-                                    <div class="product__item__text">
+                        </div>
+                    </div>
+                    <div class="product__item__text">
                         <h6><a href="shop-details.jsp?product_id=<%= product.getProductId()%>">
-                                <%= product.getName()%>
-                            </a></h6>
-                        <div class="product__item__price">$<%= product.getPrice()%></div>
-                                        <div class="cart_add">
+                            <%= product.getName() %>
+                        </a></h6>
+                        <div class="product__item__price">$<%= product.getPrice() %></div>
+                        <div class="cart_add">
                             <% if (sessionObj != null && sessionObj.getAttribute("username") != null) { %>
-                                <a href="#" onclick="addToCart(<%= product.getProductId()%>); return false;">Add to cart</a>
+                                <a href="#" onclick="addToCart(<%= product.getProductId() %>); return false;">Add to cart</a>
                             <% } else { %>
                                 <a href="login.jsp">Add to cart</a>
                             <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <%
                     }
                 }
             %>
-                        </div>
-                    </div>
-                </section>
+        </div>
+    </div>
+</section>
+
+<!-- Script để xử lý background image -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByClassName("set-bg");
+        for (var i = 0; i < elements.length; i++) {
+            var bg = elements[i].getAttribute("data-setbg");
+            elements[i].style.backgroundImage = "url('" + bg + "')";
+        }
+    });
+</script>
                 <!-- Product Section End -->
 
                 <!-- Team Section Begin -->
