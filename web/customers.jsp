@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Customer" %>
 <!DOCTYPE html>
@@ -17,37 +18,42 @@
             --primary-color: #f08632;
             --secondary-color: #cf6f29;
             --dark-color: #343a40;
-            --light-gray: #f8f9fa;
-            --border-radius: 8px;
-            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --border-color: #e5e7eb;
+            --background-color: #f9fafb;
         }
 
         body {
-            background-color: var(--light-gray);
+            background-color: var(--background-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-fluid {
+            display: flex;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .row {
+            display: flex;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .sidebar {
+            width: 250px;
             min-height: 100vh;
             background-color: var(--dark-color);
-            padding-top: 20px;
+            padding: 20px;
             position: fixed;
             left: 0;
             top: 0;
-            width: 250px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .sidebar .brand {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 24px;
-            padding: 0 20px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            bottom: 0;
         }
 
         .sidebar .nav-link {
@@ -71,148 +77,244 @@
         }
 
         .main-content {
+            flex: 1;
+            padding: 32px;
             margin-left: 250px;
-            padding: 30px;
-            background-color: var(--light-gray);
+            background-color: var(--background-color);
         }
 
-        .table-container {
+        .content-wrapper {
             background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: var(--box-shadow);
+            border-radius: 24px;
+            padding: 32px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
         }
 
-        .table {
-            margin-bottom: 0;
-            vertical-align: middle;
+        /* Header styles (copied from order.jsp) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .table th {
-            background-color: #f8f9fa;
+        .header-title {
+            font-size: 1.5rem;
             font-weight: 600;
-            padding: 15px;
-            border-bottom: 2px solid #dee2e6;
-            white-space: nowrap;
+            color: #333;
+            margin: 0;
         }
 
-        .table td {
-            padding: 15px;
-            vertical-align: middle;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .table tbody tr:hover {
-            background-color: rgba(240, 134, 50, 0.05);
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 1px solid #eee;
         }
 
-        .table .profile-pic {
+        .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .badge {
-            padding: 8px 12px;
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            color: #333;
             font-weight: 500;
-            border-radius: 20px;
         }
 
-        .badge.bg-danger {
-            background-color: #dc3545 !important;
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .badge.bg-info {
-            background-color: #0dcaf0 !important;
+        .logout-btn:hover {
+            color: #ff4757;
         }
 
-        .search-section {
+        .logout-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Filter Tabs (copied from order.jsp) */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 4px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .filter-tabs .tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #6b7280;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tabs .tab.active {
             background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--box-shadow);
+            color: #111827;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .search-box .input-group {
-            border-radius: var(--border-radius);
+        /* Search and Actions (copied from order.jsp) */
+        .actions-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+
+        .search-bar {
+            padding: 0.5rem 1rem;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            color: #666;
+            font-size: 0.9rem;
+            outline: none;
+            width: 300px;
+        }
+
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            background: white;
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .export-btn:hover {
+            background: #f8f9fa;
+            border-color: #ddd;
+        }
+
+        /* Table styles (copied from order.jsp) */
+        .table-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             overflow: hidden;
         }
 
-        .search-box .input-group-text {
-            border: none;
-            background-color: #fff;
-            padding-left: 15px;
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
         }
 
-        .search-box .form-control {
-            border: 1px solid #ced4da;
-            padding: 12px;
-            font-size: 1rem;
+        .table th {
+            padding: 12px 24px;
+            font-weight: 500;
+            color: #6b7280;
+            background-color: #f9fafb;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
         }
 
-        .search-box .form-control:focus {
-            box-shadow: none;
-            border-color: var(--primary-color);
+        .table td {
+            padding: 16px 24px;
+            color: #111827;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .btn {
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
-            transition: all 0.3s ease;
+        .table tr:last-child td {
+            border-bottom: none;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-block;
         }
 
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            transform: translateY(-1px);
+        .status-badge.admin {
+            background-color: #fee2e2;
+            color: #dc2626;
         }
 
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.875rem;
+        .status-badge.member {
+            background-color: #e0f2fe;
+            color: #0284c7;
         }
 
-        .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: #000;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: #fff;
-        }
-
-        .action-buttons .btn {
-            margin: 0 3px;
-        }
-
+        /* Pagination styles (restored from original) */
         .pagination {
-            margin-top: 25px;
+            margin-top: 24px;
             margin-bottom: 0;
+            justify-content: center;
         }
 
         .page-link {
             color: var(--primary-color);
             padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .page-link:hover {
+            background-color: #f3f4f6;
+            border-color: var(--primary-color);
         }
 
         .page-item.active .page-link {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            color: white;
         }
 
+        .page-item.disabled .page-link {
+            color: #6b7280;
+            background-color: #f9fafb;
+            border-color: var(--border-color);
+        }
+
+        /* Modal styles */
         .modal-content {
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             overflow: hidden;
         }
 
@@ -233,7 +335,7 @@
 
         .form-control, .form-select {
             padding: 10px;
-            border-radius: var(--border-radius);
+            border-radius: 8px;
             border: 1px solid #e9ecef;
             transition: all 0.3s ease;
         }
@@ -251,7 +353,7 @@
 
         .alert {
             margin-bottom: 20px;
-            border-radius: var(--border-radius);
+            border-radius: 8px;
             padding: 15px;
         }
 
@@ -267,154 +369,177 @@
             color: #721c24;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-                padding: 15px;
-            }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
 
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
 
-            .sidebar.show {
-                transform: translateX(0);
-            }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="col-md-3 col-lg-2 sidebar">
+    <div class="sidebar">
         <div class="text-center mb-4">
             <img src="${pageContext.request.contextPath}/img/logo.png" alt="Cake Shop Logo" style="max-width: 150px" />
         </div>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/dashboard">
-                    <i class="fas fa-chart-line me-2"></i> Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
-                    <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/adminOrder">
-                    <i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/CustomerManagerAd">
-                    <i class="fas fa-users me-2"></i> Quản lý Khách hàng
-                </a>
-            </li>
-        </ul>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="${pageContext.request.contextPath}/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
+                <i class="fas fa-birthday-cake"></i>
+                <span>Quản lý Bánh</span>
+            </a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/adminOrder">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Quản lý Đơn hàng</span>
+            </a>
+            <a class="nav-link active" href="${pageContext.request.contextPath}/CustomerManagerAd">
+                <i class="fas fa-users"></i>
+                <span>Quản lý Khách hàng</span>
+            </a>
+        </nav>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="container-fluid">
-            <!-- Hiển thị thông báo -->
-            <c:if test="${not empty sessionScope.message}">
-                <div class="alert alert-${sessionScope.messageType == 'success' ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
-                    ${sessionScope.message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <c:remove var="message" scope="session"/>
-                <c:remove var="messageType" scope="session"/>
-            </c:if>
-
+        <div class="content-wrapper">
             <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0">Quản lý Khách hàng</h2>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal" onclick="resetForm()">
-                    <i class="fas fa-user-plus me-2"></i>Thêm Khách hàng
-                </button>
-            </div>
-
-            <!-- Search Section -->
-            <div class="search-section">
-                <form class="d-flex align-items-center" action="${pageContext.request.contextPath}/EditCustomerServlet" method="get">
-                    <div class="search-box me-2 flex-grow-1">
-                        <div class="input-group">
-                            <span class="input-group-text bg-white">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" name="search" 
-                                   placeholder="Tìm kiếm khách hàng..." value="${param.search}">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search me-2"></i>Tìm kiếm
-                            </button>
+            <div class="header">
+                <h2 class="header-title">Customers</h2>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <c:choose>
+                            <c:when test="${not empty admin and not empty admin.profilePicture}">
+                                <img src="${admin.profilePicture}" alt="Admin Avatar" class="avatar">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" alt="Admin Avatar" class="avatar">
+                            </c:otherwise>
+                        </c:choose>
+                        <div class="user-info">
+                            <span class="user-name">Xin chào, ${sessionScope.username}</span>
+                            <a href="${pageContext.request.contextPath}/LogoutServlet" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </a>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
-            <!-- Customers Table -->
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Customer_ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>FirstName</th>
-                                <th>LastName</th>
-                                <th>ProfilePicture</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Registration_Date</th>
-                                <th>Role</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${customers}" var="customer">
-                                <tr>
-                                    <td>${customer.customerId}</td>
-                                    <td>${customer.username}</td>
-                                    <td>${customer.email}</td>
-                                    <td>${customer.firstName != null ? customer.firstName : 'NULL'}</td>
-                                    <td>${customer.lastName != null ? customer.lastName : 'NULL'}</td>
-                                    <td>
-                                        <c:if test="${not empty customer.profilePicture}">
-                                            <img src="${customer.profilePicture}" alt="Profile" class="profile-pic">
-                                        </c:if>
-                                        <c:if test="${empty customer.profilePicture}">
-                                            <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" alt="Default Profile" class="profile-pic">
-                                        </c:if>
-                                    </td>
-                                    <td>${customer.address != null ? customer.address : 'NULL'}</td>
-                                    <td>${customer.phone != null ? customer.phone : 'NULL'}</td>
-                                    <td>${customer.registrationDate != null ? customer.registrationDate : 'NULL'}</td>
-                                    <td>
-                                        <span class="badge ${customer.role == 0 ? 'bg-danger' : 'bg-info'}">
-                                            ${customer.role == 0 ? 'Admin' : 'Member'}
-                                        </span>
-                                    </td>
-                                    <td class="action-buttons">
-                                        <form action="${pageContext.request.contextPath}/EditCustomerServlet/get/${customer.customerId}" method="get" style="display:inline;">
-                                            <button type="submit" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </form>
-                                        <form action="${pageContext.request.contextPath}/EditCustomerServlet/delete/${customer.customerId}" method="post" style="display:inline;">
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa khách hàng này?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+            <!-- Nội dung chính -->
+            <div class="content">
+                <!-- Hiển thị thông báo -->
+                <c:if test="${not empty sessionScope.message}">
+                    <div class="alert alert-${sessionScope.messageType == 'success' ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
+                        ${sessionScope.message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <c:remove var="message" scope="session"/>
+                    <c:remove var="messageType" scope="session"/>
+                </c:if>
+
+                <!-- Nút Thêm Khách hàng -->
+                <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#customerModal" onclick="resetForm()">
+                    <i class="fas fa-user-plus me-2"></i>Thêm Khách hàng
+                </button>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="tab active" onclick="filterCustomers('all')">Tất cả</button>
+                    <button class="tab" onclick="filterCustomers('0')">Admin</button>
+                    <button class="tab" onclick="filterCustomers('1')">Khách hàng</button>
                 </div>
 
-                <!-- Pagination -->
+                <!-- Actions Container -->
+                <div class="actions-container">
+                    <input type="text" class="search-bar" placeholder="Tìm kiếm khách hàng..." onkeyup="searchCustomers(this.value)">
+                </div>
+
+                <!-- Customers Table -->
+                <div class="table-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">Danh sách khách hàng</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="customerTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Email</th>
+                                    <th>Họ</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh đại diện</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đăng ký</th>
+                                    <th>Vai trò</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${customers}" var="customer">
+                                    <tr data-role="${customer.role}">
+                                        <td>#${customer.customerId}</td>
+                                        <td>${customer.username}</td>
+                                        <td>${customer.email}</td>
+                                        <td>${customer.firstName != null ? customer.firstName : 'N/A'}</td>
+                                        <td>${customer.lastName != null ? customer.lastName : 'N/A'}</td>
+                                        <td>
+                                            <c:if test="${not empty customer.profilePicture}">
+                                                <img src="${customer.profilePicture}" alt="Profile" class="avatar">
+                                            </c:if>
+                                            <c:if test="${empty customer.profilePicture}">
+                                                <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" alt="Default Profile" class="avatar">
+                                            </c:if>
+                                        </td>
+                                        <td>${customer.address != null ? customer.address : 'N/A'}</td>
+                                        <td>${customer.phone != null ? customer.phone : 'N/A'}</td>
+                                        <td>${customer.registrationDate != null ? customer.registrationDate : 'N/A'}</td>
+                                        <td>
+                                            <span class="status-badge ${customer.role == 0 ? 'admin' : 'member'}">
+                                                ${customer.role == 0 ? 'Admin' : 'Khách hàng'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <form action="${pageContext.request.contextPath}/EditCustomerServlet/get/${customer.customerId}" method="get" style="display:inline;">
+                                                <button type="submit" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </form>
+                                            <form action="${pageContext.request.contextPath}/EditCustomerServlet/delete/${customer.customerId}" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa khách hàng này?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination (restored from original) -->
                 <nav class="mt-4">
                     <ul class="pagination justify-content-center">
                         <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
@@ -442,7 +567,7 @@
     <div class="modal fade" id="customerModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">Thông tin Khách hàng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -541,7 +666,7 @@
 
     <script>
         const contextPath = "${pageContext.request.contextPath}";
-        
+
         // Kiểm tra nếu có dữ liệu khách hàng trong session thì hiển thị modal
         <c:if test="${not empty sessionScope.editCustomer}">
             window.addEventListener('DOMContentLoaded', (event) => {
@@ -566,11 +691,11 @@
                 document.querySelector('[name="phone"]').value = customer.phone;
                 document.querySelector('[name="role"]').value = customer.role;
                 document.querySelector('[name="address"]').value = customer.address;
-                
+
                 // Handle password fields
                 document.getElementById('passwordInput').removeAttribute('required');
                 document.getElementById('confirmPasswordInput').removeAttribute('required');
-                
+
                 // Handle profile picture
                 if (customer.profilePicture) {
                     document.getElementById('profilePreview').src = customer.profilePicture;
@@ -581,7 +706,7 @@
                 // Update modal title and make username readonly
                 document.getElementById('modalTitle').textContent = 'Chỉnh sửa Khách hàng';
                 document.getElementById('usernameInput').setAttribute('readonly', 'readonly');
-                
+
                 // Show modal
                 const modal = new bootstrap.Modal(document.getElementById('customerModal'));
                 modal.show();
@@ -642,17 +767,40 @@
                 });
             });
         })();
-    </script>
 
-    <script>
-        document.getElementById("searchBox")?.addEventListener("keyup", function () {
-            let filter = this.value.toLowerCase();
-            let rows = document.querySelectorAll("tbody tr");
+        function filterCustomers(role) {
+            const rows = document.querySelectorAll("#customerTable tbody tr");
+            const tabs = document.querySelectorAll(".filter-tabs .tab");
+
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove("active"));
+            event.target.classList.add("active");
+
+            // Filter rows
             rows.forEach(row => {
-                let text = row.innerText.toLowerCase();
-                row.style.display = text.includes(filter) ? "" : "none";
+                const rowRole = row.getAttribute("data-role");
+                if (role === "all" || rowRole === role) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
             });
-        });
+        }
+
+        function searchCustomers(query) {
+            const rows = document.querySelectorAll("#customerTable tbody tr");
+            query = query.toLowerCase();
+
+            rows.forEach(row => {
+                const username = row.cells[1].textContent.toLowerCase();
+                const email = row.cells[2].textContent.toLowerCase();
+                if (username.includes(query) || email.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
     </script>
 </body>
 </html>

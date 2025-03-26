@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CustomerDAO;
 import dao.ProductDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +15,26 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
+import model.Customer;
 
 @WebServlet(name = "ProductServlet22", urlPatterns = {"/ProductServlet22"})
 public class ProductServlet22 extends HttpServlet {
-
+    private CustomerDAO customerDAO = new CustomerDAO();
     private static final int PAGE_SIZE = 9; // Số sản phẩm trên mỗi trang
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
+            String username = (String) session.getAttribute("username");
+
+            // Lấy thông tin admin từ CustomerDAO
+            Customer admin = null;
+            if (username != null) {
+                admin = customerDAO.getCustomerByUsername(username);
+            }
             ProductDAO productDAO = new ProductDAO();
             List<Product> products;
             
@@ -56,7 +67,7 @@ public class ProductServlet22 extends HttpServlet {
             request.setAttribute("productList", products);
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", totalPages);
-            
+            request.setAttribute("admin", admin);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/products.jsp");
             dispatcher.forward(request, response);
             

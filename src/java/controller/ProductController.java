@@ -1,5 +1,7 @@
 package controller;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import dao.CustomerDAO;
 import dao.ProductDAO;
 import model.Product;
 import javax.servlet.ServletException;
@@ -16,6 +18,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
+import model.Customer;
 
 @WebServlet(name = "ProductController", urlPatterns = {"/products"})
 @MultipartConfig(
@@ -27,15 +31,20 @@ public class ProductController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
     private static final String UPLOAD_DIR = "uploads";
     private ProductDAO productDAO;
-
+    
+    
+            
+            
     @Override
     public void init() throws ServletException {
         productDAO = new ProductDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            
         String action = request.getParameter("action");
         try {
             if (action == null) {

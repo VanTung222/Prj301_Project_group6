@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CustomerManagerAd", urlPatterns = {"/CustomerManagerAd"})
 public class CustomerManagerAd extends HttpServlet {
@@ -25,6 +26,14 @@ public class CustomerManagerAd extends HttpServlet {
             throws ServletException, IOException {
         try {
             CustomerDAO dao = new CustomerDAO();
+            HttpSession session = request.getSession();
+            String username = (String) session.getAttribute("username");
+
+            // Lấy thông tin admin từ CustomerDAO
+            Customer admin = null;
+            if (username != null) {
+                admin = dao.getCustomerByUsername(username);
+            }
             List<Customer> customers;
             // Lấy tham số trang từ request
             String pageParam = request.getParameter("page");
@@ -43,6 +52,7 @@ public class CustomerManagerAd extends HttpServlet {
             request.setAttribute("customers", customers);
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", totalPages);
+            request.setAttribute("admin", admin);
             RequestDispatcher dispatcher = request.getRequestDispatcher("customers.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {

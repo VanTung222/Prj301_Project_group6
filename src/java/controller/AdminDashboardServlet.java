@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
+import model.Customer;
 
 @WebServlet(name = "AdminDashboardServlet", urlPatterns = {"/dashboard"})
 public class AdminDashboardServlet extends HttpServlet {
@@ -28,6 +30,14 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
+            String username = (String) session.getAttribute("username");
+
+            // Lấy thông tin admin từ CustomerDAO
+            Customer admin = null;
+            if (username != null) {
+                admin = customerDAO.getCustomerByUsername(username);
+            }
             // 1. Lấy tổng doanh thu
             double totalRevenue = calculateTotalRevenue();
 
@@ -60,6 +70,7 @@ public class AdminDashboardServlet extends HttpServlet {
             request.setAttribute("recentOrders", recentOrders);
             request.setAttribute("ordersByDate", ordersByDate);
             request.setAttribute("revenueByWeekInMonth", revenueByWeekInMonth);
+             request.setAttribute("admin", admin);
 
             // Debug
             System.out.println("AdminDashboardServlet: Processing request for /dashboard");
