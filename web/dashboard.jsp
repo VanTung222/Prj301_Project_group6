@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ProductServlet22">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/products">
                             <i class="fas fa-birthday-cake me-2"></i> Quản lý Bánh
                         </a>
                     </li>

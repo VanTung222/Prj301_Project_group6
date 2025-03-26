@@ -398,10 +398,7 @@
                                 </div>
                             </div>
                         </div>
-                        <script
-                            src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat"
-                            defer="defer"
-                        ></script>
+                        <script src="https://messenger.svc.chative.io/static/v1.0/channels/sa333af83-d5b0-4954-8318-224f96b5912d/messenger.js?mode=livechat" defer="defer"></script>
                     </footer>
                     <!-- Footer Section End -->
 

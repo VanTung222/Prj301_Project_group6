@@ -31,66 +31,63 @@ public class EditCustomerServlet extends HttpServlet {
     private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-zÀ-ỹ\\s]{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
 
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String pathInfo = request.getPathInfo(); // Lấy phần sau /EditCustomerServlet/
 
-    if (pathInfo != null && pathInfo.startsWith("/get/")) {
-        // Xử lý yêu cầu lấy thông tin khách hàng (dành cho JavaScript)
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        Gson gson = new Gson();
+        if (pathInfo != null && pathInfo.startsWith("/get/")) {
+            // Xử lý yêu cầu lấy thông tin khách hàng để chỉnh sửa
+            try {
+                String idStr = pathInfo.substring(5); // Lấy ID từ URL
+                int customerId = Integer.parseInt(idStr);
+                if (customerId <= 0) {
+                    request.getSession().setAttribute("message", "ID khách hàng không hợp lệ!");
+                    request.getSession().setAttribute("messageType", "error");
+                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                    return;
+                }
 
-        try {
-            String idStr = pathInfo.substring(5); // Lấy ID từ URL
-            int customerId = Integer.parseInt(idStr);
-            if (customerId <= 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.print(gson.toJson(new ErrorResponse("ID khách hàng không hợp lệ")));
-                out.flush();
-                return;
+                CustomerDAO dao = new CustomerDAO();
+                Customer customer = dao.getCustomerById(customerId);
+
+                if (customer != null) {
+                    // Lưu thông tin khách hàng vào session để hiển thị trong modal
+                    request.getSession().setAttribute("editCustomer", customer);
+                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                } else {
+                    request.getSession().setAttribute("message", "Không tìm thấy khách hàng!");
+                    request.getSession().setAttribute("messageType", "error");
+                    response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+                }
+            } catch (NumberFormatException e) {
+                request.getSession().setAttribute("message", "ID không hợp lệ: " + e.getMessage());
+                request.getSession().setAttribute("messageType", "error");
+                response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
+            } catch (SQLException e) {
+                Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+                request.getSession().setAttribute("message", "Lỗi khi lấy thông tin khách hàng: " + e.getMessage());
+                request.getSession().setAttribute("messageType", "error");
+                response.sendRedirect(request.getContextPath() + "/CustomerManagerAd");
             }
-
+        } else {
+            // Xử lý yêu cầu tìm kiếm
+            String search = request.getParameter("search");
             CustomerDAO dao = new CustomerDAO();
-            Customer customer = dao.getCustomerById(customerId);
-
-            if (customer != null) {
-                response.setStatus(HttpServletResponse.SC_OK);
-                out.print(gson.toJson(customer));
-            } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                out.print(gson.toJson(new ErrorResponse("Không tìm thấy khách hàng")));
+            try {
+                List<Customer> customers = dao.getAllCustomers();
+                if (search != null && !search.trim().isEmpty()) {
+                    customers.removeIf(customer -> !customer.getUsername().toLowerCase().contains(search.toLowerCase()) &&
+                                                  !customer.getEmail().toLowerCase().contains(search.toLowerCase()));
+                }
+                request.setAttribute("customers", customers);
+                RequestDispatcher rd = request.getRequestDispatcher("/customers.jsp");
+                rd.forward(request, response);
+            } catch (SQLException e) {
+                Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tìm kiếm khách hàng");
             }
-        } catch (NumberFormatException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print(gson.toJson(new ErrorResponse("ID không hợp lệ: " + e.getMessage())));
-        } catch (SQLException e) {
-            Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(gson.toJson(new ErrorResponse("Lỗi khi lấy thông tin khách hàng: " + e.getMessage())));
-        } finally {
-            out.flush();
-        }
-    } else {
-        // Xử lý yêu cầu tìm kiếm
-        String search = request.getParameter("search");
-        CustomerDAO dao = new CustomerDAO();
-        try {
-            List<Customer> customers = dao.getAllCustomers();
-            if (search != null && !search.trim().isEmpty()) {
-                customers.removeIf(customer -> !customer.getUsername().toLowerCase().contains(search.toLowerCase()) &&
-                                              !customer.getEmail().toLowerCase().contains(search.toLowerCase()));
-            }
-            request.setAttribute("customers", customers);
-            RequestDispatcher rd = request.getRequestDispatcher("/customers.jsp");
-            rd.forward(request, response);
-        } catch (SQLException e) {
-            Logger.getLogger(EditCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tìm kiếm khách hàng");
         }
     }
-}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -347,22 +344,5 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             }
         }
         return "";
-    }
-
-    // Lớp hỗ trợ để trả về thông báo lỗi dưới dạng JSON
-    private static class ErrorResponse {
-        private String error;
-
-        public ErrorResponse(String error) {
-            this.error = error;
-        }
-
-        public String getError() {
-            return error;
-        }
-
-        public void setError(String error) {
-            this.error = error;
-        }
     }
 }
