@@ -1,21 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author admin
- */
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
-
-    private int orderID;
-    private int customerID;
-    private Integer employeeID; // Có thể null
+    private int orderId;
+    private int customerId;
+    private Integer employeeId; // Có thể null
     private Date orderDate;
     private double totalAmount;
     private String shippingFirstName;
@@ -30,21 +21,24 @@ public class Order {
     private String couponCode;
     private double discountAmount;
     private String paymentMethod;
-    private Integer shipperID;
+    private Integer shipperId; // Có thể null
     private Date estimatedDeliveryDate;
     private String status;
+    private List<OrderDetail> orderDetails; // Danh sách chi tiết đơn hàng
 
+    // Constructor
     public Order() {
     }
 
-    public Order(int orderID, int customerID, Integer employeeID, Date orderDate, double totalAmount,
-            String shippingFirstName, String shippingLastName, String shippingAddress, String city,
-            String countryState, String postcode, String phone, String email, String orderNotes,
-            String couponCode, double discountAmount, String paymentMethod, Integer shipperID,
-            Date estimatedDeliveryDate, String status) {
-        this.orderID = orderID;
-        this.customerID = customerID;
-        this.employeeID = employeeID;
+    // Constructor đầy đủ
+    public Order(int orderId, int customerId, Integer employeeId, Date orderDate, double totalAmount,
+                 String shippingFirstName, String shippingLastName, String shippingAddress, String city,
+                 String countryState, String postcode, String phone, String email, String orderNotes,
+                 String couponCode, double discountAmount, String paymentMethod, Integer shipperId,
+                 Date estimatedDeliveryDate, String status) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.shippingFirstName = shippingFirstName;
@@ -59,39 +53,34 @@ public class Order {
         this.couponCode = couponCode;
         this.discountAmount = discountAmount;
         this.paymentMethod = paymentMethod;
-        this.shipperID = shipperID;
+        this.shipperId = shipperId;
         this.estimatedDeliveryDate = estimatedDeliveryDate;
         this.status = status;
     }
 
-    public Order(int aInt, int aInt0, Timestamp timestamp, double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Getters và Setters
+    public int getOrderId() {
+        return orderId;
     }
 
-    // Getters  Setters
-
-    public int getOrderID() {
-        return orderID;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public Integer getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(Integer employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Date getOrderDate() {
@@ -206,12 +195,12 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public Integer getShipperID() {
-        return shipperID;
+    public Integer getShipperId() {
+        return shipperId;
     }
 
-    public void setShipperID(Integer shipperID) {
-        this.shipperID = shipperID;
+    public void setShipperId(Integer shipperId) {
+        this.shipperId = shipperId;
     }
 
     public Date getEstimatedDeliveryDate() {
@@ -229,5 +218,12 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

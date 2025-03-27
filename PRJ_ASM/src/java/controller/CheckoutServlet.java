@@ -1,8 +1,3 @@
-
-
-
-
-
 //package controller;
 //
 //import dao.CartDAO;
@@ -212,7 +207,6 @@
 //            request.getRequestDispatcher("cart.jsp").forward(request, response);
 //        }
 //    }
-
 //    @Override
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
@@ -445,16 +439,6 @@
 //            request.getRequestDispatcher("checkout.jsp").forward(request, response);
 //        }
 //    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 //    @Override
 //protected void doPost(HttpServletRequest request, HttpServletResponse response)
 //        throws ServletException, IOException {
@@ -743,12 +727,6 @@
 //        }
 //    }
 //}
-
-
-
-
-
-
 package controller;
 
 import dao.*;
@@ -782,92 +760,93 @@ import model.ShippingAddress;
 
 @WebServlet("/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
+
     private CartDAO cartDAO;
     private OrderDAO orderDAO;
     private PaymentDAO paymentDAO;
     private CustomerDAO customerDAO;
     private ShippingAddressDAO shippingAddressDAO;
 
-   @Override
-public void init() throws ServletException {
-    cartDAO = new CartDAO();
-    orderDAO = new OrderDAO();
-    paymentDAO = new PaymentDAO();
-    customerDAO = new CustomerDAO();
-    try {
-        shippingAddressDAO = new ShippingAddressDAO();
-        System.out.println("ShippingAddressDAO initialized successfully");
-    } catch (Exception e) {
-        System.err.println("Failed to initialize ShippingAddressDAO: " + e.getMessage());
-        throw new ServletException("Failed to initialize ShippingAddressDAO", e);
-    }
-}
-
-@Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    HttpSession session = request.getSession(false);
-    if (session == null || session.getAttribute("customerId") == null) {
-        response.sendRedirect("login.jsp");
-        return;
+    @Override
+    public void init() throws ServletException {
+        cartDAO = new CartDAO();
+        orderDAO = new OrderDAO();
+        paymentDAO = new PaymentDAO();
+        customerDAO = new CustomerDAO();
+        try {
+            shippingAddressDAO = new ShippingAddressDAO();
+            System.out.println("ShippingAddressDAO initialized successfully");
+        } catch (Exception e) {
+            System.err.println("Failed to initialize ShippingAddressDAO: " + e.getMessage());
+            throw new ServletException("Failed to initialize ShippingAddressDAO", e);
+        }
     }
 
-    int customerId = (int) session.getAttribute("customerId");
-    System.out.println("Current customerId: " + customerId); // Log customerId
-    try {
-        List<CartItem> cartItems = cartDAO.getCartItems(customerId);
-        System.out.println("Cart items size for customer " + customerId + ": " + (cartItems != null ? cartItems.size() : "null"));
-        if (cartItems == null || cartItems.isEmpty()) {
-            request.setAttribute("error", "Your cart is empty. Please add items to your cart before checking out.");
-            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("customerId") == null) {
+            response.sendRedirect("login.jsp");
             return;
         }
 
-        double subtotal = cartItems.stream()
-                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
-                .sum();
-        double appliedDiscount = session.getAttribute("appliedDiscount") != null ? (double) session.getAttribute("appliedDiscount") : 0;
-        double discountAmount = subtotal * (appliedDiscount / 100);
-        double finalTotal = subtotal - discountAmount;
-
-        // Lấy danh sách địa chỉ giao hàng từ Shipping_Addresses
-        List<ShippingAddress> shippingAddresses = null;
-        if (shippingAddressDAO != null) {
-            shippingAddresses = shippingAddressDAO.getShippingAddresses(customerId);
-            // Log danh sách địa chỉ để kiểm tra
-            System.out.println("Shipping addresses for customer " + customerId + ": " + (shippingAddresses != null ? shippingAddresses.size() : "null"));
-            if (shippingAddresses != null) {
-                for (ShippingAddress addr : shippingAddresses) {
-                    System.out.println("Address ID: " + addr.getAddressId() + ", Name: " + addr.getFirstName() + " " + addr.getLastName() +
-                            ", Address: " + addr.getAddress() + ", City: " + addr.getCity() + ", Country/State: " + addr.getCountryState() +
-                            ", Postcode: " + addr.getPostcode() + ", Phone: " + addr.getPhone() + ", Email: " + addr.getEmail());
-                }
+        int customerId = (int) session.getAttribute("customerId");
+        System.out.println("Current customerId: " + customerId); // Log customerId
+        try {
+            List<CartItem> cartItems = cartDAO.getCartItems(customerId);
+            System.out.println("Cart items size for customer " + customerId + ": " + (cartItems != null ? cartItems.size() : "null"));
+            if (cartItems == null || cartItems.isEmpty()) {
+                request.setAttribute("error", "Your cart is empty. Please add items to your cart before checking out.");
+                request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+                return;
             }
-        } else {
-            System.err.println("ShippingAddressDAO is null, cannot retrieve shipping addresses");
-            request.setAttribute("error", "Error retrieving shipping addresses: DAO not initialized");
-            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
-            return;
-        }
-        boolean hasShippingInfo = shippingAddresses != null && !shippingAddresses.isEmpty();
 
-        request.setAttribute("cartItems", cartItems);
-        request.setAttribute("subtotal", subtotal);
-        request.setAttribute("discountAmount", discountAmount);
-        request.setAttribute("total", finalTotal);
-        request.setAttribute("shippingAddresses", shippingAddresses);
-        request.setAttribute("hasShippingInfo", hasShippingInfo);
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-        request.setAttribute("error", "Error retrieving cart: " + e.getMessage());
-        request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
-    } catch (SQLException e) {
-        e.printStackTrace();
-        request.setAttribute("error", "Error retrieving shipping info: " + e.getMessage());
-        request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+            double subtotal = cartItems.stream()
+                    .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                    .sum();
+            double appliedDiscount = session.getAttribute("appliedDiscount") != null ? (double) session.getAttribute("appliedDiscount") : 0;
+            double discountAmount = subtotal * (appliedDiscount / 100);
+            double finalTotal = subtotal - discountAmount;
+
+            // Lấy danh sách địa chỉ giao hàng từ Shipping_Addresses
+            List<ShippingAddress> shippingAddresses = null;
+            if (shippingAddressDAO != null) {
+                shippingAddresses = shippingAddressDAO.getShippingAddresses(customerId);
+                // Log danh sách địa chỉ để kiểm tra
+                System.out.println("Shipping addresses for customer " + customerId + ": " + (shippingAddresses != null ? shippingAddresses.size() : "null"));
+                if (shippingAddresses != null) {
+                    for (ShippingAddress addr : shippingAddresses) {
+                        System.out.println("Address ID: " + addr.getAddressId() + ", Name: " + addr.getFirstName() + " " + addr.getLastName()
+                                + ", Address: " + addr.getAddress() + ", City: " + addr.getCity() + ", Country/State: " + addr.getCountryState()
+                                + ", Postcode: " + addr.getPostcode() + ", Phone: " + addr.getPhone() + ", Email: " + addr.getEmail());
+                    }
+                }
+            } else {
+                System.err.println("ShippingAddressDAO is null, cannot retrieve shipping addresses");
+                request.setAttribute("error", "Error retrieving shipping addresses: DAO not initialized");
+                request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+                return;
+            }
+            boolean hasShippingInfo = shippingAddresses != null && !shippingAddresses.isEmpty();
+
+            request.setAttribute("cartItems", cartItems);
+            request.setAttribute("subtotal", subtotal);
+            request.setAttribute("discountAmount", discountAmount);
+            request.setAttribute("total", finalTotal);
+            request.setAttribute("shippingAddresses", shippingAddresses);
+            request.setAttribute("hasShippingInfo", hasShippingInfo);
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Error retrieving cart: " + e.getMessage());
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Error retrieving shipping info: " + e.getMessage());
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+        }
     }
-}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -1030,7 +1009,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(bankDetails, BarcodeFormat.QR_CODE, 200, 200);
-        String qrCodePath = getServletContext().getRealPath("/") + "images/qr-codes/payment_" + paymentId + ".png";
+        String qrCodePath = getServletContext().getRealPath("/") + "img/qr.jpg";
         File qrFile = new File(qrCodePath);
         qrFile.getParentFile().mkdirs(); // Tạo thư mục nếu chưa tồn tại
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", qrFile.toPath());

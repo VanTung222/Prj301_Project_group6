@@ -1,16 +1,16 @@
 //package controller;
 //
 //import dao.CartDAO;
+//import java.io.IOException;
+//import java.io.PrintWriter;
+//import java.sql.SQLException;
+//import java.util.List;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.annotation.WebServlet;
 //import jakarta.servlet.http.HttpServlet;
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.servlet.http.HttpSession;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.sql.SQLException;
-//import java.util.List;
 //import model.CartItem;
 //import org.json.JSONArray;
 //import org.json.JSONObject;
@@ -35,8 +35,6 @@
 //        }
 //
 //        int customerId = (int) session.getAttribute("customerId");
-//        System.out.println("Customer ID in CartServlet (GET): " + customerId); // Debug
-//
 //        try {
 //            JSONObject cartData = getCartData(customerId);
 //            out.print(cartData.toString());
@@ -44,77 +42,6 @@
 //            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error: " + e.getMessage());
 //        }
 //    }
-////    code cũ
-////    @Override
-////    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-////            throws ServletException, IOException {
-////        response.setContentType("application/json");
-////        PrintWriter out = response.getWriter();
-////        HttpSession session = request.getSession(false);
-////
-////        if (session == null || session.getAttribute("customerId") == null) {
-////            JSONObject error = new JSONObject();
-////            error.put("error", "Please login to view your cart");
-////            out.print(error.toString());
-////            return;
-////        }
-////
-////        int customerId = (int) session.getAttribute("customerId");
-////        try {
-////            JSONObject cartData = getCartData(customerId);
-////            out.print(cartData.toString());
-////        } catch (SQLException | ClassNotFoundException e) {
-////            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error: " + e.getMessage());
-////        }
-////    }
-////    @Override
-////    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-////            throws ServletException, IOException {
-////        response.setContentType("application/json");
-////        PrintWriter out = response.getWriter();
-////        HttpSession session = request.getSession(false);
-////
-////        if (session == null || session.getAttribute("customerId") == null) {
-////            JSONObject error = new JSONObject();
-////            error.put("error", "Please login to add items to cart");
-////            out.print(error.toString());
-////            return;
-////        }
-////
-////        int customerId = (int) session.getAttribute("customerId");
-////        String action = request.getParameter("action");
-////        int productId = Integer.parseInt(request.getParameter("id"));
-////        int quantity = 1; // Default quantity
-////        if (request.getParameter("quantity") != null) {
-////            quantity = Integer.parseInt(request.getParameter("quantity"));
-////        }
-////
-////        try {
-////            if ("add".equals(action)) {
-////                cartDAO.addToCartWithQuantity(customerId, productId, quantity);
-////            } else if ("remove".equals(action)) {
-////                cartDAO.removeFromCart(customerId, productId);
-////            } else if ("update".equals(action)) {
-////                cartDAO.updateCart(customerId, productId, quantity);
-////            } else {
-////                throw new IllegalArgumentException("Invalid action: " + action);
-////            }
-////            JSONObject cartData = getCartData(customerId);
-////            out.print(cartData.toString());
-////        } catch (SQLException | ClassNotFoundException e) {
-////            JSONObject error = new JSONObject();
-////            error.put("error", e.getMessage());
-////            out.print(error.toString());
-////        } catch (IllegalArgumentException e) {
-////            JSONObject error = new JSONObject();
-////            error.put("error", e.getMessage());
-////            out.print(error.toString());
-////        } catch (Exception e) {
-////            JSONObject error = new JSONObject();
-////            error.put("error", "An unexpected error occurred");
-////            out.print(error.toString());
-////        }
-////    }
 //
 //    @Override
 //    protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -131,17 +58,12 @@
 //        }
 //
 //        int customerId = (int) session.getAttribute("customerId");
-//        System.out.println("Customer ID in CartServlet: " + customerId); // Debug
-//
 //        String action = request.getParameter("action");
 //        int productId = Integer.parseInt(request.getParameter("id"));
-//        System.out.println("Product ID: " + productId + ", Action: " + action); // Debug
-//
-//        int quantity = 1;
+//        int quantity = 1; // Default quantity
 //        if (request.getParameter("quantity") != null) {
 //            quantity = Integer.parseInt(request.getParameter("quantity"));
 //        }
-//        System.out.println("Quantity: " + quantity); // Debug
 //
 //        try {
 //            if ("add".equals(action)) {
@@ -206,7 +128,6 @@
 
 
 
-//new code
 package controller;
 
 import dao.CartDAO;

@@ -76,7 +76,7 @@ public class SearchServlet extends HttpServlet {
             
             // Back to Home button
             out.println("<div class='back-home-container'>");
-            out.println("<a href='index.jsp' class='back-home'><i class='fa fa-arrow-left'></i> Back to Home</a>");
+            out.println("<a href='home' class='back-home'><i class='fa fa-arrow-left'></i> Back to Home</a>");
             out.println("</div>");
             
             // Search header

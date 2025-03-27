@@ -50,6 +50,7 @@ public class OrderDetailDAO {
                             rs.getInt("productId"),
                             rs.getInt("quantity"),
                             rs.getDouble("unitPrice")
+                            
                     ));
                 }
             }

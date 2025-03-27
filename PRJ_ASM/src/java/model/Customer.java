@@ -14,12 +14,12 @@ public class Customer {
     private String address;
     private String phone;
     private Date registrationDate;
-    private boolean role; // 1: user, 0: admin
+    private int role; // 1: user, 0: admin
 
     // Constructor đầy đủ
     public Customer(int customerId, String googleId, String username, String email, String firstName, 
                     String lastName, String password, String profilePicture, String address, 
-                    String phone, Date registrationDate, boolean role) {
+                    String phone, Date registrationDate, int role) {
         this.customerId = customerId;
         this.googleId = googleId;
         this.email = email;
@@ -34,16 +34,7 @@ public class Customer {
         this.role = role;
     }
 
-    public Customer(int customerId, String googleId, String username, String email,  String firstName, String lastName, String profilePicture, boolean role) {
-        this.customerId = customerId;
-        this.googleId = googleId;
-        this.email = email;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.profilePicture = profilePicture;
-        this.role = role;
-    }
+    
 
     // Constructor tối thiểu cho đăng nhập
     public Customer(int customerId, String username, String email, String password) {
@@ -95,6 +86,18 @@ public class Customer {
     public Date getRegistrationDate() { return registrationDate; }
     public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
 
-    public boolean isRole() { return role; }
-    public void setRole(boolean role) { this.role = role; }
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "customerId=" + customerId + ", googleId=" + googleId + ", username=" + username + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", profilePicture=" + profilePicture + ", address=" + address + ", phone=" + phone + ", registrationDate=" + registrationDate + ", role=" + role + '}';
+    }
+
+   
 }

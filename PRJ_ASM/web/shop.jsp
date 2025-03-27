@@ -47,15 +47,15 @@
                         <% HttpSession sessionObj = request.getSession(false);
                             String username
                                     = null;
-                            String heartLink = "login.jsp";
-                            String cartLink = "login.jsp";
-                            String profileLink = "login.jsp";
+                            String heartLink = "login";
+                            String cartLink = "login";
+                            String profileLink = "login";
                             if (sessionObj != null) {
                                 username
                                         = (String) sessionObj.getAttribute("username");
                                 if (username != null) {
                                     heartLink = "wishlist";
-                                    cartLink = "shoping-cart.html";
+                                    cartLink = "shopping-cart.jsp";
                                     profileLink
                                             = "profile";
                                 }
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="offcanvas__logo">
-                <a href="./index.jsp"><img src="img/logo.png" alt="Logo" /></a>
+                <a href="home"><img src="img/logo.png" alt="Logo" /></a>
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__option">
@@ -113,7 +113,7 @@
                         </form>
                     </li>
                     <% } else { %>
-                    <li><a href="login.jsp" style="padding: 8px 15px">Sign In</a></li>
+                    <li><a href="login" style="padding: 8px 15px">Sign In</a></li>
                         <% }%>
                 </ul>
             </div>
@@ -145,7 +145,7 @@
 
                                 <!-- Center - Logo -->
                                 <div class="header__logo">
-                                    <a href="./index.jsp">
+                                    <a href="home">
                                         <img src="img/logo.png" alt="Cake Shop Logo" />
                                     </a>
                                 </div>
@@ -183,7 +183,7 @@
                                             </form>
                                         </div>
                                         <% } else { %>
-                                        <a href="login.jsp" class="btn btn-outline-primary">
+                                        <a href="login" class="btn btn-outline-primary">
                                             <i class="fa fa-sign-in"></i> Sign In
                                         </a>
                                         <% }%>
@@ -204,22 +204,19 @@
                     <div class="col-lg-12">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="./index.jsp">Home</a></li>
-                                <li><a href="./about.html">About</a></li>
+                                <li><a href="home">Home</a></li>
+                                <li><a href="./about.jsp">About</a></li>
                                 <li><a href="./shop.jsp">Shop</a></li>
                                 <li>
                                     <a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./shop-details.jsp">Shop Details</a></li>
-                                        <li><a href="./shoping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./wishlist.html">Wishlist</a></li>
-                                        <li><a href="./class.html">Class</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
+                                        <li><a href="./checkout.jsp">Check Out</a></li>
+                                        <li><a href="wishlist">Wishlist</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
+                                <li><a href="./contact.jsp">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -279,7 +276,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/shop/product-<%= product.getProductId()%>.jpg">
+                            <div class="product__item__pic set-bg" data-setbg="<%= product.getProductImg()%>">
                                 <div class="product__label">
                                     <span>Cupcake</span>
                                 </div>
@@ -288,12 +285,12 @@
                                 <h6><a href="shop-details.jsp?product_id=<%= product.getProductId()%>">
                                         <%= product.getName()%>
                                     </a></h6>
-                                <div class="product__item__price">$<%= product.getPrice()%></div>
+                                <div class="product__item__price"><%= String.format("%.3f", product.getPrice()) %>VND</div>
                                 <div class="cart_add">
                                     <% if (sessionObj != null && sessionObj.getAttribute("username") != null) { %>
                                         <a href="#" onclick="addToCart(<%= product.getProductId()%>); return false;">Add to cart</a>
                                     <% } else { %>
-                                        <a href="login.jsp">Add to cart</a>
+                                        <a href="login">Add to cart</a>
                                     <% } %>
                                 </div>
                             </div>
@@ -391,10 +388,7 @@
                     </div>
                 </div>
             </div>
-            <script
-                src="https://messenger.svc.chative.io/static/v1.0/channels/sd795937d-06e2-47e1-b379-08c94dd93f0c/messenger.js?mode=livechat"
-                defer="defer"
-            ></script>
+            <script src="https://messenger.svc.chative.io/static/v1.0/channels/sa333af83-d5b0-4954-8318-224f96b5912d/messenger.js?mode=livechat" defer="defer"></script>
         </footer>
         <!-- Footer Section End -->
 

@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
-
-/**
- *
- * @author admin
- */
 
 public class OrderDetail {
     private int orderDetailId;
@@ -15,6 +6,8 @@ public class OrderDetail {
     private int productId;
     private int quantity;
     private double unitPrice;
+    private double subtotal;
+    private String productName; // Thêm thuộc tính productName
 
     // Constructor
     public OrderDetail() {
@@ -26,9 +19,13 @@ public class OrderDetail {
         this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+//        this.subtotal = subtotal;
     }
+    
+    
+    
 
-    // Getters and Setters
+    // Getters và Setters
     public int getOrderDetailId() {
         return orderDetailId;
     }
@@ -69,21 +66,19 @@ public class OrderDetail {
         this.unitPrice = unitPrice;
     }
 
-    // Phương thức tính tổng tiền của sản phẩm trong đơn hàng
-    public double calculateSubtotal() {
-        return this.quantity * this.unitPrice;
+    public double getSubtotal() {
+        return subtotal;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" +
-                "orderDetailId=" + orderDetailId +
-                ", orderId=" + orderId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", subtotal=" + calculateSubtotal() +
-                '}';
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
-

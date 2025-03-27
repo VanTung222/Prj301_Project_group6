@@ -289,7 +289,7 @@
                 </div>
             <% } else { %>
                 <div class="alert alert-info text-center">
-                    Please <a href="login.jsp">log in</a> to write a review.
+                    Please <a href="login">log in</a> to write a review.
                 </div>
             <% } %>
 

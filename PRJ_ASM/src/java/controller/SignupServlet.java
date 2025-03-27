@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final String ERROR = "login.jsp";
-    public static final String SUCCESS = "index.jsp";
+    public static final String SUCCESS = "home";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

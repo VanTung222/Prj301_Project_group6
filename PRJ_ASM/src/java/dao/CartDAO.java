@@ -20,7 +20,7 @@ public class CartDAO {
             if (!productRs.next()) {
                 throw new SQLException("Product not found");
             }
-            
+
             int stock = productRs.getInt("Stock");
             if (stock <= 0) {
                 throw new SQLException("Product is out of stock");
@@ -114,23 +114,23 @@ public class CartDAO {
     public List<CartItem> getCartItems(int customerId) throws ClassNotFoundException {
         List<CartItem> cartItems = new ArrayList<>();
         try (Connection conn = DBUtils.getConnection()) {
-            String query = "SELECT p.Product_ID, p.Name, p.Price, p.Stock, p.Product_Description, p.Product_img, c.Quantity " +
-                          "FROM Shopping_Cart c " +
-                          "JOIN Product p ON c.Product_ID = p.Product_ID " +
-                          "WHERE c.Customer_ID = ? " +
-                          "ORDER BY c.Created_Date DESC";
+            String query = "SELECT p.Product_ID, p.Name, p.Price, p.Stock, p.Product_Description, p.Product_img, c.Quantity "
+                    + "FROM Shopping_Cart c "
+                    + "JOIN Product p ON c.Product_ID = p.Product_ID "
+                    + "WHERE c.Customer_ID = ? "
+                    + "ORDER BY c.Created_Date DESC";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, customerId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Product product = new Product(
-                    rs.getInt("Product_ID"),
-                    rs.getString("Name"),
-                    rs.getDouble("Price"),
-                    rs.getInt("Stock"),
-                    rs.getString("Product_Description"),
-                    rs.getString("Product_img")
+                        rs.getInt("Product_ID"),
+                        rs.getString("Name"),
+                        rs.getDouble("Price"),
+                        rs.getInt("Stock"),
+                        rs.getString("Product_Description"),
+                        rs.getString("Product_img")
                 );
                 int quantity = rs.getInt("Quantity");
                 cartItems.add(new CartItem(product, quantity));
@@ -153,12 +153,12 @@ public class CartDAO {
             if (!productRs.next()) {
                 throw new SQLException("Product not found");
             }
-            
+
             int stock = productRs.getInt("Stock");
             if (stock <= 0) {
                 throw new SQLException("Product is out of stock");
             }
-            
+
             if (quantity > stock) {
                 throw new SQLException("Not enough stock available");
             }
@@ -192,7 +192,7 @@ public class CartDAO {
             throw new RuntimeException("Error adding item to cart: " + e.getMessage());
         }
     }
-    // Xóa toàn bộ giỏ hàng sau khi đặt hàng thành công
+
     public void clearCart(int customerId) throws SQLException, ClassNotFoundException {
         try (Connection conn = DBUtils.getConnection()) {
             String deleteQuery = "DELETE FROM Shopping_Cart WHERE Customer_ID = ?";
@@ -203,5 +203,5 @@ public class CartDAO {
             throw e;
         }
     }
-}   
 
+}

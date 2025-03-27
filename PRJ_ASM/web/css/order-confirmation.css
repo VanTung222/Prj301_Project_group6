@@ -544,3 +544,7 @@ body {
         transform: translateY(0);
     }
 }
+.qr-code-image {
+    max-width: 200px; 
+    margin: 1rem 0;
+}

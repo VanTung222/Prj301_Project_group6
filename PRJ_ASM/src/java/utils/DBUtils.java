@@ -11,8 +11,7 @@ public class DBUtils {
         String password = "123456789";
         Connection connection = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=cakeManagement3;encrypt=false;trustServerCertificate=true";
-        connection = DriverManager.getConnection(url, user, password);
+        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=cakeManagement;encrypt=false;trustServerCertificate=true";        connection = DriverManager.getConnection(url, user, password);
         return connection;
     }
 //    private static final String URL = "jdbc:sqlserver://127.0.0.1:1433;databaseName=managementSignUp;encrypt=false;trustServerCertificate=true";
